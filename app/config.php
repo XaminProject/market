@@ -53,4 +53,7 @@ AgaviConfig::set('core.app_dir', __DIR__);
 // |  - core.template_dir (defaults to "<core.app_dir>/templates")             |
 // +---------------------------------------------------------------------------+
 
+require(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'libs'.DIRECTORY_SEPARATOR.'Mustache'.DIRECTORY_SEPARATOR.'Autoloader.php');
+Mustache_Autoloader::register();
+
 ?>
