@@ -164,6 +164,7 @@
 			<autoload class="AgaviSmartyRenderer">%core.agavi_dir%/renderer/AgaviSmartyRenderer.class.php</autoload>
 			<autoload class="AgaviTwigRenderer">%core.agavi_dir%/renderer/AgaviTwigRenderer.class.php</autoload>
 			<autoload class="AgaviXsltRenderer">%core.agavi_dir%/renderer/AgaviXsltRenderer.class.php</autoload>
+			<autoload class="AgaviMustacheRenderer">%core.agavi_dir%/renderer/AgaviMustacheRenderer.class.php</autoload>
 			
 			<!-- agavi/request -->
 			<autoload class="AgaviConsoleRequest">%core.agavi_dir%/request/AgaviConsoleRequest.class.php</autoload>
