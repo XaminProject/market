@@ -68,7 +68,6 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	{
 		parent::initialize($context, $parameters);
 
-        print_r($this->getParameters());
 		$this->setParameter('options', array_merge(
 			array(
 				'loader' => 'Mustache_Loader_FilesystemLoader',
@@ -76,7 +75,6 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 			),
 			(array)$this->getParameter('options', array())
 		));
-        print_r($this->getParameters());
 	}
 
 	/**
