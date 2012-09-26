@@ -43,16 +43,16 @@ class AgaviRedisDatabase extends AgaviDatabase
 		try {
 			$redis = new Redis();
 
-            // make persistent connection if persistent is set to true
+			// make persistent connection if persistent is set to true
 			$method = $this->getParameter('persistent', false) ? 'pconnect'
 				: 'connect';
 
-            // make connection
+			// make connection
 			$redis->{$method}($this->getParameter('host', 'localhost'),
 				$this->getParameter('port', 6379),
 				$this->getParameter('timeout'));
 
-            // set options
+			// set options
 			if($this->hasParameter('options')) {
 				foreach((array)$this->getParameter('options') as $key => $value) {
 					$redis->setOption($key, $value);
@@ -76,7 +76,7 @@ class AgaviRedisDatabase extends AgaviDatabase
 	 */
 	public function shutdown()
 	{
-        $this->connection->close();
+		$this->connection->close();
 	}
 }
 

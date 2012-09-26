@@ -94,8 +94,8 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 			Mustache_Autoloader::register();
 		}
 
-        $parameters = (array)$this->getParameter('options', array());
-        unset($parameters['loader']);
+		$parameters = (array)$this->getParameter('options', array());
+		unset($parameters['loader']);
 
 		return new Mustache_Engine($parameters);
 	}
@@ -139,19 +139,19 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	{
 		$mustache = $this->getEngine();
 
-        $template_dir = $this->getParameter('template_dir', AgaviConfig::get('core.template_dir'));
+		$template_dir = $this->getParameter('template_dir', AgaviConfig::get('core.template_dir'));
 
-        $loader = $this->getParameter('loader', 'Mustache_Loader_FilesystemLoader');
-        if(class_exists($loader))
-            $loader = new $loader($template_dir);
+		$loader = $this->getParameter('loader', 'Mustache_Loader_FilesystemLoader');
+		if(class_exists($loader))
+			$loader = new $loader($template_dir);
 
-        $mustache->setLoader($loader);
+		$mustache->setLoader($loader);
 
-        // get realpath of file to avoid . and ..
-        $path = realpath($layer->getResourceStreamIdentifier());
-        // remove extension
-        $path = preg_replace('/\.[^\/\\\\]+$/', '', $path);
-        $path = substr($path, strlen($template_dir));
+		// get realpath of file to avoid . and ..
+		$path = realpath($layer->getResourceStreamIdentifier());
+		// remove extension
+		$path = preg_replace('/\.[^\/\\\\]+$/', '', $path);
+		$path = substr($path, strlen($template_dir));
 		$template = $mustache->loadTemplate($path);
 
 		$data = array();
