@@ -46,14 +46,21 @@ AgaviConfig::set('core.app_dir', __DIR__);
 
 // +---------------------------------------------------------------------------+
 // | You may also modify the following other directives in this file:          |
-// |  - core.config_dir   (defaults to "<core.app_dir>/config")                |
+// |  - core.config_dir   (defaults to "<core.app_dgir>/config")                |
 // |  - core.lib_dir      (defaults to "<core.app_dir>/lib")                   |
 // |  - core.model_dir    (defaults to "<core.app_dir>/models")                |
 // |  - core.module_dir   (defaults to "<core.app_dir>/modules")               |
 // |  - core.template_dir (defaults to "<core.app_dir>/templates")             |
 // +---------------------------------------------------------------------------+
+define ('DS' , DIRECTORY_SEPARATOR);
 
-require(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'libs'.DIRECTORY_SEPARATOR.'Mustache'.DIRECTORY_SEPARATOR.'Autoloader.php');
-Mustache_Autoloader::register();
+//Composer autload 
+//Add Zend_Acl path to include path
+set_include_path(
+    realpath(AgaviConfig::get('core.app_dir') . '/../libs/zend/acl') .
+    PATH_SEPARATOR . 
+    get_include_path()
+    );
+require(AgaviConfig::get('core.app_dir') . '/../libs/autoload.php');
 
-?>
+$z = new Zend_Acl();

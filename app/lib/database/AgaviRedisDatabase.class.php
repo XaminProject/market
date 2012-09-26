@@ -76,7 +76,10 @@ class AgaviRedisDatabase extends AgaviDatabase
 	 */
 	public function shutdown()
 	{
-		$this->connection->close();
+		//Shutdown is called even when ther is no connection
+		if (isset($this->connection)) {
+			$this->connection->close();
+		}
 	}
 }
 

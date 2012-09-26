@@ -1,0 +1,38 @@
+{
+    "name": "xamin/market",
+    "description": "Xamin market",
+	"repositories": [
+		{
+            "type": "package",
+            "package": {
+                "name": "agavi/agavi",
+                "version": "1.1.0",
+                "source": {
+                    "url": "http://svn.agavi.org/",
+                    "type": "svn",
+                    "reference": "branches/david-auth/src"
+                }
+            }
+        }
+    ],    
+    "require": {
+        "mustache/mustache": "v2.0.2",
+		"phing/phing" : "dev-master",
+        "agavi/agavi" : "1.1.*",
+        "zend/acl" : "dev-master"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "vendor-dir": "libs"
+    },
+    "authors": [
+        {
+            "name": "everplays",
+            "email": "everplays@rock.com"
+        },
+        {
+            "name": "fzerorubigd",
+            "email": "fzerorubigd@gmail.com"
+        }
+    ]
+}

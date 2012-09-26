@@ -1,3 +1,8 @@
 app/cache/*
 *.swp
 *.swo
+libs
+bin
+composer.lock
+/pub/index.php
+/pub/.htaccess

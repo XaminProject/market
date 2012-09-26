@@ -1,9 +1,14 @@
 <?php
+//Add agavi installation folder to php include_path 
+set_include_path(
+		realpath('../libs/agavi/') . PATH_SEPARATOR .
+		get_include_path()
+);
 
 // +---------------------------------------------------------------------------+
 // | An absolute filesystem path to the agavi/agavi.php script.                |
 // +---------------------------------------------------------------------------+
-require('%%AGAVI_SOURCE_LOCATION%%/agavi.php');
+require('agavi/agavi.php');
 
 // +---------------------------------------------------------------------------+
 // | An absolute filesystem path to our app/config.php script.                 |
