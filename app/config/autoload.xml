@@ -2,6 +2,9 @@
 <ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.1" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.1" parent="%core.system_config_dir%/autoload.xml">
 	
 	<ae:configuration>
+		<!-- Redis and mustache -->
+		<autoload class="AgaviMustacheRenderer">%core.lib_dir%/renderer/AgaviMustacheRenderer.class.php</autoload>
+		<autoload class="AgaviRedisDatabase">%core.lib_dir%/database/AgaviRedisDatabase.class.php</autoload>
 		
 		<autoload class="MarketBaseAction">%core.lib_dir%/action/MarketBaseAction.class.php</autoload>
 		<autoload class="MarketBaseModel">%core.lib_dir%/model/MarketBaseModel.class.php</autoload>
