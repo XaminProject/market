@@ -20,15 +20,7 @@ class MarketBaseAction extends AgaviAction
 	 */
 	public function checkPermissions(AgaviUser $user, AgaviRequestDataHolder $rd)
 	{
-		// get the cool stuff
-		$context    = $this->getContext();
-		$user       = $context->getUser();
-        $container  = $this->getContainer();
-
-		// get the current action instance
-		$actionInstance = $container->getActionInstance();
-        
-        $actionName = trim(get_class($actionInstance), "\\");
+        $actionName = trim(get_class($this), "\\");
         $actionName = strtolower(str_replace('_', '.', substr($actionName, 0, -6)));
         
         $method = $this->getContext()->getRequest()->getMethod();
