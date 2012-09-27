@@ -21,15 +21,5 @@ class Welcome_IndexAction extends MarketWelcomeBaseAction
 		return 'Success';
 	}
 
-    public function isSecure() 
-    {
-        return true;
-    }
-
-    public function checkPermissions(AgaviUser $us, AgaviRequestDataHolder $rd)
-	{
-		return $us->isAllowed($rd->getParameter('welcome'), 'read');
-	}
 }
 
-?>

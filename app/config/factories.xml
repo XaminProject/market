@@ -27,13 +27,13 @@
 		
 		<routing class="AgaviWebRouting" />
 		
-		<security_filter class="AgaviSecurityFilter" />
+		<security_filter class="MarketSecurityFilter" />
 		
 		<storage class="AgaviSessionStorage" />
 		
 		<translation_manager class="AgaviTranslationManager" />
 		
-		<user class="AgaviSecurityUser" />
+		<user class="MarketZendAclSecurityUser" />
 		
 		<validation_filter class="AgaviValidationFilter" />
 		
