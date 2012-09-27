@@ -4,19 +4,19 @@
 
 	<ae:configuration>
 		<resources>
-		  <resource name="welcome.index" />
+		  <resource name="welcome:index" />
 		</resources>
 		
 		<roles>
 		  <!-- null user means not logged in users. there is problem in agavi with not secure actions -->
 		  <role name="user">
 			<perms>
-			  <perm type="deny" privileges="read">welcome.index</perm>
+			  <perm type="allow" privileges="read">welcome:index</perm>
 			</perms>
 		  </role>
 		  <role name="guest">
 			<perms>
-			  <perm type="allow" privileges="read">welcome.index</perm>
+			  <perm type="allow" privileges="read">welcome:index</perm>
 			</perms>
 			<role name="admin" />
 		  </role>
