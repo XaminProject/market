@@ -11,7 +11,7 @@
 		  <!-- null user means not logged in users. there is problem in agavi with not secure actions -->
 		  <role name="null">
 			<perms>
-			  <perm type="allow" privileges="read">welcome.index</perm>
+			  <perm type="deny" privileges="read">welcome.index</perm>
 			</perms>
 		  </role>
 		  <role name="guest">

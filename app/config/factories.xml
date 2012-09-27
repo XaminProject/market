@@ -27,7 +27,7 @@
 		
 		<routing class="AgaviWebRouting" />
 		
-		<security_filter class="MarketSecurityFilter" />
+		<security_filter class="AgaviSecurityFilter" />
 		
 		<storage class="AgaviSessionStorage" />
 		

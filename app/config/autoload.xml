@@ -10,7 +10,7 @@
 		<!-- user -->
 		<autoload class="MarketZendAclSecurityUser">%core.lib_dir%/user/MarketZendAclSecurityUser.class.php</autoload>
 		<!-- Security filter -->
-		<autoload class="MarketSecurityFilter">%core.lib_dir%/filter/MarketSecurityFilter.class.php</autoload>
+<!--		<autoload class="MarketSecurityFilter">%core.lib_dir%/filter/MarketSecurityFilter.class.php</autoload> -->
 		
 		<autoload class="MarketBaseAction">%core.lib_dir%/action/MarketBaseAction.class.php</autoload>
 		<autoload class="MarketBaseModel">%core.lib_dir%/model/MarketBaseModel.class.php</autoload>
