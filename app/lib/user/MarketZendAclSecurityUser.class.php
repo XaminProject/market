@@ -61,7 +61,7 @@ class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
 	public function isAllowed($resource, $operation = null)
 	{
         //Prevent call parent isAllowed
-        $aclRole = $this->getAttribute('acl_role', null);
+        $aclRole = $this->getRoleId('acl_role', null);
 		return $this->getZendAcl()->isAllowed($aclRole, $resource, $operation);
 	}
 

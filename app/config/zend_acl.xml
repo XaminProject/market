@@ -9,7 +9,7 @@
 		
 		<roles>
 		  <!-- null user means not logged in users. there is problem in agavi with not secure actions -->
-		  <role name="null">
+		  <role name="user">
 			<perms>
 			  <perm type="deny" privileges="read">welcome.index</perm>
 			</perms>
