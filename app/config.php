@@ -54,13 +54,5 @@ AgaviConfig::set('core.app_dir', __DIR__);
 // +---------------------------------------------------------------------------+
 define ('DS' , DIRECTORY_SEPARATOR);
 
-//Composer autload 
-//Add Zend_Acl path to include path
-set_include_path(
-    realpath(AgaviConfig::get('core.app_dir') . '/../libs/zend/acl') .
-    PATH_SEPARATOR . 
-    get_include_path()
-    );
+//Composer autoload
 require(AgaviConfig::get('core.app_dir') . '/../libs/autoload.php');
-
-$z = new Zend_Acl();
