@@ -5,6 +5,14 @@
  */
 class MarketBaseAction extends AgaviAction
 {
+
+	public function initialize(AgaviExecutionContainer $container) {
+		parent::initialize($container);
+	
+		//TODO Add multi language support by changing this
+		$tm = $this->getContext()->getTranslationManager();
+		$tm->setDefaultDomain('default.messages');
+	}
     
     /**
 	 * Checks permissions to perform the operation. Called after validation.

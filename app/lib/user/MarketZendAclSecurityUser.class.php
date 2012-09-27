@@ -1,9 +1,44 @@
 <?php
 
+// +---------------------------------------------------------------------------+
+// | This file is part of the Agavi package.								   |
+// | Copyright (c) 2012 Parspooyesh co.								           |
+// |																		   |
+// | For the full copyright and license information, please view the LICENSE   |
+// | file that was distributed with this source code. You can also view the	   |
+// | LICENSE file online at http://www.agavi.org/LICENSE.txt				   |
+// |   vi: set noexpandtab:													   |
+// |   Local Variables:														   |
+// |   indent-tabs-mode: t													   |
+// |   End:																	   |
+// +---------------------------------------------------------------------------+
+
+/**
+ * Provides Redis connectivity through phpredis extension
+ *
+ * @package	agavi
+ * @subpackage Acl
+ *
+ * @author	  fzerorubigd
+ * @copyright Authors
+ * @copyright The Agavi Project
+ *
+ * @since	  1.0.8
+ *
+ * @version	$Id$
+ */
 
 class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
 
-    
+	/**
+	 * Initialize object.
+	 *
+	 * @param	  AgaviContext The current application context.
+	 * @param	  array		An associative array of initialization parameters.
+	 *
+	 * @author	  fzerorubigd <fzerorubigd@gmail.com>
+	 * @since	  1.0.8
+	 */    
     public function initialize(AgaviContext $context, array $parameters = array()) 
     {
         parent::initialize($context, $parameters);

@@ -42,32 +42,15 @@
 			</available_locale>
 		</available_locales>
 		
-		<translators default_domain="default">
+		<translators default_domain="default.messages">
 			<translator domain="default">
-				
-				<translator domain="errors">
-					<message_translator class="AgaviSimpleTranslator">
-						<ae:parameter name="Login">
-							<ae:parameter name="de">
-								<ae:parameter name="Wrong Password">Falsches Passwort</ae:parameter>
-								<ae:parameter name="Wrong Username">Ungültiger Benutzername</ae:parameter>
-								<ae:parameter name="Please supply a password.">Bitte geben Sie ein Kennwort ein.</ae:parameter>
-								<ae:parameter name="The username you supplied is fewer than 5 characters long.">Der angegebene Benutzername ist weniger als fünf Zeichen lang.</ae:parameter>
-							</ae:parameter>
-						</ae:parameter>
-					</message_translator>
-				</translator>
-				
+				<!-- <translator domain="errors">		 -->
 				<message_translator class="AgaviGettextTranslator">
 					<ae:parameter name="text_domains">
-						<ae:parameter name="menu">%core.app_dir%/data/i18n</ae:parameter>
-						<ae:parameter name="layout">%core.app_dir%/data/i18n</ae:parameter>
-						<ae:parameter name="Login">%core.app_dir%/data/i18n</ae:parameter>
-						<ae:parameter name="SearchEngineSpam">%core.app_dir%/data/i18n</ae:parameter>
-						<ae:parameter name="ErrorActions">%core.app_dir%/data/i18n</ae:parameter>
+						<ae:parameter name="messages">%core.app_dir%/data/i18n</ae:parameter>
 					</ae:parameter>
 				</message_translator>
-				
+				<!--  </translator>		-->
 				<date_formatter>
 					<ae:parameter name="type">date</ae:parameter>
 					<ae:parameter name="format">full</ae:parameter>
@@ -75,7 +58,17 @@
 				
 			</translator>
 		</translators>
-		
 	</ae:configuration>
+	
+	<ae:configuration environment="development.*">
+		<translators default_domain="default">
+			<translator domain="default">
+				<!-- <translator domain="errors">		 -->
+				<message_translator class="AgaviGettextTranslator">
+					<ae:parameter name="store_calls">%core.app_dir%/data</ae:parameter>						
+				</message_translator>				
+			</translator>
+		</translators>
+	</ae:configuration>	
 	
 </ae:configurations>

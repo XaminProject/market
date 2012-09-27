@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Xamin Market\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-28 01:37+0330\n"
+"PO-Revision-Date: 2012-09-28 01:37+0330\n"
+"Last-Translator: F0ruD <fzerorubigd@gmail.com>\n"
+"Language-Team: \n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ../../..\n"
+
+#: ../../../libs/phing/phing/test/etc/filters/gettext/sample.php:4
+msgid "Nag is not properly configured"
+msgstr ""
+
+#: ../../../libs/phing/phing/test/etc/filters/gettext/sample.php:39
+msgid "Some of Nag's configuration files are missing:"
+msgstr ""
+
+#: ../../../libs/phing/phing/test/etc/filters/gettext/sample.php:44
+msgid ""
+"This is the main Nag configuration file. It contains options for all Nag "
+"scripts."
+msgstr ""
+
+#: ../../../libs/phing/phing/test/etc/filters/gettext/sample.php:51
+msgid "This file contains preferences for Nag."
+msgstr ""
+
+#: ../../../libs/phing/phing/test/etc/filters/gettext/sample.php:58
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+
+#: ../../../app/modules/Welcome/actions/IndexAction.class.php:22
+msgid "Test string"
+msgstr "تست"
+
+#: ../../../app/models/UsersModel.class.php:20
+#: ../../../app/models/UsersModel.class.php:30
+msgid "User name and/or password is wrong."
+msgstr ""

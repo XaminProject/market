@@ -9,3 +9,4 @@ composer.lock
 bin/composer-php.bat
 bin/phing
 composer.phar
+app/data/i18n/*.mo

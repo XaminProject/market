@@ -18,8 +18,15 @@ class Welcome_IndexAction extends MarketWelcomeBaseAction
 	 */
 	public function getDefaultViewName()
 	{
+        $tm = $this->getContext()->getTranslationManager();
+        echo $tm->_("Test string");
 		return 'Success';
 	}
 
+    public function isSecure() 
+    {
+        return false;
+    }
+    
 }
 
