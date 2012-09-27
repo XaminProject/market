@@ -151,7 +151,7 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 		$path = realpath($layer->getResourceStreamIdentifier());
 		// remove extension
 		$path = preg_replace('/\.[^\/\\\\]+$/', '', $path);
-		$path = substr($path, strlen($template_dir));
+		$path = substr($path, strlen($template_dir)+1);
 		$template = $mustache->loadTemplate($path);
 
 		$data = array();
