@@ -21,6 +21,8 @@
     ],    
     "require": {
         "mustache/mustache": "v2.0.2",
+        // don't forget to change the phing version hack in bin/agavi
+        // if you're going to change it
 		"phing/phing" : "2.4.*",
         "agavi/agavi" : "1.1.*",
         "zend/acl" : "dev-master"
