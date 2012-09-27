@@ -20,6 +20,11 @@ class Welcome_SecureAction extends MarketWelcomeBaseAction
 	{
 		return 'Success';
 	}
+
+    public function isSecure()
+    {
+        return false;
+    }
 }
 
 ?>

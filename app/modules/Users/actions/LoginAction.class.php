@@ -56,6 +56,11 @@ class Users_LoginAction extends MarketUsersBaseAction
 	{
 		return 'Success';
 	}
+
+    public function isSecure()
+    {
+        return false;
+    }
 }
 
 ?>

@@ -23,4 +23,9 @@ class MarketBaseAction extends AgaviAction
         
         return "$actionName.$method";
 	}
+
+    public function isSecure()
+    {
+        return true;
+    }
 }
