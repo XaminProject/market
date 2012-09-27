@@ -18,12 +18,17 @@ class Welcome_IndexAction extends MarketWelcomeBaseAction
 	 */
 	public function getDefaultViewName()
 	{
-		$cfg = AgaviConfig::get('core.config_dir') . '/zend_acl.xml';
-
-		if (is_readable($cfg)) {
-			$this->config = include(AgaviConfigCache::checkConfig($cfg, $this->getContext()->getName()));
-		}
 		return 'Success';
+	}
+
+    public function isSecure() 
+    {
+        return true;
+    }
+
+    public function checkPermissions(AgaviUser $us, AgaviRequestDataHolder $rd)
+	{
+		return $us->isAllowed($rd->getParameter('welcome'), 'read');
 	}
 }
 

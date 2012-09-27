@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.1" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.1">
+	
+	<ae:configuration>
+		
+		<autoload class="MarketUsersBaseAction">%core.module_dir%/Users/lib/action/MarketUsersBaseAction.class.php</autoload>
+		<autoload class="MarketUsersBaseModel">%core.module_dir%/Users/lib/model/MarketUsersBaseModel.class.php</autoload>
+		<autoload class="MarketUsersBaseView">%core.module_dir%/Users/lib/view/MarketUsersBaseView.class.php</autoload>
+		
+	</ae:configuration>
+	
+</ae:configurations>

@@ -47,16 +47,7 @@ class ZendAclConfigHandler extends AgaviXmlConfigHandler {
 			}
 		}
 		
-		return "return " . var_export($data, true) . ";";
-	}
-
-	private function myIterator($node) {
-		$prefix = $this->document->getDefaultNamespacePrefix();
-		if($prefix) {
-			return $this->document->getXpath()->query(sprintf('/*/%s:*', $prefix), $node);
-		} else {
-			return $this->document->getXpath()->query('/*/*', $node);
-		}
+		return "<?php return " . var_export($data, true) . ";";
 	}
 
 	private function parseResources($resources, &$data) {
@@ -90,27 +81,23 @@ class ZendAclConfigHandler extends AgaviXmlConfigHandler {
 
 	private function parseRole($role) {
 		$result = array();
-		if (!$role->getAttribute('name')) {
-			return false;
-		}
 		$result['name'] = $role->getAttribute('name');
 		if ($role->has('perms')) {
 			$result['perms'] = array();
-			foreach ($role->get('perm') as $perm) {
-				if ($perm->parentNode != $role) 
-					continue;
-				$result['perms'][$perm->getValue()] = array($perm->getAttribute('type'));
-				if ($perm->hasAttribute('assert')) {
-					$result['perms'][$perm->getValue()][] = $perm->getAttribute('assert');
-				}
+			foreach ($role->get('perms') as $perm) {
+				$result['perms'][$perm->getValue()] = array($perm->getValue() , $perm->getAttribute('type'));
+				$result['perms'][$perm->getValue()][] = $perm->hasAttribute('assert') ? $perm->getAttribute('assert') : null;
+				$result['perms'][$perm->getValue()][] = $perm->hasAttribute('privileges') ? explode(',' , $perm->getAttribute('privileges')) : null;
 			}
 		}
 		$result['childs'] = array();
 		foreach($role as $r) {
-			$tmp = $this->parseRole($r) ;
-			if ($tmp) {
-				$result['childs'][] = $tmp;
-			}
+            if ($r->tagName == 'role') {
+                $tmp = $this->parseRole($r) ;
+                if ($tmp) {
+                    $result['childs'][] = $tmp;
+                }
+            }
 		}		
 		return $result;
 	}

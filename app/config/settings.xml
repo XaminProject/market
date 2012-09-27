@@ -30,7 +30,7 @@
 			</system_action>
 			
 			<system_action name="login">
-				<module>Welcome</module>
+				<module>Users</module>
 				<action>Login</action>
 			</system_action>
 		</system_actions>
@@ -44,9 +44,19 @@
 			<setting name="use_database">true</setting>
 			<setting name="use_logging">false</setting>
 			<setting name="use_security">true</setting>
-			<setting name="use_translation">false</setting>
+			<setting name="use_translation">true</setting>
+			
 		</settings>
-		
+
+		<settings prefix="authz.">
+			<!-- 
+				 Default group when user group can not determined and on create new user
+				 must define this in zend_acl.xml roles section
+			-->
+			<setting name="default_group">guest</setting>
+		</settings>
+
+	
 		<exception_templates>
 			<!-- this is the exception template that's used by default unless one for a specific context has been defined, or for the current output type -->
 			<!-- note that exceptions that occur before a context is even fully initialized, or an exception that happens before the output types are loaded and determined, will use a template defined here -->

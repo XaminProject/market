@@ -7,7 +7,8 @@
 		<autoload class="AgaviRedisDatabase">%core.lib_dir%/database/AgaviRedisDatabase.class.php</autoload>
 		<!-- config handlers -->
 		<autoload class="ZendAclConfigHandler">%core.lib_dir%/config/ZendAclConfigHandler.class.php</autoload>
-		
+		<!-- user -->
+		<autoload class="MarketZendAclSecurityUser">%core.lib_dir%/user/MarketZendAclSecurityUser.class.php</autoload>
 		
 		<autoload class="MarketBaseAction">%core.lib_dir%/action/MarketBaseAction.class.php</autoload>
 		<autoload class="MarketBaseModel">%core.lib_dir%/model/MarketBaseModel.class.php</autoload>
