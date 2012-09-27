@@ -28,31 +28,42 @@ class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
         $acl = $this->getZendAcl();
         
         while($role = array_pop($roles)) {
-            if (strtolower($role['name']) !== 'null') {
+            if (strtolower($role['name']) != 'null') {
                 $acl->addRole($role['name'], $parent);  
+            } else {
+                $role['name'] = null;
             }
             if (isset($role['perms'])) {
                 foreach($role['perms'] as $perm) {
                     list($res, $type, $assert, $privs) = $perm;
-                    if (strtolower($type) == 'allow') {
-                        if ($assert !== null) {
-                            if (class_exists($assert)) {
-                                //XXX : Assert is risky. 
-                                $assert = new $assert();
-                                if (!$assert instanceof Zend_Acl_Assert_Interface) {
-                                    $assert = null;
-                                }
-                            } else {
+                    if ($assert !== null) {
+                        if (class_exists($assert)) {
+                            //XXX : Assert is risky. 
+                            $assert = new $assert();
+                            if (!$assert instanceof Zend_Acl_Assert_Interface) {
                                 $assert = null;
                             }
+                        } else {
+                            $assert = null;
                         }
+                    }
+                    if (strtolower($type) == 'allow') {
                         $acl->allow($role['name'], $res, $privs, $assert);
+                    } else {
+                        $acl->deny($role['name'], $res, $privs, $assert);
                     }
                 }
             }
             $this->initRoles($role['childs'], $role['name']);
         }
     }
+
+	public function isAllowed($resource, $operation = null)
+	{
+        //Prevent call parent isAllowed
+        $aclRole = $this->getAttribute('acl_role', null);
+		return $this->getZendAcl()->isAllowed($aclRole, $resource, $operation);
+	}
 
     public function login($user, $password, $hashed = false) 
     {

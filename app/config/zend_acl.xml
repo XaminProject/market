@@ -4,36 +4,21 @@
 
 	<ae:configuration>
 		<resources>
-		  <resource name="welcome" />
-		  <resource name="test">
-			<resource name="res1" />
-			<resource name="test1">
-			  <resource name="res2" />
-			</resource>
-		  </resource>
-		  <resource name="t1"/>
-		  <resource name="t2"/>
+		  <resource name="welcome.index" />
 		</resources>
 		
 		<roles>
 		  <!-- null user means not logged in users. there is problem in agavi with not secure actions -->
 		  <role name="null">
 			<perms>
-			  <perm type="allow" privieges="read">welcome</perm>
+			  <perm type="deny" privileges="read">welcome.index</perm>
 			</perms>
 		  </role>
 		  <role name="guest">
 			<perms>
-			  <perm type="allow" privileges="read,write">res1</perm>
-			  <perm type="deny">t1</perm>
+			  <perm type="allow" privileges="read">welcome.index</perm>
 			</perms>
-			<role name="admin">
-			  <perms>
-				<perm type="allow" privileges="read">res1</perm>
-				<perm type="deny">t1</perm>
-			  </perms>
-			  <role name="dummy" />
-			</role>
+			<role name="admin" />
 		  </role>
 		</roles>
 	</ae:configuration>
