@@ -13,11 +13,15 @@
                     "reference": "branches/david-auth/src"
                 }
             }
+        },
+        {
+            "type": "pear",
+            "url": "http://pear.phing.info"
         }
     ],    
     "require": {
         "mustache/mustache": "v2.0.2",
-		"phing/phing" : "dev-master",
+		"phing/phing" : "2.4.*",
         "agavi/agavi" : "1.1.*",
         "zend/acl" : "dev-master"
     },

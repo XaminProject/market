@@ -9,9 +9,15 @@
 # Set this to the path to the Agavi installation's source directory. This is
 # the directory that contains the `agavi.php' file.
 
-BIN_DIR=`dirname $0`
+BIN_DIR=`dirname $(readlink -f "$0")`
 
-AGAVI_SOURCE_DIRECTORY="$BIN_DIR/../libs/agavi"
+AGAVI_SOURCE_DIRECTORY="$BIN_DIR/../libs/agavi/agavi"
+PHING_SOURCE_DIRECTORY="$BIN_DIR/../libs/phing/phing/classes"
+
+INCLUDE_PATH=$PHING_SOURCE_DIRECTORY:`php -i | grep include_path | awk 'BEGIN{ FS=" => " }{ printf($NF) }'`
+
+#There is a bug in Composer phing installation, version is always Phing DEV even by installing 2.4.12
+echo "Phing 2.4.12" > $BIN_DIR/../libs/phing/phing/etc/VERSION.TXT
 
 # Set this to the path to a PHP binary.
 PHP_EXECUTABLE=$( which php )
@@ -101,5 +107,5 @@ until agavi_directory_exists; do
 done
 
 # Call build script.
-`which rlwrap` ${PHP_EXECUTABLE} -d memory_limit=4294967295 -f "${AGAVI_SOURCE_DIRECTORY}/build/agavi/script/agavi.php" -- --agavi-source-directory "${AGAVI_SOURCE_DIRECTORY}" "$@"
+`which rlwrap` ${PHP_EXECUTABLE} -d memory_limit=4294967295 -d include_path=${INCLUDE_PATH} -f "${AGAVI_SOURCE_DIRECTORY}/build/agavi/script/agavi.php" -- --agavi-source-directory "${AGAVI_SOURCE_DIRECTORY}" "$@"
 

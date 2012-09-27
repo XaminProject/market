@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:types_1_1="http://agavi.org/agavi/config/global/types/1.1"
+	xmlns="http://xamin.ir/agavi/config/parts/zend_acl_definitions/1.1"
+	targetNamespace="http://xamin.ir/agavi/config/parts/zend_acl_definitions/1.1"
+	elementFormDefault="qualified"
+	version="$Id$">
+
+	<xs:complexType name="resource">
+		<xs:sequence>
+			<xs:element name="resource" type="resource" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>		
+		<xs:attribute name="name" type="xs:string" use="required" />	
+	</xs:complexType>	
+	
+	<xs:complexType name="resources">
+		<xs:sequence>
+			<xs:element name="resource" type="resource" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>	
+	
+	<xs:simpleType name="permtype">
+	  <xs:restriction base="xs:string">
+		<xs:enumeration value="allow" />
+		<xs:enumeration value="deny" />
+	  </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="perm">
+        <xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="assert" type="xs:string" use="optional" />
+				<xs:attribute name="type" type="permtype" use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>	
+	
+	<xs:complexType name="perms">
+		<xs:sequence>
+			<xs:element name="perm" type="perm" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+		
+	<xs:complexType name="role">
+		<xs:sequence>
+			<xs:element name="perms" type="perms" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="role" type="role" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="roles">
+		<xs:sequence>
+			<xs:element name="role" type="role"  maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>	
+
+
+	<xs:group name="configuration">
+		<xs:sequence>
+			<xs:element name="resources" type="resources" maxOccurs="1"/>
+			<xs:element name="roles" type="roles" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+
+</xs:schema>

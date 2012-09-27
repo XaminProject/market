@@ -2,7 +2,9 @@ app/cache/*
 *.swp
 *.swo
 libs
-bin
 composer.lock
 /pub/index.php
 /pub/.htaccess
+/bin/composer-php
+bin/composer-php.bat
+bin/phing

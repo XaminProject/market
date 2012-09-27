@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.1"
+	xmlns="http://xamin.ir/agavi/config/parts/zend_acl_definitions/1.1">
+
+	<ae:configuration>
+		<resources>
+			<resource name="test">
+				<resource name="res1" />
+				<resource name="test1">
+					<resource name="res2" />
+				</resource>
+			</resource>
+			<resource name="t1"/>
+			<resource name="t2"/>
+		</resources>
+		
+		<roles>
+			<role name="guest">
+				<perms>
+					<perm type="allow">res1</perm>
+					<perm type="deny">t1</perm>
+				</perms>
+				<role name="admin">
+					<perms>
+						<perm type="allow">res1</perm>
+						<perm type="deny">t1</perm>
+					</perms>
+					<role name="dummy" />
+				</role>
+			</role>
+		</roles>
+	</ae:configuration>
+</ae:configurations>
