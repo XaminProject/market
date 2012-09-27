@@ -8,3 +8,4 @@ composer.lock
 /bin/composer-php
 bin/composer-php.bat
 bin/phing
+composer.phar
