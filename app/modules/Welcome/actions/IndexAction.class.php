@@ -18,8 +18,25 @@ class Welcome_IndexAction extends MarketWelcomeBaseAction
 	 */
 	public function getDefaultViewName()
 	{
-        $tm = $this->getContext()->getTranslationManager();
-        echo $tm->_("Test string");
+        $form = new Form_Form(array(
+            'submit' => 'test',
+            'id' => 0
+        ));
+        $username = new Form_Elements_TextField(array(
+            'name' => 'username',
+            'title' => 'username',
+            'required' => true,
+            'id' => 1
+        ), $form);
+        $form->addChild($username);
+        $password = new Form_Elements_PasswordField(array(
+            'name' => 'password',
+            'title' => 'password',
+            'required' => true,
+            'id' => 2
+        ), $form);
+        $form->addChild($password);
+        $this->setAttribute('form', $form);
 		return 'Success';
 	}
 
