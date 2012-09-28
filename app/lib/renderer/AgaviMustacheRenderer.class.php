@@ -117,6 +117,17 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 			foreach($this->assigns as $key => $getter) {
 				$this->mustache->addHelper($key, $this->context->$getter());
 			}
+            // the tags should be like:
+            // {{#_}}gettext.domain:text needs to be translated{{/_}}
+            // or
+            // {{#_}}text in default domain{{/_}}
+            $tm = $this->getContext()->getTranslationManager();
+            $this->mustache->addHelper('_', function($text) use ($tm){
+                $domain = null;
+                if(preg_match('/^[a-zA-Z0-9\.]+::/', $text))
+                    list($domain, $text) = explode('::', $text, 2);
+                return $tm->_($text, $domain);
+            });
 		}
 
 		return $this->mustache;

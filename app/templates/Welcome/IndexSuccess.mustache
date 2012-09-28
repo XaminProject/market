@@ -96,7 +96,9 @@ div.warning code {
 	</head>
 	<body>
 		<h1>Welcome to Agavi!</h1>
-		<p>You successfully created your first project running <em><?php echo $t['agavi_release']; ?></em>, congratulations!</p>
+        {{#_}}default.messages::whoops{{/_}}
+        {{#_}}whoops{{/_}}
+        <p>You successfully created your first project running <em>{{t.agavi_release}}</em>, congratulations!</p>
 <?php if($t['warn_display_errors']):?>
 		<div class="warning">
 			<h5>Warning</h5>
