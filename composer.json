@@ -19,7 +19,8 @@
         "mustache/mustache": "v2.0.2",
         "phing/phing" : "2.4.*",
         "agavi/agavi" : "1.1.*",
-        "zend/acl" : "dev-master"
+        "zend/acl" : "dev-master",
+        "xamin/form": "dev-master"
     },
     "config": {
         "bin-dir": "bin",
