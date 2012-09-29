@@ -108,7 +108,7 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	 * @author	 Behrooz Shabani <everplays@gmail.com>
 	 * @since	  1.0.8
 	 */
-	protected function getEngine()
+	public function getEngine()
 	{
 		if(!$this->mustache) {
 			$this->mustache = $this->createEngineInstance();
