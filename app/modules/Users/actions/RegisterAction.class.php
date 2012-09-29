@@ -1,9 +1,9 @@
 <?php
 
-class Users_LoginAction extends MarketUsersBaseAction
+class Users_RegisterAction extends MarketUsersBaseAction
 {
 	
-	private $form;
+    private $form;
 	/**
 	 * Handles the Read request method.
 	 *
@@ -38,29 +38,21 @@ class Users_LoginAction extends MarketUsersBaseAction
 	 */
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
-		$username = $rd->getParameter('username');
-		$password = $rd->getParameter('password');
-		
-		$user = $this->getContext()->getUser();
-		try {
-			$user->login($username, $password, false);
-		} catch (AgaviSecurityException $e) {
-			$this->setAttribute('form', $this->createForm());
-			$this->setAttribute('error', array($e->getMessage()));
-			return 'Error';
-		}
+        $model = $this->getContext()->getModel('Users');
+        $username = $rd->getParameter('username');
+        $password = $rd->getParameter('password');
+        $email = $rd->getParameter('email');
+
+        try {
+            $model->register($username, $email, $password);
+        } catch (Exception $e) {
+            $this->setAttribute('form', $this->createForm());
+            $this->setAttribute('error', array($e->getMessage()));
+            return "Error";
+        }
+        
 		return 'Success';
 	}
-
-	public function registerWriteValidators()
-    {
-	    xdebug_break();
-        Form_Validator::registerValidators(
-            $this->createForm(),
-            $this->getContainer()->getValidationManager(),
-            array() //?
-            );
-    }
 	
 	/**
 	 * Returns the default view if the action does not serve the request
@@ -79,13 +71,22 @@ class Users_LoginAction extends MarketUsersBaseAction
 		return 'Input';
 	}
 
-	public function handleError(AgaviRequestDataHolder $rd)
+	public function registerWriteValidators()
+    {
+        Form_Validator::registerValidators(
+            $this->createForm(),
+            $this->getContainer()->getValidationManager(),
+            array() //?
+            );
+    }
+
+    public function handleError(AgaviRequestDataHolder $rd) 
     {
         $this->executeRead($rd);
         return parent::handleError($rd);
     }
 
-    public function isSecure()
+    public function isSecure() 
     {
         return false;
     }
@@ -96,11 +97,12 @@ class Users_LoginAction extends MarketUsersBaseAction
             return $this->form;
         }
         $tm = $this->getContext()->getTranslationManager();
+        $id = 0;
         $this->form = new Form_Form(
             array (
-	            'method' => 'post',
-                'submit' => $tm->_('Login'),
-                'id' => 0,
+                'method' => 'post',
+                'submit' => $tm->_('Register'),
+                'id' => $id++,
                 'renderer' => $this->getContainer()->getOutputType()->getRenderer()
                 )
             );
@@ -109,23 +111,49 @@ class Users_LoginAction extends MarketUsersBaseAction
                 'name' => 'username',
                 'title' => $tm->_('User name'),
                 'required' => true,
-                'id' => 1
+                'id' => $id++
                 ), 
             $this->form
-            );
+	        );
         $this->form->addChild($username);
+        $email = new Form_Elements_TextField(
+            array(
+                'name' => 'email',
+                'title' => $tm->_('Email address'),
+                'required' => true,
+                'email' => true,
+                'id' => $id++
+                ), 
+            $this->form
+	        );
+        $this->form->addChild($email);
+
         $password = new Form_Elements_PasswordField(
             array(
                 'name' => 'password',
                 'title' => $tm->_('Password'),
                 'required' => true,
-                'id' => 2
+                'min' => 6,
+                'id' => $id++
                 ), 
             $this->form
             );
         $this->form->addChild($password);
+        $confirm = new Form_Elements_PasswordField(
+            array(
+                'name' => 'confirm',
+                'title' => $tm->_('Confirm'),
+                'required' => true,
+                'equal' => 'password', //Name of other field 
+                'id' => $id++
+                ), 
+            $this->form
+            );
+
+        $this->form->addChild($confirm);
         return $this->form;
     }
+
 }
 
 ?>

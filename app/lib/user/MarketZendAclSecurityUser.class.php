@@ -1,5 +1,4 @@
 <?php
-
 // +---------------------------------------------------------------------------+
 // | This file is part of the Agavi package.								   |
 // | Copyright (c) 2012 Parspooyesh co.								           |
@@ -27,7 +26,6 @@
  *
  * @version	$Id$
  */
-
 class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
 
 	/**
@@ -106,7 +104,7 @@ class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
         try {
             $userArray = $users->login($user, $password, $hashed);
         } catch (Exception $e) {
-            throw AgaviSecurityException($e->getMessage());
+            throw new AgaviSecurityException($e->getMessage());
         }
 
         $this->setAuthenticated(true);

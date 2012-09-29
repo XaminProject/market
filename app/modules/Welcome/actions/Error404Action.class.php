@@ -20,6 +20,11 @@ class Welcome_Error404Action extends MarketWelcomeBaseAction
 	{
 		return 'Success';
 	}
+
+    public function isSecure() 
+    {
+        return false;
+    }
 }
 
 ?>

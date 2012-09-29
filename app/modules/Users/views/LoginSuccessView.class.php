@@ -16,9 +16,15 @@ class Users_LoginSuccessView extends MarketUsersBaseView
 	 */
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$this->setupHtml($rd);
+		$tm = $this->getContext()->getTranslationManager();
+		$user = $this->getContext()->getUser();
 
-		$this->setAttribute('_title', 'Login');
+		if ($user->hasAttribute('redirect', self::LASTPAGE_NAMESPACE)) {
+			$this->getResponse()->setRedirect($user->removeAttribute('redirect', self::LASTPAGE_NAMESPACE));
+		} else {
+			$this->getResponse()->setRedirect($this->getContext()->getRouting()->gen('index'));
+		}
+		//Do nothing
 	}
 
 	/**

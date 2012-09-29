@@ -5,7 +5,7 @@
  */
 class MarketUsersBaseView extends MarketBaseView
 {
-
+	const LASTPAGE_NAMESPACE = 'org.xamin.lastpage';
 }
 
 ?>

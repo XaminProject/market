@@ -36,4 +36,16 @@ class MarketBaseAction extends AgaviAction
     {
         return true;
     }
+
+
+    public function handleError(AgaviRequestDataHolder $rd)
+    {
+		$report = $this->getContainer()->getValidationManager()->getErrorMessages();
+		$errors = array();
+		foreach ($report as $rep) {
+			$errors[] = $rep['message'];
+		}
+		$this->setAttribute('error', $errors);
+		return parent::handleError($rd);	    
+    }
 }
