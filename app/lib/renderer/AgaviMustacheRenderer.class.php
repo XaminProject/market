@@ -71,6 +71,7 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 		$this->setParameter('options', array_merge(
 			array(
 				'loader' => 'Mustache_Loader_FilesystemLoader',
+				'partials_loader' => 'Mustache_Loader_FilesystemLoader',
 				'cache' => AgaviConfig::get('core.debug') ? false : AgaviConfig::get('core.cache_dir') . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'mustache',
 			),
 			(array)$this->getParameter('options', array())
@@ -96,7 +97,7 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 
 		$parameters = (array)$this->getParameter('options', array());
 		unset($parameters['loader']);
-
+		unset($parameters['partials_loader']);
 		return new Mustache_Engine($parameters);
 	}
 
@@ -157,6 +158,12 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 			$loader = new $loader($template_dir);
 
 		$mustache->setLoader($loader);
+
+		$partialsLoader = $this->getParameter('partials_loader', 'Mustache_Loader_FilesystemLoader');
+		if(class_exists($partialsLoader))
+			$partialsLoader = new $partialsLoader($template_dir);
+
+		$mustache->setPartialsLoader($partialsLoader);
 
 		// get realpath of file to avoid . and ..
 		$path = realpath($layer->getResourceStreamIdentifier());
