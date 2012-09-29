@@ -20,7 +20,8 @@ class Welcome_IndexAction extends MarketWelcomeBaseAction
 	{
         $form = new Form_Form(array(
             'submit' => 'test',
-            'id' => 0
+            'id' => 0,
+            'renderer' => $this->getContainer()->getOutputType()->getRenderer()
         ));
         $username = new Form_Elements_TextField(array(
             'name' => 'username',
