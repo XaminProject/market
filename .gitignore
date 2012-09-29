@@ -11,3 +11,4 @@ bin/phing
 composer.phar
 app/data/i18n/*.mo
 /app/log/*
+\#*\#
