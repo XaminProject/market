@@ -15,17 +15,17 @@
 			</system_action>
 			
 			<system_action name="unavailable">
-				<module>Welcome</module>
+				<module>System</module>
 				<action>Unavailable</action>
 			</system_action>
 			
 			<system_action name="module_disabled">
-				<module>Welcome</module>
+				<module>System</module>
 				<action>ModuleDisabled</action>
 			</system_action>
 			
 			<system_action name="secure">
-				<module>Welcome</module>
+				<module>System</module>
 				<action>Secure</action>
 			</system_action>
 			

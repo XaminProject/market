@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Index action
+ * Secure action
  * 
- * PHP version 5.2
+ * PHP version 5
  * 
  * @category  Xamin
  * @package   Market
@@ -16,7 +16,7 @@
 
 
 /**
- * Index action
+ * Secure action
  * 
  * @category  Xamin
  * @package   Market
@@ -26,7 +26,7 @@
  * @version   Release: @package_version@
  * @link      http://xamin.ir
  */
-class Appliance_IndexAction extends MarketApplianceBaseAction
+class System_SecureAction extends MarketSystemBaseAction
 {
 	
 	
@@ -48,7 +48,7 @@ class Appliance_IndexAction extends MarketApplianceBaseAction
 	}
 
     /**
-     * Is secure action?
+     * is secure action
      * 
      * @return boolean 
      * @access public 
