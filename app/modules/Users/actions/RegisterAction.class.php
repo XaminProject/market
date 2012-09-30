@@ -1,13 +1,45 @@
 <?php
 
+/**
+ * Register action
+ * 
+ * PHP version 5
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 fzerorubigd
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $
+ * @link      http://xamin.ir
+ */
+
+
+/**
+ * Register action
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 fzerorubigd
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
+ */
 class Users_RegisterAction extends MarketUsersBaseAction
 {
 	
-    private $form;
+    /**
+     * form object
+     * @var object 
+     * @access protected
+     */
+    protected $form;
+
 	/**
 	 * Handles the Read request method.
 	 *
-	 * @parameter  AgaviRequestDataHolder the (validated) request data
+	 * @param AgaviRequestDataHolder $rd the (validated) request data
 	 *
 	 * @return     mixed <ul>
 	 *                     <li>A string containing the view name associated
@@ -26,7 +58,7 @@ class Users_RegisterAction extends MarketUsersBaseAction
 	/**
 	 * Handles the Write request method.
 	 *
-	 * @parameter  AgaviRequestDataHolder the (validated) request data
+	 * @param AgaviRequestDataHolder $rd the (validated) request data
 	 *
 	 * @return     mixed <ul>
 	 *                     <li>A string containing the view name associated
@@ -50,7 +82,8 @@ class Users_RegisterAction extends MarketUsersBaseAction
             $this->setAttribute('error', array($e->getMessage()));
             return "Error";
         }
-        
+        $tm = $this->getContext()->getTranslationManager();
+        $this->sendMail(array($email => $username), $tm->_("Register in Xamin Market"), 'Register', array('username' => $username));
 		return 'Success';
 	}
 	
@@ -71,27 +104,55 @@ class Users_RegisterAction extends MarketUsersBaseAction
 		return 'Input';
 	}
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
 	public function registerWriteValidators()
     {
         Form_Validator::registerValidators(
             $this->createForm(),
             $this->getContainer()->getValidationManager(),
             array() //?
-            );
+        );
     }
 
+    /**
+     * Handle errors
+     * 
+	 * @param AgaviRequestDataHolder $rd the (validated) request data
+     *
+     * @return string
+     * @access public 
+     */
     public function handleError(AgaviRequestDataHolder $rd) 
     {
         $this->executeRead($rd);
         return parent::handleError($rd);
     }
 
+    /**
+     * isSecure action?
+     * 
+     * @return boolean 
+     * @access public 
+     */
     public function isSecure() 
     {
         return false;
     }
 
-    private function createForm() 
+    /**
+     * Helper method to create form
+     * 
+     * @return Form_Form
+     * @access protected
+     */
+    protected function createForm() 
     {
         if ($this->form) {
             return $this->form;
@@ -105,7 +166,7 @@ class Users_RegisterAction extends MarketUsersBaseAction
                 'id' => $id++,
                 'renderer' => $this->getContainer()->getOutputType()->getRenderer()
                 )
-            );
+        );
         $username = new Form_Elements_TextField(
             array(
                 'name' => 'username',
@@ -114,7 +175,7 @@ class Users_RegisterAction extends MarketUsersBaseAction
                 'id' => $id++
                 ), 
             $this->form
-	        );
+	    );
         $this->form->addChild($username);
         $email = new Form_Elements_TextField(
             array(
@@ -125,7 +186,7 @@ class Users_RegisterAction extends MarketUsersBaseAction
                 'id' => $id++
                 ), 
             $this->form
-	        );
+	    );
         $this->form->addChild($email);
 
         $password = new Form_Elements_PasswordField(
@@ -137,7 +198,7 @@ class Users_RegisterAction extends MarketUsersBaseAction
                 'id' => $id++
                 ), 
             $this->form
-            );
+        );
         $this->form->addChild($password);
         $confirm = new Form_Elements_PasswordField(
             array(
@@ -148,7 +209,7 @@ class Users_RegisterAction extends MarketUsersBaseAction
                 'id' => $id++
                 ), 
             $this->form
-            );
+        );
 
         $this->form->addChild($confirm);
         return $this->form;

@@ -56,6 +56,23 @@
 			<setting name="default_group">guest</setting>
 		</settings>
 
+		<settings prefix="mailer.">
+		  <setting name="transport">
+			<ae:parameters>
+			  <ae:parameter name="type">SmtpTransport</ae:parameter>
+			  <ae:parameter name="port">25</ae:parameter>
+			  <ae:parameter name="host">xamin.ir</ae:parameter>
+			</ae:parameters>
+		  </setting>
+		  <setting name="sender">
+			<ae:parameters>
+			  <ae:parameter name="name">Xamin Market</ae:parameter>
+			  <ae:parameter name="email">noreply@xamin.ir</ae:parameter>
+			</ae:parameters>
+		  </setting>
+		  <setting name="log">false</setting>
+		</settings>
+
 	
 		<exception_templates>
 			<!-- this is the exception template that's used by default unless one for a specific context has been defined, or for the current output type -->
@@ -72,6 +89,16 @@
 		<settings>
 			<setting name="debug">true</setting>
 		</settings>
+
+		<settings prefix="mailer.">
+		  <setting name="transport">
+			<ae:parameters>
+			  <ae:parameter name="type">NullTransport</ae:parameter>
+			</ae:parameters>
+		  </setting>
+		  <setting name="log">true</setting>
+		</settings>
+
 	</ae:configuration>
 	
 	<ae:configuration environment="production.*">
