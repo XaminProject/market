@@ -20,6 +20,11 @@ class Appliance_IndexAction extends MarketApplianceBaseAction
 	{
 		return 'Success';
 	}
+
+    public function isSecure()
+    {
+        return false;
+    }
 }
 
 ?>
