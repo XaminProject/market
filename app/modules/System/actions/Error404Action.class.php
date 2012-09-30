@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_Error404Action extends MarketWelcomeBaseAction
+class System_Error404Action extends MarketSystemBaseAction
 {
 	
 	

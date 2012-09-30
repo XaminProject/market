@@ -10,7 +10,7 @@
 			</system_action>
 			
 			<system_action name="error_404">
-				<module>Welcome</module>
+				<module>System</module>
 				<action>Error404</action>
 			</system_action>
 			

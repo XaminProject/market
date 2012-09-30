@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_Error404SuccessView extends MarketWelcomeBaseView
+class System_Error404SuccessView extends MarketSystemBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
