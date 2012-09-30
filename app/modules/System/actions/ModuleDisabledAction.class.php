@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_ModuleDisabledAction extends MarketWelcomeBaseAction
+class System_ModuleDisabledAction extends MarketSystemBaseAction
 {
 	
 	
@@ -20,6 +20,11 @@ class Welcome_ModuleDisabledAction extends MarketWelcomeBaseAction
 	{
 		return 'Success';
 	}
+
+    public function isSecure()
+    {
+        return false;
+    }
 }
 
 ?>

@@ -20,7 +20,7 @@
 			</system_action>
 			
 			<system_action name="module_disabled">
-				<module>Welcome</module>
+				<module>System</module>
 				<action>ModuleDisabled</action>
 			</system_action>
 			

@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_ModuleDisabledSuccessView extends MarketWelcomeBaseView
+class System_ModuleDisabledSuccessView extends MarketSystemBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
