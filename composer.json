@@ -20,7 +20,8 @@
         "phing/phing" : "2.4.*",
         "agavi/agavi" : "1.1.*",
         "zend/acl" : "dev-master",
-        "xamin/form": "dev-master"
+        "xamin/form": "dev-master",
+		"swiftmailer/swiftmailer" : "4.2.*"
     },
     "config": {
         "bin-dir": "bin",
