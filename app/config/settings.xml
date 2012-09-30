@@ -25,7 +25,7 @@
 			</system_action>
 			
 			<system_action name="secure">
-				<module>Welcome</module>
+				<module>System</module>
 				<action>Secure</action>
 			</system_action>
 			

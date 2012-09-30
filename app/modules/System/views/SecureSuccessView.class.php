@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_SecureSuccessView extends MarketWelcomeBaseView
+class System_SecureSuccessView extends MarketSystemBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_SecureAction extends MarketWelcomeBaseAction
+class System_SecureAction extends MarketSystemBaseAction
 {
 	
 	
