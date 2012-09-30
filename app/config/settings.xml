@@ -15,7 +15,7 @@
 			</system_action>
 			
 			<system_action name="unavailable">
-				<module>Welcome</module>
+				<module>System</module>
 				<action>Unavailable</action>
 			</system_action>
 			
