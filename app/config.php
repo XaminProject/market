@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * agavi configuration file, good place to initialize libraries / autloaders
+ *
+ * PHP version 5.3
+ *
+ * @category Xamin
+ * @package  Market
+ * @author   Behrooz Shabani <everplays@gmail.com>
+ * @license  Custom <http://xamin.ir>
+ * @link     http://xamin.ir
+ */
+
 // +---------------------------------------------------------------------------+
 // | Should we run the system in debug mode? When this is on, there may be     |
 // | various side-effects. But for the time being it only deletes the cache    |
@@ -52,7 +64,7 @@ AgaviConfig::set('core.app_dir', __DIR__);
 // |  - core.module_dir   (defaults to "<core.app_dir>/modules")               |
 // |  - core.template_dir (defaults to "<core.app_dir>/templates")             |
 // +---------------------------------------------------------------------------+
-define ('DS' , DIRECTORY_SEPARATOR);
+define('DS', DIRECTORY_SEPARATOR);
 
 //Composer autoload
-require(AgaviConfig::get('core.app_dir') . '/../libs/autoload.php');
+require AgaviConfig::get('core.app_dir') . '/../libs/autoload.php';
