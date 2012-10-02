@@ -54,6 +54,36 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
     {
         return $this->redis->sMembers("tags");
     }
+
+    /**
+     * get appliances by tag
+     *
+     * @author Behrooz Shabani <everplays@gmail.com>
+     * @copyright 2012 (c) ParsPooyesh co
+     * @param $tag string the tag
+     * @param array
+     */
+    public function appliancesByTag($tag)
+    {
+        // we gonna put appliances in this array
+        $appliances = [];
+        // get all appliances that has this tag
+        foreach($this->redis->sMembers("tag:{$tag}") as $id)
+        {
+            // the id is like: "name:version"
+            list($name, $version) = explode(':', $id, 2);
+            // replace version if there's newer version available
+            if(isset($appliances[$name]))
+            {
+                if(version_compare($version, $appliances[$name], '>='))
+                    $appliances[$name] = $version;
+            }
+            // hmm, we don't have this appliance yet, let's add it
+            else
+                $appliances[$name] = $version;
+        }
+        return $appliances;
+    }
 }
 
 ?>

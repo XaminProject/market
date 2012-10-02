@@ -24,7 +24,7 @@
             <!-- routing for /tags* -->
             <route name="tags" pattern="^/tags" module="Appliance">
                 <route name=".index" pattern="^(/)?$" action="Tags" />
-                <route name=".tag" pattern="^/({name:[.*]+})(/)?$" action="Tag" />
+                <route name=".tag" pattern="^/({name:[a-zA-Z0-9-]+})(/)?$" action="Tag" />
             </route>
 
 			<route name="users" pattern="^/users" module="Users">
