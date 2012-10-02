@@ -39,4 +39,22 @@
 		</databases>
 	</ae:configuration>
 	
+	<ae:configuration environment="development.fzerorubigd">
+		<databases default="redis">
+			
+			<database name="redis" class="AgaviRedisDatabase">
+				<ae:parameter name="host">localhost</ae:parameter>
+				<ae:parameter name="port">6379</ae:parameter>
+				<ae:parameter name="timeout">1</ae:parameter>
+                <ae:parameter name="persistent">false</ae:parameter>
+			</database>
+
+            <database name="solr" class="AgaviSolrDatabase">
+                <ae:parameter name="hostname">behrooz.mac</ae:parameter>
+                <ae:parameter name="port">8983</ae:parameter>
+                <ae:parameter name="path">solr</ae:parameter>
+            </database>
+			
+		</databases>
+	</ae:configuration>	
 </ae:configurations>

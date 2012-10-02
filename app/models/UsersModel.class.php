@@ -10,7 +10,7 @@
  * @category  Xamin
  * @package   Market
  * @author    fzerorubigd <fzerorubigd@gmail.com>
- * @copyright 2012 fzerorubigd
+ * @copyright 2012 (c) ParsPooyesh co
  * @license   Custom <http://xamin.ir>
  * @version   GIT: $
  * @link      http://xamin.ir
@@ -23,7 +23,7 @@
  * @category  Xamin
  * @package   Market
  * @author    fzerorubigd <fzerorubigd@gmail.com>
- * @copyright 2012 fzerorubigd
+ * @copyright 2012 (c) ParsPooyesh co
  * @license   Custom <http://xamin.ir>
  * @version   Release: @package_version@
  * @link      http://xamin.ir
@@ -40,6 +40,11 @@ class UsersModel extends MarketBaseModel
      * Recover hash prefix
      */
     const RECOVER_HASH = 'RecoverHash:';
+
+    /**
+     * eMail prefix
+     */
+    const EMAIL_KEY = 'Email:';
   
     /**
      * Create hashed passsword
@@ -112,13 +117,17 @@ class UsersModel extends MarketBaseModel
      */
     public function register($user, $email, $password, $role = null)
     {
-        //TODO : {fzerorubigd} Check for duplicate email, 
         //may be create a new name space for emails in redis?
         $tm = $this->getContext()->getTranslationManager();
         $key = self::PREFIX . strtolower($user);
         $data = $this->redis->get($key);
         if ($data) {
             throw new Exception($tm->_('Username already exist'));
+        }
+        $emailKey = self::PREFIX . self::EMAIL_KEY . strtolower(md5($email));
+        $data = $this->redis->get($emailKey);
+        if ($data) {
+            throw new Exception($tm->_('eMail is already in use'));
         }
         $data = array (
             'username' => $user,
@@ -129,7 +138,11 @@ class UsersModel extends MarketBaseModel
             );
         $dataString = json_encode($data);
         
-        return $this->redis->set($key, $dataString);
+        $done = $this->redis->multi()
+            ->set($emailKey, $username)
+            ->set($key, $dataString)
+            ->exec();
+        return $done[0] && $done[1];
     }
 
     /**
@@ -200,9 +213,10 @@ class UsersModel extends MarketBaseModel
         
         $hash = $this->redis->get($recoverKey);
         if (!$hash) {
-            //TODO : {fzerorubigd} Handle time base redis key
+            $timeOut = AgaviConfig::get('authz.recover_hash_expire', 2);
+            $timeOut = $timeOut * 24 * 60 * 60 * 60; //In secound
             $hash = strtolower(sha1(substr(base64_encode(sha1(microtime(true), true)), 0, 22)));
-            $this->redis->set($recoverKey, $hash);
+            $this->redis->setex($recoverKey, $timeOut, $hash);
         }
         return $hash;
     }
