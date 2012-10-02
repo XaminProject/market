@@ -30,17 +30,36 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
     protected $redis = null;
 
     /**
-     * initializes model
+     * @var SolrClient solr client
+     */
+    protected $solr = null;
+
+    /**
+     * returns an instance of Redis
      *
      * @author Behrooz Shabani <everplays@gmail.com>
      * @copyright 2012 (c) ParsPooyesh co
-     * @param $context AgaviContext the context we're in
-     * @param $parameters array init parameters
+     * @return Redis
      */
-    public function initialize(AgaviContext $context, array $parameters = array())
+    public function getRedis()
     {
-        parent::initialize($context, $parameters);
-        $this->redis = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection();
+        if (is_null($this->redis))
+            $this->redis = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection();
+        return $this->redis;
+    }
+
+    /**
+     * returns an instance of Redis
+     *
+     * @author Behrooz Shabani <everplays@gmail.com>
+     * @copyright 2012 (c) ParsPooyesh co
+     * @return Redis
+     */
+    public function getSolr()
+    {
+        if (is_null($this->solr))
+            $this->solr = $this->getContext()->getDatabaseManager()->getDatabase('solr')->getConnection();
+        return $this->solr;
     }
 
     /**
@@ -52,7 +71,7 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
      */
     public function tags()
     {
-        return $this->redis->sMembers("tags");
+        return $this->getRedis()->sMembers("tags");
     }
 
     /**
@@ -68,7 +87,7 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
         // we gonna put appliances in this array
         $appliances = [];
         // get all appliances that has this tag
-        foreach($this->redis->sMembers("tag:{$tag}") as $id)
+        foreach($this->getRedis()->sMembers("tag:{$tag}") as $id)
         {
             // the id is like: "name:version"
             list($name, $version) = explode(':', $id, 2);
@@ -83,6 +102,27 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
                 $appliances[$name] = $version;
         }
         return $appliances;
+    }
+
+    /**
+     * searches for appliances using solr
+     *
+     * @param $query string query string
+     * @return array an array of matched appliances
+     */
+    public function query($queryString, $start=0, $length=10)
+    {
+        $solr = $this->getSolr();
+        $query = new SolrQuery();
+        $query->setQuery($queryString)
+            ->setStart($start)
+            ->setRows($length)
+            ->addField('name')
+            ->addField('version');
+        // TODO: we need to set group=true&group.field=name to avoid
+        // duplicate appliance in result
+        $queryResponse = $solr->query($query);
+        return $queryResponse->getResponse()->response;
     }
 }
 

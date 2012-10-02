@@ -27,6 +27,9 @@
                 <route name=".tag" pattern="^/({name:[a-zA-Z0-9-]+})(/)?$" action="Tag" />
             </route>
 
+            <!-- routing for /search -->
+            <route name="search" pattern="^/search$" module="Appliance" action="Search" />
+
 			<route name="users" pattern="^/users" module="Users">
 			  <route name=".login" pattern="^/login$" action="Login" />
 			  <route name=".register" pattern="^/register$" action="Register" />
