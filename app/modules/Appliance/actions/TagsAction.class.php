@@ -1,5 +1,33 @@
 <?php
 
+/**
+ * Tags action
+ * 
+ * PHP version 5.3
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 Authors
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
+ */
+
+
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 Authors
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
+ */
 class Appliance_TagsAction extends MarketApplianceBaseAction
 {
 	/**
@@ -33,4 +61,3 @@ class Appliance_TagsAction extends MarketApplianceBaseAction
 	}
 }
 
-?>

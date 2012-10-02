@@ -1,5 +1,31 @@
 <?php
 
+/**
+ * Apliance tag action
+ * 
+ * PHP version 5.3
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 Authors
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
+ */
+
+
+/**
+ * Tag action
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 Authors
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
+ */
 class Appliance_TagAction extends MarketApplianceBaseAction
 {
 	/**
@@ -25,12 +51,11 @@ class Appliance_TagAction extends MarketApplianceBaseAction
     /**
      * should return true, if action needs permission check
      *
-     * @return bool
+     * @return boolean 
+     * @access public 
      */
     public function isSecure()
     {
         return false;
     }
 }
-
-?>

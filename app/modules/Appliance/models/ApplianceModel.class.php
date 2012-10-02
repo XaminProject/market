@@ -5,48 +5,32 @@
  *
  * php version 5.2
  *
- * @category     Xamin
- * @package      Market
- * @author       Behrooz Shabani <everplays@gmail.com>
- * @copyright    2012 (c) ParsPooyesh Co
- * @license      Custom <http://xamin.ir>
- * @version      GIT: $
- * @link         http://xamin.ir
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
  */
 
 /**
  * appliance model
  *
- * @category     Xamin
- * @package      Market
- * @author       Behrooz Shabani <everplays@gmail.com>
- * @copyright    2012 (c) ParsPooyesh Co
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
  */
 class Appliance_ApplianceModel extends MarketApplianceBaseModel
 {
     /**
-     * @var Redis redis database connection
-     */
-    protected $redis = null;
-
-    /**
      * @var SolrClient solr client
      */
     protected $solr = null;
-
-    /**
-     * returns an instance of Redis
-     *
-     * @author Behrooz Shabani <everplays@gmail.com>
-     * @copyright 2012 (c) ParsPooyesh co
-     * @return Redis
-     */
-    public function getRedis()
-    {
-        if (is_null($this->redis))
-            $this->redis = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection();
-        return $this->redis;
-    }
 
     /**
      * returns an instance of Redis
@@ -71,35 +55,34 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
      */
     public function tags()
     {
-        return $this->getRedis()->sMembers("tags");
+        return $this->redis->sMembers("tags");
     }
 
     /**
      * get appliances by tag
      *
+     * @param string $tag the tag
+     *
+     * @return array
      * @author Behrooz Shabani <everplays@gmail.com>
      * @copyright 2012 (c) ParsPooyesh co
-     * @param $tag string the tag
-     * @param array
      */
     public function appliancesByTag($tag)
     {
         // we gonna put appliances in this array
         $appliances = [];
         // get all appliances that has this tag
-        foreach($this->getRedis()->sMembers("tag:{$tag}") as $id)
-        {
+        foreach ($this->redis->sMembers("tag:{$tag}") as $id) {
             // the id is like: "name:version"
             list($name, $version) = explode(':', $id, 2);
             // replace version if there's newer version available
-            if(isset($appliances[$name]))
-            {
-                if(version_compare($version, $appliances[$name], '>='))
+            if (isset($appliances[$name])) {
+                if (version_compare($version, $appliances[$name], '>=')) {
                     $appliances[$name] = $version;
-            }
-            // hmm, we don't have this appliance yet, let's add it
-            else
+                }
+            } else {             // hmm, we don't have this appliance yet, let's add it
                 $appliances[$name] = $version;
+            }
         }
         return $appliances;
     }
@@ -125,5 +108,3 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
         return $queryResponse->getResponse()->response;
     }
 }
-
-?>

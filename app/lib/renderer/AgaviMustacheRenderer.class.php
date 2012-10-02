@@ -1,31 +1,30 @@
 <?php
 
-// +---------------------------------------------------------------------------+
-// | This file is part of the Agavi package.								   |
-// | Copyright (c) 2012 Parspooyesh co.								|
-// |																		   |
-// | For the full copyright and license information, please view the LICENSE   |
-// | file that was distributed with this source code. You can also view the	|
-// | LICENSE file online at http://www.agavi.org/LICENSE.txt				   |
-// |   vi: set noexpandtab:													|
-// |   Local Variables:														|
-// |   indent-tabs-mode: t													 |
-// |   End:																	|
-// +---------------------------------------------------------------------------+
+/**
+ * A renderer produces the output as defined by a View
+ * 
+ * PHP version 5.3
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 Authors
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
+ */
+
 
 /**
  * A renderer produces the output as defined by a View
- *
- * @package	agavi
- * @subpackage renderer
- *
- * @author	 Behrooz Shabani <everplays@gmail.com>
- * @copyright  Authors
- * @copyright  The Agavi Project
- *
- * @since	  1.0.8
- *
- * @version	$Id$
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 Authors
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
  */
 class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRenderer
 {
@@ -45,6 +44,7 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	 *
 	 * Excludes the Mustache instance to prevent excessive serialization load.
 	 *
+     * @return array
 	 * @author	 Behrooz Shabani <everplays@gmail.com>
 	 * @since	  1.0.8
 	 */
@@ -58,9 +58,10 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	/**
 	 * Initialize this Renderer.
 	 *
-	 * @param	  AgaviContext The current application context.
-	 * @param	  array		An associative array of initialization parameters.
+	 * @param AgaviContext $context    The current application context.
+	 * @param array		   $parameters An associative array of initialization parameters.
 	 *
+     * @return void
 	 * @author	 Behrooz Shabani <everplays@gmail.com>
 	 * @since	  1.0.8
 	 */
@@ -68,14 +69,17 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	{
 		parent::initialize($context, $parameters);
 
-		$this->setParameter('options', array_merge(
-			array(
-				'loader' => 'Mustache_Loader_FilesystemLoader',
-				'partials_loader' => 'Mustache_Loader_FilesystemLoader',
-				'cache' => AgaviConfig::get('core.debug') ? false : AgaviConfig::get('core.cache_dir') . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'mustache',
-			),
-			(array)$this->getParameter('options', array())
-		));
+		$this->setParameter(
+            'options', 
+            array_merge(
+                array(
+                    'loader' => 'Mustache_Loader_FilesystemLoader',
+                    'partials_loader' => 'Mustache_Loader_FilesystemLoader',
+                    'cache' => AgaviConfig::get('core.debug') ? false : AgaviConfig::get('core.cache_dir') . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'mustache',
+                    ),
+                (array)$this->getParameter('options', array())
+            )
+        );
 	}
 
 	/**
@@ -88,9 +92,9 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	 */
 	protected function createEngineInstance()
 	{
-		if(!class_exists('Mustache_Engine')) {
-			if(!class_exists('Mustache_Autoloader')) {
-				require('Mustache/Autoloader.php');
+		if (!class_exists('Mustache_Engine')) {
+			if (!class_exists('Mustache_Autoloader')) {
+				include_once 'Mustache/Autoloader.php';
 			}
 			Mustache_Autoloader::register();
 		}
@@ -111,11 +115,11 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	 */
 	public function getEngine()
 	{
-		if(!$this->mustache) {
+		if (!$this->mustache) {
 			$this->mustache = $this->createEngineInstance();
 
 			// assigns can be set as globals
-			foreach($this->assigns as $key => $getter) {
+			foreach ($this->assigns as $key => $getter) {
 				$this->mustache->addHelper($key, $this->context->$getter());
 			}
             // the tags should be like:
@@ -123,16 +127,24 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
             // or
             // {{#_}}text in default domain{{/_}}
             $tm = $this->getContext()->getTranslationManager();
-            $this->mustache->addHelper('_', function($text) use ($tm){
-                $domain = null;
-                if(preg_match('/^[a-zA-Z0-9\.]+::/', $text))
-                    list($domain, $text) = explode('::', $text, 2);
-                return $tm->_($text, $domain);
-            });
+            $this->mustache->addHelper(
+                '_', 
+                function($text) use ($tm)
+                {
+                    $domain = null;
+                    if (preg_match('/^[a-zA-Z0-9\.]+::/', $text)) {
+                        list($domain, $text) = explode('::', $text, 2);
+                    }
+                    return $tm->_($text, $domain);
+                }
+            );
             // use it like: {{#AgaviConfig::get}}core.app_name{{/AgaviConfig}}
-            $this->mustache->addHelper('AgaviConfig::get', function($config){
-                return AgaviConfig::get($config);
-            });
+            $this->mustache->addHelper(
+                'AgaviConfig::get', 
+                function($config){
+                    return AgaviConfig::get($config);
+                }
+            );
 		}
 
 		return $this->mustache;
@@ -141,10 +153,10 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	/**
 	 * Render the presentation and return the result.
 	 *
-	 * @param	  AgaviTemplateLayer The template layer to render.
-	 * @param	  array			  The template variables.
-	 * @param	  array			  The slots.
-	 * @param	  array			  Associative array of additional assigns.
+	 * @param AgaviTemplateLayer $layer        The template layer to render.
+	 * @param array              &$attributes  The template variables.
+	 * @param array			     &$slots       The slots.
+	 * @param array			     &$moreAssigns Associative array of additional assigns.
 	 *
 	 * @return	 string A rendered result.
 	 *
@@ -158,29 +170,29 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 		$template_dir = $this->getParameter('template_dir', AgaviConfig::get('core.template_dir'));
 
 		$loader = $this->getParameter('loader', 'Mustache_Loader_FilesystemLoader');
-		if(class_exists($loader))
+		if (class_exists($loader)) {
 			$loader = new $loader($template_dir);
-
+        }
 		$mustache->setLoader($loader);
 
 		$partialsLoader = $this->getParameter('partials_loader', 'Mustache_Loader_FilesystemLoader');
-		if(class_exists($partialsLoader))
+		if (class_exists($partialsLoader)) {
 			$partialsLoader = new $partialsLoader($template_dir);
-
+        }
 		$mustache->setPartialsLoader($partialsLoader);
 
 		// get realpath of file to avoid . and ..
 		$path = realpath($layer->getResourceStreamIdentifier());
 		// remove extension
 		$path = preg_replace('/\.[^\/\\\\]+$/', '', $path);
-		$path = substr($path, strlen($template_dir)+1);
+		$path = substr($path, strlen($template_dir) + 1);
 		$template = $mustache->loadTemplate($path);
 
 		$data = array();
 
 		// template vars
-		if($this->extractVars) {
-			foreach($attributes as $name => $value) {
+		if ($this->extractVars) {
+			foreach ($attributes as $name => $value) {
 				$data[$name] = $value;
 			}
 		} else {
@@ -192,12 +204,10 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 
 		// dynamic assigns (global ones were set in getEngine())
 		$finalMoreAssigns = self::buildMoreAssigns($moreAssigns, $this->moreAssignNames);
-		foreach($finalMoreAssigns as $key => $value) {
+		foreach ($finalMoreAssigns as $key => $value) {
 			$data[$key] = $value;
 		}
 
 		return $template->render($data);
 	}
 }
-
-?>

@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Apiance tag success view
+ * View class
  * 
- * PHP version 5.3
+ * PHP versions 5.2
  * 
  * @category  Xamin
  * @package   Market
- * @author    Behrooz Shabani <everplays@gmail.com>
- * @copyright 2012 (c) ParsPooyesh co
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 Authors
  * @license   Custom <http://xamin.ir>
  * @version   GIT: $Id$
  * @link      http://xamin.ir
@@ -20,13 +20,13 @@
  * 
  * @category  Xamin
  * @package   Market
- * @author    Behrooz Shabani <everplays@gmail.com>
- * @copyright 2012 (c) ParsPooyesh co
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 Authors
  * @license   Custom <http://xamin.ir>
  * @version   Release: @package_version@
  * @link      http://xamin.ir
  */
-class Appliance_TagSuccessView extends MarketApplianceBaseView
+class Users_Recover_ConfirmErrorView extends MarketUsersBaseView
 {
 	
 
@@ -42,14 +42,10 @@ class Appliance_TagSuccessView extends MarketApplianceBaseView
 	 */
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
+        $tm = $this->getContext()->getTranslationManager();
 		$this->setupHtml($rd);
-        $appliances = [];
-        foreach ($this->getAttribute('appliances', array()) as $name => $version) {
-            $appliances[] = array(
-                "name" => $name,
-                "version" => $version
-            );
-        }
-        $this->setAttribute('appliances', $appliances);
+
+		$this->setAttribute('_title', $tm->_('New password'));
 	}
 }
+

@@ -39,6 +39,9 @@ class MarketBaseAction extends AgaviAction
 		//TODO Add multi language support by changing this
 		$tm = $this->getContext()->getTranslationManager();
 		$tm->setDefaultDomain('default.messages');
+
+        // Call initialize renderer
+        $this->initializeRenderer($this->getContainer()->getOutputType()->getRenderer());
 	}
     
     /**
@@ -91,6 +94,30 @@ class MarketBaseAction extends AgaviAction
 		}
 		$this->setAttribute('error', $errors);
 		return parent::handleError($rd);	    
+    }
+
+    /**
+     * Initialize renderer
+     * A function to initialize and register custom handler in renderer 
+     * mostly mustache
+     *
+     * @param AgaviRenderer $renderer current renderer
+     *
+     * @return void
+     */
+    protected function initializeRenderer($renderer)
+    {
+        //There is a need to use minify functions here
+        if ($renderer instanceof AgaviMustacheRenderer) {
+            $renderer->getEngine()->addHelper(
+                'test', 
+                function($text)
+                {
+                    return strrev($text);
+                }
+            );
+        }
+
     }
 
     /**
