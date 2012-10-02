@@ -119,7 +119,7 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 				$this->mustache->addHelper($key, $this->context->$getter());
 			}
             // the tags should be like:
-            // {{#_}}gettext.domain:text needs to be translated{{/_}}
+            // {{#_}}gettext.domain::text needs to be translated{{/_}}
             // or
             // {{#_}}text in default domain{{/_}}
             $tm = $this->getContext()->getTranslationManager();
