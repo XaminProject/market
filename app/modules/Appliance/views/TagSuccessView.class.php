@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Aplianc index action
+ * Apiance tag success view
  * 
- * PHP version 5.2
+ * PHP version 5.3
  * 
  * @category  Xamin
  * @package   Market
@@ -12,12 +12,11 @@
  * @license   Custom <http://xamin.ir>
  * @version   GIT: $Id$
  * @link      http://xamin.ir
- * @see       References to other sections (if any)...
  */
 
 
 /**
- * Index action class
+ * View class
  * 
  * @category  Xamin
  * @package   Market
@@ -26,9 +25,8 @@
  * @license   Custom <http://xamin.ir>
  * @version   Release: @package_version@
  * @link      http://xamin.ir
- * @see       References to other sections (if any)...
  */
-class Appliance_IndexSuccessView extends MarketApplianceBaseView
+class Appliance_TagSuccessView extends MarketApplianceBaseView
 {
 	
 
@@ -45,17 +43,13 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
 		$this->setupHtml($rd);
-
-		$this->setAttribute('_title', 'Index');
-        $this->getLayer('content')->setSlot(
-            'tags', 
-            $this->createSlotContainer(
-                'Appliance', // name of module to use
-                'Tags', // name of action to execute
-                array(), // parameters to pass to the slot
-                'html', // output type to use
-                'read' // request method to use
-            )
-        );
+        $appliances = [];
+        foreach ($this->getAttribute('appliances', array()) as $name => $version) {
+            $appliances[] = array(
+                "name" => $name,
+                "version" => $version
+            );
+        }
+        $this->setAttribute('appliances', $appliances);
 	}
 }

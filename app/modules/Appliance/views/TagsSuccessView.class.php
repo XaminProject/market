@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Aplianc index action
+ * Tags success view
  * 
- * PHP version 5.2
+ * PHP version 5
  * 
  * @category  Xamin
  * @package   Market
@@ -12,12 +12,11 @@
  * @license   Custom <http://xamin.ir>
  * @version   GIT: $Id$
  * @link      http://xamin.ir
- * @see       References to other sections (if any)...
  */
 
 
 /**
- * Index action class
+ * Tags success view 
  * 
  * @category  Xamin
  * @package   Market
@@ -26,12 +25,9 @@
  * @license   Custom <http://xamin.ir>
  * @version   Release: @package_version@
  * @link      http://xamin.ir
- * @see       References to other sections (if any)...
  */
-class Appliance_IndexSuccessView extends MarketApplianceBaseView
+class Appliance_TagsSuccessView extends MarketApplianceBaseView
 {
-	
-
 	/**
 	 * Handles the Html output type.
 	 *
@@ -46,16 +42,15 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
 	{
 		$this->setupHtml($rd);
 
-		$this->setAttribute('_title', 'Index');
-        $this->getLayer('content')->setSlot(
-            'tags', 
-            $this->createSlotContainer(
-                'Appliance', // name of module to use
-                'Tags', // name of action to execute
-                array(), // parameters to pass to the slot
-                'html', // output type to use
-                'read' // request method to use
-            )
-        );
+        $ro = $this->getContext()->getRouting();
+        $tags = $this->getAttribute('tags', array());
+        foreach ($tags as &$tag) {
+            $tag = array(
+                "name" => $tag,
+                "url" => $ro->gen('tags.tag', array('name' => $tag))
+            );
+        }
+        $this->setAttribute('tags', $tags);
+		$this->setAttribute('_title', 'Tags');
 	}
 }
