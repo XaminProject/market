@@ -3,9 +3,9 @@
 class Appliance_TagAction extends MarketApplianceBaseAction
 {
 	/**
-	 * Returns the default view if the action does not serve the request
-	 * method used.
+     * exeuctes action regardless of method
 	 *
+     * @param AgaviRequestDataHolder $rd request data
 	 * @return     mixed <ul>
 	 *                     <li>A string containing the view name associated
 	 *                     with this action; or</li>
@@ -22,6 +22,11 @@ class Appliance_TagAction extends MarketApplianceBaseAction
 		return 'Success';
 	}
 
+    /**
+     * should return true, if action needs permission check
+     *
+     * @return bool
+     */
     public function isSecure()
     {
         return false;
