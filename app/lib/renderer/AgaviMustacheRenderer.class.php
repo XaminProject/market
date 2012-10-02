@@ -129,6 +129,10 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
                     list($domain, $text) = explode('::', $text, 2);
                 return $tm->_($text, $domain);
             });
+            // use it like: {{#AgaviConfig::get}}core.app_name{{/AgaviConfig}}
+            $this->mustache->addHelper('AgaviConfig::get', function($config){
+                return AgaviConfig::get($config);
+            });
 		}
 
 		return $this->mustache;
