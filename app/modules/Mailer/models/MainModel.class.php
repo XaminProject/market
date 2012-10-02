@@ -176,7 +176,11 @@ class Mailer_MainModel extends MarketMailerBaseModel
         $result = $mailer->send($message);
         if ($this->logEnable && $this->logger) {
             $agaviLogger = $this->getContext()->getLoggerManager();
-            $agaviLogger->log($this->logger->dump());
+            $agaviLogger->log('Mail to :' . join(',', $to));
+            $agaviLogger->log('Subject : ' . $subject);
+            $agaviLogger->log('Body : ' . $htmlBody);
+            $agaviLogger->log("Mailer result : " . $result);
+            $agaviLogger->log('Swift message : ' . $this->logger->dump());
         }
         return $result;
     }

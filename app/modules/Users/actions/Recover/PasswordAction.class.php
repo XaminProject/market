@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Register action
+ * Recover password action
+ * 
+ * Get the username and email and then send the recover link to user email 
  * 
  * PHP version 5
  * 
@@ -10,13 +12,13 @@
  * @author    fzerorubigd <fzerorubigd@gmail.com>
  * @copyright 2012 fzerorubigd
  * @license   Custom <http://xamin.ir>
- * @version   GIT: $
+ * @version   GIT: $Id$
  * @link      http://xamin.ir
  */
 
 
 /**
- * Register action
+ * Recover action
  * 
  * @category  Xamin
  * @package   Market
@@ -26,15 +28,15 @@
  * @version   Release: @package_version@
  * @link      http://xamin.ir
  */
-class Users_RegisterAction extends MarketUsersBaseAction
+class Users_Recover_PasswordAction extends MarketUsersBaseAction
 {
-	
+
     /**
-     * form object
-     * @var object 
-     * @access protected
+     * Recover form
+     * @var Form_Form
+     * @access private  
      */
-    protected $form;
+	private $_form;
 
 	/**
 	 * Handles the Read request method.
@@ -51,7 +53,7 @@ class Users_RegisterAction extends MarketUsersBaseAction
 	 */
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-        $this->setAttribute('form', $this->createForm());
+        $this->setAttribute('form', $this->_getForm());
 		return 'Input';
 	}
 
@@ -71,19 +73,33 @@ class Users_RegisterAction extends MarketUsersBaseAction
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
         $model = $this->getContext()->getModel('Users');
-        $username = $rd->getParameter('username');
-        $password = $rd->getParameter('password');
-        $email = $rd->getParameter('email');
-
         try {
-            $model->register($username, $email, $password);
+            $username = $rd->getParameter('username');
+            $email = $rd->getParameter('email');
+            $hash = $model->getRecoverHash(
+                $username,
+                $email
+            );
+
+            $tm = $this->getContext()->getTranslationManager();
+            $this->sendMail(
+                array($email => $username), 
+                $tm->_("Recover password"), 
+                'Recover', 
+                array(
+                    'username' => $username, 
+                    'link' => $this->getContext()->getRouting()->gen(
+                        'users.recover.confirm', 
+                        array('hash' => $hash , 'user' => $username )
+                    )
+                    )
+            );
+
         } catch (Exception $e) {
-            $this->setAttribute('form', $this->createForm());
-            $this->setAttribute('error', array($e->getMessage()));
-            return "Error";
+            $this->setAttribute('form', $this->_getForm());
+            $this->setAttribute('error', $e->getMessage());
+            return 'Error';
         }
-        $tm = $this->getContext()->getTranslationManager();
-        $this->sendMail(array($email => $username), $tm->_("Register in Xamin Market"), 'Register', array('username' => $username));
 		return 'Success';
 	}
 	
@@ -113,7 +129,7 @@ class Users_RegisterAction extends MarketUsersBaseAction
 	public function registerWriteValidators()
     {
         Form_Validator::registerValidators(
-            $this->createForm(),
+            $this->_getForm(),
             $this->getContainer()->getValidationManager(),
             array() //?
         );
@@ -144,75 +160,49 @@ class Users_RegisterAction extends MarketUsersBaseAction
         return false;
     }
 
+
     /**
-     * Helper method to create form
+     * Get recover form
      * 
      * @return Form_Form
-     * @access protected
+     * @access private
      */
-    protected function createForm() 
+    private function _getForm() 
     {
-        if ($this->form) {
-            return $this->form;
+        if (!$this->_form) {
+            $tm = $this->getContext()->getTranslationManager();
+            $id = 0;
+            $this->_form = new Form_Form(
+                array (
+                    'method' => 'post',
+                    'submit' => $tm->_('Recover'),
+                    'id' => $id++,
+                    'renderer' => $this->getContainer()->getOutputType()->getRenderer()
+                    )
+            );
+            $username = new Form_Elements_TextField(
+                array(
+                    'name' => 'username',
+                    'title' => $tm->_('User name'),
+                    'required' => true,
+                    'id' => $id++
+                    ), 
+                $this->_form
+            );
+            $this->_form->addChild($username);
+            $email = new Form_Elements_TextField(
+                array(
+                    'name' => 'email',
+                    'title' => $tm->_('Email address'),
+                    'required' => true,
+                    'email' => true,
+                    'id' => $id++
+                    ), 
+                $this->_form
+            );
+            $this->_form->addChild($email);
         }
-        $tm = $this->getContext()->getTranslationManager();
-        $id = 0;
-        $this->form = new Form_Form(
-            array (
-                'method' => 'post',
-                'submit' => $tm->_('Register'),
-                'id' => $id++,
-                'renderer' => $this->getContainer()->getOutputType()->getRenderer()
-                )
-        );
-        $username = new Form_Elements_TextField(
-            array(
-                'name' => 'username',
-                'title' => $tm->_('User name'),
-                'required' => true,
-                'id' => $id++
-                ), 
-            $this->form
-	    );
-        $this->form->addChild($username);
-        $email = new Form_Elements_TextField(
-            array(
-                'name' => 'email',
-                'title' => $tm->_('Email address'),
-                'required' => true,
-                'email' => true,
-                'id' => $id++
-                ), 
-            $this->form
-	    );
-        $this->form->addChild($email);
 
-        $password = new Form_Elements_PasswordField(
-            array(
-                'name' => 'password',
-                'title' => $tm->_('Password'),
-                'required' => true,
-                'min' => 6,
-                'id' => $id++
-                ), 
-            $this->form
-        );
-        $this->form->addChild($password);
-        $confirm = new Form_Elements_PasswordField(
-            array(
-                'name' => 'confirm',
-                'title' => $tm->_('Confirm'),
-                'required' => true,
-                'equal' => 'password', //Name of other field 
-                'id' => $id++
-                ), 
-            $this->form
-        );
-
-        $this->form->addChild($confirm);
-        return $this->form;
+        return $this->_form;
     }
-
 }
-
-?>

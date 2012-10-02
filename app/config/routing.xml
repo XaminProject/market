@@ -30,6 +30,9 @@
 			<route name="users" pattern="^/users" module="Users">
 			  <route name=".login" pattern="^/login$" action="Login" />
 			  <route name=".register" pattern="^/register$" action="Register" />
+			  <route name=".recover"  pattern="^/recover">
+				<route name=".password" pattern="^/password$" action="Recover.Password" />
+			  </route>
 			</route>
 			
 		</routes>

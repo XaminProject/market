@@ -98,4 +98,16 @@ class MarketMailerBaseAction extends MarketBaseAction
         
         return "Success";
     }
+
+    /**
+     * isSecure action?
+     * 
+     * @return boolean 
+     * @access public 
+     */
+    public function isSecure() 
+    {
+        return false;
+    }
+
 }
