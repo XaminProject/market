@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ae:configurations
+	xmlns="http://agavi.org/agavi/config/parts/validators/1.1"
+	xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.1"
+	parent="%core.module_dir%/Users/config/validators.xml"
+>
+	
+	<ae:configuration>
+		
+		<validators>
+		  <!-- The actual validation is inside action, 
+			   just make sure agavi pass this parameters to action -->
+		  <validator class="string" required="false" translation_domain="default.messages">
+				<argument>user</argument>
+				<error>Username is not valid.</error>
+			</validator>
+			<validator class="string" required="true" translation_domain="default.messages">
+				<argument>hash</argument>
+				<error>Hash is not valid.</error>
+			</validator>
+		</validators>
+	</ae:configuration>
+</ae:configurations>

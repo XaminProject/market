@@ -26,6 +26,7 @@
 			  <route name=".register" pattern="^/register$" action="Register" />
 			  <route name=".recover"  pattern="^/recover">
 				<route name=".password" pattern="^/password$" action="Recover.Password" />
+				<route name=".confirm" pattern="^/confirm$" action="Recover.Confirm" />
 			  </route>
 			</route>
 			

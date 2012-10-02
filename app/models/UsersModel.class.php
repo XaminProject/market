@@ -133,6 +133,44 @@ class UsersModel extends MarketBaseModel
     }
 
     /**
+     * Change password
+     * 
+     * Change password
+     * 
+     * @param string $username user name
+     * @param string $newPass  new password
+     * @param string $oldPass  old password, set false to force
+     *
+     * @return boolean
+     * @access public 
+     * @throws Exception if user dose not exist or oldPass is wrong
+     */
+    public function changePassword($username, $newPass, $oldPass) 
+    {
+        $tm = $this->getContext()->getTranslationManager();
+        //First check if user exist, all user are in lower case
+        $user = strtolower($username);
+        $data = $this->redis->get(self::PREFIX . $user);
+        if ($data === false) {
+            throw new Exception($tm->_('User name is wrong.'));
+        }
+        
+        $dataArray = json_decode($data, true);
+        if ($oldPass !== false) {
+            $password = self::computeSaltedHash($oldPass, $dataArray['password']);
+            if ($dataArray['password'] != $password) {
+                throw new Exception($tm->_('Old password is wrong.'));
+            }
+        }
+
+        $dataArray['password'] = self::computeSaltedHash($newPass);
+        $dataString = json_encode($dataArray);
+        
+        return $this->redis->set(self::PREFIX . $user, $dataString);
+
+    }
+
+    /**
      * get Recover hash.
      * 
      * check db for User:RecoverHash:username this hash is time-based hash 
@@ -197,5 +235,82 @@ class UsersModel extends MarketBaseModel
     {
         $recoverKey = self::PREFIX . self::RECOVER_HASH . strtolower($username);
         return $this->redis->del($recoverKey);
+    }
+
+    /**
+     * Generates a random password drawn from the defined set of characters.
+     *
+     * @param int  $length            The length of password to generate
+     * @param bool $specialChars      Whether to include standard special characters. Default true.
+     * @param bool $extraSpecialChars Whether to include other special characters. Used when
+     *   generating secret keys and salts. Default false.
+     *
+     * @return string The random password
+     **/
+    private function _generatePassword($length = 6, $specialChars = true, $extraSpecialChars = false ) 
+    {
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        if ($specialChars) {
+            $chars .= '!@#$%^&*()';
+        }
+        if ($extraSpecialChars) {
+            $chars .= '-_ []{}<>~`+=,.;:/?|';
+        }
+        $password = '';
+        $randFunc = 'rand';
+        if (function_exists('mt_rand')) {
+            $randFunc = 'mt_rand';
+        }
+        for ( $i = 0; $i < $length; $i++ ) {
+            $password .= substr($chars, $randFunc(0, strlen($chars) - 1), 1);
+        }
+        return $password;
+    }
+
+    /**
+     * Set a random password after check Recover hash.
+     * 
+     * @param string $username user name
+     * @param string $hash     hash from user input
+     *
+     * @return boolean
+     * @access public 
+     * @throws Exception if user dose not exist
+     */
+    public function createRandomPassword($username, $hash) 
+    {
+        if ($this->checkRecoverHash($username, $hash)) {
+            $this->dropRecoverHash($username);
+            $randomPassword = $this->_generatePassword();
+            if ($this->changePassword($username, $randomPassword, false)) {
+                return $randomPassword;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get email address for a user (null for current user)
+     *
+     * @param string $username User name or null for current user
+     *
+     * @return string user email or null on no user or any
+     */
+    public function getEmail($username = null) 
+    {
+        if ($username == null) {
+            $user = $this->getContext()->getUser();
+            $username = $user->isAuthenticated() ? $user->getAttribute('username', null) : null;
+            if ($username == null) {
+                return null;
+            }
+        }
+        $key = self::PREFIX . strtolower($username);
+        $user = $this->redis->get($key);
+        if (!$user) {
+            return null;
+        }
+        $user = json_decode($user, true);
+        return $user['email'];        
     }
 }
