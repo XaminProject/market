@@ -19,6 +19,13 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
 		$this->setupHtml($rd);
 
 		$this->setAttribute('_title', 'Index');
+        $this->getLayer('content')->setSlot('tags', $this->createSlotContainer(
+            'Appliance', // name of module to use
+            'Tags', // name of action to execute
+            array(), // parameters to pass to the slot
+            'html', // output type to use
+            'read' // request method to use
+        ));
 	}
 }
 
