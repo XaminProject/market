@@ -21,6 +21,12 @@
 			<!-- default action for "/" -->
 			<route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
 			
+            <!-- routing for /tags* -->
+            <route name="tags" pattern="^/tags" module="Appliance">
+                <route name=".index" pattern="^(/)?$" action="Tags" />
+                <route name=".tag" pattern="^/({name:[.*]+})(/)?$" action="Tag" />
+            </route>
+
 			<route name="users" pattern="^/users" module="Users">
 			  <route name=".login" pattern="^/login$" action="Login" />
 			  <route name=".register" pattern="^/register$" action="Register" />
