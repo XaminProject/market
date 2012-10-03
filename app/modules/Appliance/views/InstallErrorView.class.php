@@ -8,7 +8,7 @@
  * @category  Xamin
  * @package   Market
  * @author    Behrooz Shabani <everplays@gmail.com>
- * @copyright 2012 (c) ParsPooyesh co
+ * @copyright 2012 (c) ParsPooyesh Co
  * @license   Custom <http://xamin.ir>
  * @version   GIT: $Id$
  * @link      http://xamin.ir
@@ -21,19 +21,17 @@
  * @category  Xamin
  * @package   Market
  * @author    Behrooz Shabani <everplays@gmail.com>
- * @copyright 2012 (c) ParsPooyesh co
+ * @copyright 2012 (c) ParsPooyesh Co
  * @license   Custom <http://xamin.ir>
  * @version   Release: @package_version@
  * @link      http://xamin.ir
  */
-class Appliance_InfoErrorView extends MarketApplianceBaseView
+class Appliance_InstallErrorView extends MarketApplianceBaseView
 {
-    
-
     /**
      * Handles the Html output type.
      *
-     * @param AgaviRequestDataHolder $rd request data
+     * @param AgaviRequestDataHolder $rd the request data
      *
      * @return     mixed <ul>
      *                     <li>An AgaviExecutionContainer to forward the execution to or</li>
