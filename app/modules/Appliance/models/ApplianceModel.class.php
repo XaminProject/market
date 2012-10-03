@@ -191,6 +191,20 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
     }
 
     /**
+     * removes given appliance from archipel that is running behind jid
+     *
+     * @param string $jid     jid archipel that is using to connect to market
+     * @param string $name    name of appliance
+     * @param string $version version of appliance
+     *
+     * @return void
+     */
+    public function remove($jid, $name, $version)
+    {
+        $this->addPeaceAction('remove', $jid, $name, $version);
+    }
+
+    /**
      * inserts an action into peace-daemon's queue list
      *
      * @param string $action  the action that peace daemon should run
