@@ -54,6 +54,10 @@
 				 must define this in zend_acl.xml roles section
 			-->
 			<setting name="default_group">guest</setting>
+			<!--
+				Recover hash expire after, in days
+			-->
+			<setting name="recover_hash_expire">2</setting>
 		</settings>
 
 		<settings prefix="mailer.">
