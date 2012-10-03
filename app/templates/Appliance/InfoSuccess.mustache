@@ -1,6 +1,11 @@
 {{#t.appliance}}
 {{version}}
 {{#us.isAuthenticated}}
+{{^isInstalled}}
 <a href="{{install}}" class="btn btn-primary">{{#_}}Install{{/_}}</a>
+{{/isInstalled}}
+{{#isInstalled}}
+<a href="{{remove}}" class="btn btn-danger">{{#_}}Remove{{/_}}</a>
+{{/isInstalled}}
 {{/us.isAuthenticated}}
 {{/t.appliance}}

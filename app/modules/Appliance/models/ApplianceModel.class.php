@@ -28,10 +28,15 @@
 class Appliance_ApplianceModel extends MarketApplianceBaseModel
 {
     /**
+     * @var array will be used as redis cache
+     */
+    private static $_cache = [];
+
+    /**
      * Installer to appliances prefix
      */
     const INSTALLER_TO_APPLIANCES_PREFIX = 'installer_to_appliances:';
-    
+
     /**
      * returns all tags
      *
@@ -144,34 +149,44 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
                 'version' => $appliance['version']
             )
         );
+        $appliance['remove'] = $this->getContext()->getRouting()->gen(
+            'appliance.remove',
+            array(
+                'name' => $appliance['name'],
+                'version' => $appliance['version']
+            )
+        );
+        $appliance['isInstalled'] = false;
+        $user = $this->getContext()->getUser();
+        if ($user->isAuthenticated() or true) {
+            $jid = $user->getAttribute('jid');
+            $key = self::INSTALLER_TO_APPLIANCES_PREFIX . $jid;
+            if (!isset(self::$_cache[$key])) {
+                self::$_cache[$key] = $this->getRedis()->sMembers($key);
+            }
+            if (in_array("{$appliance['name']}:{$appliance['version']}", self::$_cache[$key])) {
+                $appliance['isInstalled'] = true;
+            }
+        }
         return $appliance;
     }
 
     /**
      * Get appliance for a user
      *
-     * @param string $username user name
-     * @param string $hostname host name (jid attribute)
+     * @param string $jid the jid that we gonna check its appliances
      *
      * @return array list of appliance 
      */
-    public function getUserAppliances($username, $hostname) 
+    public function getUserAppliances($jid)
     {
-        $key = self::INSTALLER_TO_APPLIANCES_PREFIX . strtolower($username) . '@' . $hostname;
-        $appliances = $this->getRedis()->sMembers($key);
-        foreach ($appliances as &$item) {
-                list($name, $version) = explode(':', $item);
-                $item = array (
-                    'name' => $name, 
-                    'version' => $version,
-                    'link' => $this->getContext()->getRouting()->gen(
-                        'appliance.info',
-                        array(
-                            'name' => $name,
-                            'version' => $version
-                            )
-                    )
-                );
+        $key = self::INSTALLER_TO_APPLIANCES_PREFIX . $jid;
+        if (!isset(self::$_cache[$key])) {
+            self::$_cache[$key] = $this->getRedis()->sMembers($key);
+        }
+        foreach (self::$_cache[$key] as &$item) {
+            list($name, $version) = explode(':', $item);
+            $item = $this->getAppliance($name, $version);
         }
         return $appliances;
     }
