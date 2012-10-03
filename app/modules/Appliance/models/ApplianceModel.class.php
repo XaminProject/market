@@ -41,8 +41,9 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
      */
     public function getSolr()
     {
-        if (is_null($this->solr))
+        if (is_null($this->solr)) {
             $this->solr = $this->getContext()->getDatabaseManager()->getDatabase('solr')->getConnection();
+        }
         return $this->solr;
     }
 
@@ -69,28 +70,29 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
      */
     public function appliancesByTag($tag)
     {
+        $tmp = [];
         // we gonna put appliances in this array
-        $appliances = [];
+        $result = ['total' => 0, 'result' => []];
         // get all appliances that has this tag
         foreach ($this->redis->sMembers("tag:{$tag}") as $id) {
             // the id is like: "name:version"
             list($name, $version) = explode(':', $id, 2);
-            // replace version if there's newer version available
-            if (isset($appliances[$name])) {
-                if (version_compare($version, $appliances[$name], '>=')) {
-                    $appliances[$name] = $version;
-                }
-            } else {             // hmm, we don't have this appliance yet, let's add it
-                $appliances[$name] = $version;
+            if (!isset($tmp[$name])) {
+                $tmp[$name] = true;
+                $result['total']++;
+                $result['result'][] = $this->getAppliance($name);
             }
         }
-        return $appliances;
+        return $result;
     }
 
     /**
      * searches for appliances using solr
      *
-     * @param $query string query string
+     * @param string $queryString query string
+     * @param string $start       the start offset
+     * @param string $length      the number of items should be returned
+     *
      * @return array an array of matched appliances
      */
     public function query($queryString, $start=0, $length=10)
@@ -101,10 +103,45 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
             ->setStart($start)
             ->setRows($length)
             ->addField('name')
-            ->addField('version');
-        // TODO: we need to set group=true&group.field=name to avoid
-        // duplicate appliance in result
+            ->addField('version')
+            ->addParam('group', 'true')
+            ->addParam('group.field', 'name');
         $queryResponse = $solr->query($query);
-        return $queryResponse->getResponse()->response;
+        $response = $queryResponse->getResponse();
+        $result = ['total' => $response->grouped->name->matches, 'result' => []];
+        foreach ($response->grouped->name->groups as $group) {
+            $name = $group->doclist->docs[0]->name;
+            $latest = $group->doclist->docs[0]->version;
+            foreach ($group->doclist->docs as $key => $doc) {
+                if ($key === 0) {
+                    continue;
+                }
+                if (version_compare($doc->version, $latest, '>=')) {
+                    $latest = $doc->version;
+                }
+            }
+            $result['result'][] = $this->getAppliance($name, $latest);
+        }
+        return $result;
+    }
+
+    /**
+     * fetches json object of an appliance
+     *
+     * @param string $name    name of appliance
+     * @param string $version version of appliance
+     *
+     * @return array json decoded array of appliance
+     */
+    public function getAppliance($name, $version=null)
+    {
+        $index = 0;
+        if (!is_null($version)) {
+            $index = (int) $this->redis->get("appliance_version_to_index:{$name}:{$version}");
+            $length = $this->redis->llen("Appliance:{$name}");
+            $index = $length - $index - 1;
+        }
+        $appliance = json_decode($this->redis->lindex("Appliance:{$name}", $index), true);
+        return $appliance;
     }
 }
