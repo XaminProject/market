@@ -132,6 +132,52 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
                 'version' => $appliance['version']
             )
         );
+        $appliance['install'] = $this->getContext()->getRouting()->gen(
+            'appliance.install',
+            array(
+                'name' => $appliance['name'],
+                'version' => $appliance['version']
+            )
+        );
         return $appliance;
+    }
+
+    /**
+     * inserts install information into client queue
+     *
+     * @param string $jid     the jid of archipel that we're going to install appliance on
+     * @param string $name    the name of appliance
+     * @param string $version the version of appliance
+     *
+     * @return void
+     */
+    public function install($jid, $name, $version)
+    {
+        $this->addPeaceAction('install', $jid, $name, $version);
+    }
+
+    /**
+     * inserts an action into peace-daemon's queue list
+     *
+     * @param string $action  the action that peace daemon should run
+     * @param string $jid     the jid of archipel that we're going to install appliance on
+     * @param string $name    the name of appliance
+     * @param string $version the version of appliance
+     *
+     * @return void
+     */
+    protected function addPeaceAction($action, $jid, $name, $version)
+    {
+        $this->getRedis()->lpush(
+            'peace:daemon',
+            json_encode(
+                [
+                    'action' => $action,
+                    'jid' => $jid,
+                    'name' => $name,
+                    'version' => $version
+                ]
+            )
+        );
     }
 }

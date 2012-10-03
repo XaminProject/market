@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ae:configurations
+	xmlns="http://agavi.org/agavi/config/parts/validators/1.1"
+	xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.1"
+	parent="%core.module_dir%/Appliance/config/validators.xml"
+>
+	
+	<ae:configuration>
+        <validators>
+            <validator name="version" class="regex" required="false">
+                <argument>version</argument>
+                <ae:parameter name="pattern">/^[0-9]+\.[0-9]+\.[0-9]+$/</ae:parameter>
+                <ae:parameter name="match">1</ae:parameter>
+            </validator>
+            <validator name="name" class="string">
+                <argument>name</argument>
+            </validator>
+        </validators>
+	</ae:configuration>
+	
+</ae:configurations>
