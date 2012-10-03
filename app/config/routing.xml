@@ -30,6 +30,11 @@
             <!-- routing for /search -->
             <route name="search" pattern="^/search$" module="Appliance" action="Search" />
 
+            <!-- routing for /appliances -->
+            <route name="appliance" pattern="^/appliance" module="Appliance">
+                <route name=".info" pattern="^/({name:[^/]+})(/)?({version:[0-9]+\.[0-9]+\.[0-9]+})?(/)?$" action="Info" />
+            </route>
+
 			<route name="users" pattern="^/users" module="Users">
 			  <route name=".login" pattern="^/login$" action="Login" />
 			  <route name=".register" pattern="^/register$" action="Register" />
