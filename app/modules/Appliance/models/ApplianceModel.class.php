@@ -28,26 +28,6 @@
 class Appliance_ApplianceModel extends MarketApplianceBaseModel
 {
     /**
-     * @var SolrClient solr client
-     */
-    protected $solr = null;
-
-    /**
-     * returns an instance of Redis
-     *
-     * @author Behrooz Shabani <everplays@gmail.com>
-     * @copyright 2012 (c) ParsPooyesh co
-     * @return Redis
-     */
-    public function getSolr()
-    {
-        if (is_null($this->solr)) {
-            $this->solr = $this->getContext()->getDatabaseManager()->getDatabase('solr')->getConnection();
-        }
-        return $this->solr;
-    }
-
-    /**
      * returns all tags
      *
      * @author Behrooz Shabani <everplays@gmail.com>

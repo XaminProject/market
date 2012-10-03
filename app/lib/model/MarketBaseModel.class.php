@@ -33,6 +33,11 @@ class MarketBaseModel extends AgaviModel
     protected $redis = null;
 
     /**
+     * @var SolrClient solr client
+     */
+    protected $solr = null;
+
+    /**
      * returns redis instance
      *
      * @return Redis
@@ -43,5 +48,20 @@ class MarketBaseModel extends AgaviModel
             $this->redis = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection();
         }
         return $this->redis;
+    }
+
+    /**
+     * returns an instance of Redis
+     *
+     * @author Behrooz Shabani <everplays@gmail.com>
+     * @copyright 2012 (c) ParsPooyesh co
+     * @return Redis
+     */
+    public function getSolr()
+    {
+        if (is_null($this->solr)) {
+            $this->solr = $this->getContext()->getDatabaseManager()->getDatabase('solr')->getConnection();
+        }
+        return $this->solr;
     }
 }
