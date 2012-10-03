@@ -28,6 +28,11 @@
 class Appliance_ApplianceModel extends MarketApplianceBaseModel
 {
     /**
+     * Installer to appliances prefix
+     */
+    const INSTALLER_TO_APPLIANCES_PREFIX = 'installer_to_appliances:';
+    
+    /**
      * returns all tags
      *
      * @author Behrooz Shabani <everplays@gmail.com>
@@ -133,5 +138,34 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
             )
         );
         return $appliance;
+    }
+
+    /**
+     * Get appliance for a user
+     *
+     * @param string $username user name
+     * @param string $hostname host name (jid attribute)
+     *
+     * @return array list of appliance 
+     */
+    public function getUserAppliances($username, $hostname) 
+    {
+        $key = self::INSTALLER_TO_APPLIANCES_PREFIX . strtolower($username) . '@' . $hostname;
+        $appliances = $this->getRedis()->sMembers($key);
+        foreach ($appliances as &$item) {
+                list($name, $version) = explode(':', $item);
+                $item = array (
+                    'name' => $name, 
+                    'version' => $version,
+                    'link' => $this->getContext()->getRouting()->gen(
+                        'appliance.info',
+                        array(
+                            'name' => $name,
+                            'version' => $version
+                            )
+                    )
+                );
+        }
+        return $appliances;
     }
 }

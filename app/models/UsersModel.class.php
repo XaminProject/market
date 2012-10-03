@@ -101,10 +101,10 @@ class UsersModel extends MarketBaseModel
         $this->dropRecoverHash($user);
         // don't want to store jid attribute into redis cause
         // the xmpp server may change
-        if (!isset($data['attributes'])) {
-            $data['attributes'] = [];
+        if (!isset($dataArray['attributes'])) {
+            $dataArray['attributes'] = [];
         }
-        $data['attributes']['jid'] = $user.'@'.AgaviConfig::get('xmpp.host').'/'.AgaviConfig::get('xmpp.resource', 'archipel');
+        $dataArray['attributes']['jid'] = $user.'@'.AgaviConfig::get('xmpp.host').'/'.AgaviConfig::get('xmpp.resource', 'archipel');
         return $dataArray;
     }
 

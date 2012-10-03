@@ -42,6 +42,7 @@
 				<route name=".password" pattern="^/password$" action="Recover.Password" />
 				<route name=".confirm" pattern="^/confirm$" action="Recover.Confirm" />
 			  </route>
+			  <route name=".profile" pattern="^/profile$" action="Profile" />
 			</route>
 			
 		</routes>
