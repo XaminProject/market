@@ -57,5 +57,16 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
                 'read' // request method to use
             )
         );
+        $this->setAttribute('_title', 'Index');
+        $this->getLayer('content')->setSlot(
+            'search',
+            $this->createSlotContainer(
+                'Appliance', // name of module to use
+                'Search', // name of action to execute
+                array(), // parameters to pass to the slot
+                'html', // output type to use
+                'read' // request method to use
+            )
+        );
     }
 }
