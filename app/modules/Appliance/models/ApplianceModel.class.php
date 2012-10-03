@@ -145,6 +145,13 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
             $index = $length - $index - 1;
         }
         $appliance = json_decode($this->redis->lindex("Appliance:{$name}", $index), true);
+        $appliance['link'] = $this->getContext()->getRouting()->gen(
+            'appliance.info',
+            array(
+                'name' => $appliance['name'],
+                'version' => $appliance['version']
+            )
+        );
         return $appliance;
     }
 }
