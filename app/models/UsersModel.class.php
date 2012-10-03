@@ -56,13 +56,13 @@ class UsersModel extends MarketBaseModel
      * @access public
      * @static
      */
-	public static function computeSaltedHash($secret, $salt = null)
-	{
+    public static function computeSaltedHash($secret, $salt = null)
+    {
         if (!$salt) {
             $salt = '$2a$10$' . substr(str_replace('+', '.', base64_encode(sha1(microtime(true), true))), 0, 22);
         }
-		return crypt($secret, $salt);
-	}
+        return crypt($secret, $salt);
+    }
 
 
     /**
@@ -83,7 +83,7 @@ class UsersModel extends MarketBaseModel
         $tm = $this->getContext()->getTranslationManager();
         //First check if user exist, all user are in lower case
         $user = strtolower($user);
-        $data = $this->redis->get(self::PREFIX . $user);
+        $data = $this->getRedis()->get(self::PREFIX . $user);
         if ($data === false) {
             throw new Exception($tm->_('User name and/or password is wrong.'));
         }
@@ -120,12 +120,12 @@ class UsersModel extends MarketBaseModel
         //may be create a new name space for emails in redis?
         $tm = $this->getContext()->getTranslationManager();
         $key = self::PREFIX . strtolower($user);
-        $data = $this->redis->get($key);
+        $data = $this->getRedis()->get($key);
         if ($data) {
             throw new Exception($tm->_('Username already exist'));
         }
         $emailKey = self::PREFIX . self::EMAIL_KEY . strtolower(md5($email));
-        $data = $this->redis->get($emailKey);
+        $data = $this->getRedis()->get($emailKey);
         if ($data) {
             throw new Exception($tm->_('eMail is already in use'));
         }
@@ -138,7 +138,7 @@ class UsersModel extends MarketBaseModel
             );
         $dataString = json_encode($data);
         
-        $done = $this->redis->multi()
+        $done = $this->getRedis()->multi()
             ->set($emailKey, $username)
             ->set($key, $dataString)
             ->exec();
@@ -163,7 +163,7 @@ class UsersModel extends MarketBaseModel
         $tm = $this->getContext()->getTranslationManager();
         //First check if user exist, all user are in lower case
         $user = strtolower($username);
-        $data = $this->redis->get(self::PREFIX . $user);
+        $data = $this->getRedis()->get(self::PREFIX . $user);
         if ($data === false) {
             throw new Exception($tm->_('User name is wrong.'));
         }
@@ -179,7 +179,7 @@ class UsersModel extends MarketBaseModel
         $dataArray['password'] = self::computeSaltedHash($newPass);
         $dataString = json_encode($dataArray);
         
-        return $this->redis->set(self::PREFIX . $user, $dataString);
+        return $this->getRedis()->set(self::PREFIX . $user, $dataString);
 
     }
 
@@ -202,7 +202,7 @@ class UsersModel extends MarketBaseModel
         $key = self::PREFIX . strtolower($username);
         $recoverKey = self::PREFIX . self::RECOVER_HASH . strtolower($username);
 
-        $user = $this->redis->get($key);
+        $user = $this->getRedis()->get($key);
         if (!$user) {
             throw new Exception($tm->_("User dose not exist."));
         }
@@ -211,12 +211,12 @@ class UsersModel extends MarketBaseModel
             throw new Exception($tm->_("Email is not match."));
         }
         
-        $hash = $this->redis->get($recoverKey);
+        $hash = $this->getRedis()->get($recoverKey);
         if (!$hash) {
             $timeOut = AgaviConfig::get('authz.recover_hash_expire', 2);
             $timeOut = $timeOut * 24 * 60 * 60 * 60; //In secound
             $hash = strtolower(sha1(substr(base64_encode(sha1(microtime(true), true)), 0, 22)));
-            $this->redis->setex($recoverKey, $timeOut, $hash);
+            $this->getRedis()->setex($recoverKey, $timeOut, $hash);
         }
         return $hash;
     }
@@ -248,7 +248,7 @@ class UsersModel extends MarketBaseModel
     public function dropRecoverHash($username) 
     {
         $recoverKey = self::PREFIX . self::RECOVER_HASH . strtolower($username);
-        return $this->redis->del($recoverKey);
+        return $this->getRedis()->del($recoverKey);
     }
 
     /**
@@ -320,7 +320,7 @@ class UsersModel extends MarketBaseModel
             }
         }
         $key = self::PREFIX . strtolower($username);
-        $user = $this->redis->get($key);
+        $user = $this->getRedis()->get($key);
         if (!$user) {
             return null;
         }

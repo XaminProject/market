@@ -33,19 +33,15 @@ class MarketBaseModel extends AgaviModel
     protected $redis = null;
 
     /**
-     * initializes model
+     * returns redis instance
      *
-     * @param AgaviContext $context    the context we're in
-     * @param array        $parameters init parameters
-     *
-     * @return void
-     * @author Behrooz Shabani <everplays@gmail.com>fzerorubigd 
-     * @copyright 2012 (c) ParsPooyesh co
+     * @return Redis
      */
-    public function initialize(AgaviContext $context, array $parameters = array())
+    public function getRedis()
     {
-        parent::initialize($context, $parameters);
-        $this->redis = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection();
+        if (is_null($this->redis)) {
+            $this->redis = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection();
+        }
+        return $this->redis;
     }
-
 }

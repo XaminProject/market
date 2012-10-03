@@ -56,7 +56,7 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
      */
     public function tags()
     {
-        return $this->redis->sMembers("tags");
+        return $this->getRedis()->sMembers("tags");
     }
 
     /**
@@ -74,7 +74,7 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
         // we gonna put appliances in this array
         $result = ['total' => 0, 'result' => []];
         // get all appliances that has this tag
-        foreach ($this->redis->sMembers("tag:{$tag}") as $id) {
+        foreach ($this->getRedis()->sMembers("tag:{$tag}") as $id) {
             // the id is like: "name:version"
             list($name, $version) = explode(':', $id, 2);
             if (!isset($tmp[$name])) {
@@ -137,14 +137,14 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
     {
         $index = 0;
         if (!is_null($version)) {
-            $index = $this->redis->get("appliance_version_to_index:{$name}:{$version}");
+            $index = $this->getRedis()->get("appliance_version_to_index:{$name}:{$version}");
             if ($index === false) {
                 return null;
             }
-            $length = $this->redis->llen("Appliance:{$name}");
+            $length = $this->getRedis()->llen("Appliance:{$name}");
             $index = $length - $index - 1;
         }
-        $appliance = json_decode($this->redis->lindex("Appliance:{$name}", $index), true);
+        $appliance = json_decode($this->getRedis()->lindex("Appliance:{$name}", $index), true);
         $appliance['link'] = $this->getContext()->getRouting()->gen(
             'appliance.info',
             array(
