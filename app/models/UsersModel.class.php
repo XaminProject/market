@@ -99,6 +99,12 @@ class UsersModel extends MarketBaseModel
         unset($dataArray['password']);
         //Just in case, drop any requested recoverHash
         $this->dropRecoverHash($user);
+        // don't want to store jid attribute into redis cause
+        // the xmpp server may change
+        if (!isset($data['attributes'])) {
+            $data['attributes'] = [];
+        }
+        $data['attributes']['jid'] = $user.'@'.AgaviConfig::get('xmpp.host').'/'.AgaviConfig::get('xmpp.resource', 'archipel');
         return $dataArray;
     }
 

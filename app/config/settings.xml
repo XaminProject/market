@@ -48,6 +48,11 @@
 			
 		</settings>
 
+        <settings prefix="xmpp.">
+            <setting name="host">market.xamin.ir</setting>
+            <setting name="resource">archipel</setting>
+        </settings>
+
 		<settings prefix="authz.">
 			<!-- 
 				 Default group when user group can not determined and on create new user
@@ -105,6 +110,13 @@
 
 	</ae:configuration>
 	
+    <ae:configuration environment="development.behrooz">
+        <settings prefix="xmpp.">
+            <setting name="host">market.xamin.ir</setting>
+            <setting name="resource">archipel</setting>
+        </settings>
+    </ae:configuration>
+
 	<ae:configuration environment="production.*">
 		<exception_templates>
 			<!-- a different exception template for production -->
