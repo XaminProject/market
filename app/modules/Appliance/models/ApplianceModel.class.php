@@ -137,7 +137,10 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
     {
         $index = 0;
         if (!is_null($version)) {
-            $index = (int) $this->redis->get("appliance_version_to_index:{$name}:{$version}");
+            $index = $this->redis->get("appliance_version_to_index:{$name}:{$version}");
+            if ($index === false) {
+                return null;
+            }
             $length = $this->redis->llen("Appliance:{$name}");
             $index = $length - $index - 1;
         }
