@@ -52,6 +52,7 @@ class Appliance_RemoveSuccessView extends MarketApplianceBaseView
                 array('relative' => false)
             )
         );
+        return;
     }
 }
 

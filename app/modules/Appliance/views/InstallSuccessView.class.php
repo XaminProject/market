@@ -52,6 +52,7 @@ class Appliance_InstallSuccessView extends MarketApplianceBaseView
                 array('relative' => false)
             )
         );
+        return;
     }
 }
 
