@@ -34,22 +34,21 @@ class Comments_MainModel extends MarketCommentsBaseModel
     const PREFIX = 'Comments:';
 
     /**
-     * Scope data prefix
-     */
-    const SCOPE_DATA_PREFIX = 'Data:';
-
-    /**
      * Get comments for $scope
      *
-     * @param string $scopeKey each comment section has a scope + id 
-     * @param int    $page     page number 
-     * @param int    $count    per page item
+     * @param string $scope the scope we've stored comments in
+     * @param int    $page  page number 
+     * @param int    $count per page item
      *
      * @return array comments array
      */
-    public function getComments($scopeKey, $page = 0, $count = 10)
+    public function getComments($scope, $page = 0, $count = 10)
     {
-        $key = self::PREFIX . $scopeKey;
+        $key = self::PREFIX . $scope;
+        if (!$this->getRedis()->sismember('Comments', $scope)) {
+            // make it an empty list, it will be needed for writing comment
+            $this->getRedis()->sadd('Comments', $scope);
+        }
         $data = $this->getRedis()->lrange($key, $page * $count, ($page + 1) * $count);
         foreach ($data as &$item) {
             $item = json_decode($item, true);
@@ -80,57 +79,6 @@ class Comments_MainModel extends MarketCommentsBaseModel
     }
 
     /**
-     * Register a scope 
-     *
-     * register new scope to use comments. if already registered then 
-     * simply validate new parameter, they are readonly. 
-     *
-     * @param string $scope      scope name
-     * @param string $route      Agavi route name for this scope
-     * @param array  $parameters Parameters used to generate scope route
-     * 
-     * @return string generated key base on scope
-     */
-    public function registerScope($scope, $route, array $parameters = array()) 
-    {
-        $data = array (
-            'scope' => strtolower($scope),
-            'route' => $route,
-            'parameters' => $parameters
-            );
-
-        $dataString = json_encode($data);
-        $scopeKey = strtolower(md5($dataString));
-
-        $key = self::PREFIX . self::SCOPE_DATA_PREFIX . $scopeKey;
-        $savedData = $this->getRedis()->get($key);
-        if (!$savedData) {
-            //OK first time, save this scope 
-            $this->getRedis()->set($key, $dataString);
-        }
-
-        return $scopeKey;
-    }
-
-    /**
-     * Get scope data by key name
-     *
-     * @param string $scopeKey scope key (md5 data)
-     *
-     * @return array or null on no key found
-     */
-    public function getScopeData($scopeKey)
-    {
-        $key = self::PREFIX . self::SCOPE_DATA_PREFIX . $scopeKey;
-        $data = $this->getRedis()->get($key);
-        if (!$data) {
-            return null;
-        }
-        $dataArray = json_decode($data, true);
-        return $dataArray;
-    }
-
-    /**
      * Remove tags
      *
      * I think we need to create a seperate model for this tasks
@@ -142,5 +90,17 @@ class Comments_MainModel extends MarketCommentsBaseModel
     public static function purifyComment($comment)
     {
         return strip_tags($comment);
+    }
+
+    /**
+     * returns true if the scope is valid
+     *
+     * @param string $scope the scope to be checked
+     *
+     * @return boolean
+     */
+    public function isValidScope($scope)
+    {
+        return $this->getRedis()->sIsMember('Comments', $scope);
     }
 }

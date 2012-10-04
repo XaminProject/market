@@ -69,6 +69,6 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
             )
         );
 
-        $this->registerCommentSlot('TestScope', 'index', array());
+        $this->registerCommentSlot('TestScope', $this->getContext()->getRouting()->gen('index', array()));
     }
 }

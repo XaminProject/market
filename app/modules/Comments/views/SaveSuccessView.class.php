@@ -28,7 +28,7 @@
  */
 class Comments_SaveSuccessView extends MarketCommentsBaseView
 {
-	
+    
 
     /**
      * Handles the Html output type.
@@ -42,16 +42,13 @@ class Comments_SaveSuccessView extends MarketCommentsBaseView
      */
     public function executeHtml(AgaviRequestDataHolder $rd)
     {
-        $route = $this->getAttribute('route', 'index');
-        $parameters = $this->getAttribute('parameters', array());
         $class = $this->getAttribute('class', 'message');
         $message = $this->getAttribute('message');
 
         $this->setOneShotMessage($message, $class, 'comment_');
 
-		$this->getResponse()->setRedirect(
-            $this->getContext()->getRouting()->gen($route, $parameters)
-        );
+        $this->getResponse()->setRedirect($rd->getParameter('redirect'));
+        return;
     }
 }
 

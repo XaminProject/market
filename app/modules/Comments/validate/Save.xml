@@ -8,6 +8,9 @@
 	<ae:configuration>
 		
 		<validators>
+            <validator name="redirect" class="string">
+                <argument>redirect</argument>
+            </validator>
 		</validators>
 		
 	</ae:configuration>

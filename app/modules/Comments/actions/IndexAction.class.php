@@ -1,9 +1,9 @@
 <?php
 /**
  * Action description
- * 
+ *
  * PHP version 5.2
- * 
+ *
  * @category  Xamin
  * @package   Market
  * @author    fzerorubigd <fzerorubigd@gmail.com>
@@ -27,22 +27,22 @@
  */
 class Comments_IndexAction extends MarketCommentsBaseAction
 {
-    
+
     /**
      * @var Form_Form coment form
      */
     private $_form;
 
-	/**
-	 * Whether or not this action is "simple", i.e. doesn't use validation etc.
-	 *
-	 * @return     bool true, if this action should act in simple mode, or false.
-	 *
-	 */
-	public function isSimple()
-	{
-		return true;
-	}
+    /**
+     * Whether or not this action is "simple", i.e. doesn't use validation etc.
+     *
+     * @return     bool true, if this action should act in simple mode, or false.
+     *
+     */
+    public function isSimple()
+    {
+        return true;
+    }
 
     /**
      * Returns the default view if the action does not serve the request
@@ -59,15 +59,16 @@ class Comments_IndexAction extends MarketCommentsBaseAction
     public function getDefaultViewName()
     {
         $user = $this->getContext()->getUser();
-        
+
         //Get comments for last page
         //TODO : {fzerorubigd} Add pager support
-        $scopeKey = $this->getContainer()->getArguments()->getParameter('key');
+        $scope = $this->getContainer()->getArguments()->getParameter('scope');
+        $redirect = $this->getContainer()->getArguments()->getParameter('redirect');
         $model = $this->getContext()->getModel('Main', 'Comments');
-        $this->setAttribute('comments', $model->getComments($scopeKey));
+        $this->setAttribute('comments', $model->getComments($scope));
         $form = '';
         if ($user->isAuthenticated()) {
-            $form = $this->_getForm($scopeKey);
+            $form = $this->_getForm($scope, $redirect);
         }
         $this->setAttribute('form', $form);
         return 'Success';
@@ -85,14 +86,14 @@ class Comments_IndexAction extends MarketCommentsBaseAction
 
     /**
      * Get comment form
-     * 
-     * @param string $key scope hash 
+     *
+     * @param string $key      scope hash
+     * @param string $redirect redirect url that would be used after saving comment
      *
      * @return Form_Form
      */
-    private function _getForm($key) 
+    private function _getForm($key, $redirect)
     {
-        //
         if (!$this->_form) {
             $model = $this->getContext()->getModel('Main', 'Comments');
             $tm = $this->getContext()->getTranslationManager();
@@ -103,8 +104,13 @@ class Comments_IndexAction extends MarketCommentsBaseAction
                     'submit' => $tm->_('Post comment'),
                     'id' => $id++,
                     'renderer' => $this->getContainer()->getOutputType()->getRenderer(),
-                    'action' => $this->getContext()->getRouting()->gen('comments.save')
+                    'action' => $this->getContext()->getRouting()->gen(
+                        'comments.save',
+                        array(
+                            'redirect' => $redirect
+                        )
                     )
+                )
             );
             $comment = new Form_Elements_TextArea(
                 array(
@@ -112,17 +118,17 @@ class Comments_IndexAction extends MarketCommentsBaseAction
                     'title' => $tm->_('Your comment'),
                     'required' => true,
                     'id' => $id++
-                    ), 
+                ),
                 $this->_form
             );
             $this->_form->addChild($comment);
             $scopeKey = new Form_Elements_HiddenField(
                 array(
-                    'name' => 'scopekey',
+                    'name' => 'scope',
                     'required' => true,
                     'id' => $id++,
                     'value' => $key
-                    ), 
+                ),
                 $this->_form
             );
             $this->_form->addChild($scopeKey);

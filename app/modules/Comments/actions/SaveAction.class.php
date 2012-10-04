@@ -1,9 +1,9 @@
 <?php
 /**
  * Action description
- * 
+ *
  * PHP version 5.3
- * 
+ *
  * @category  Xamin
  * @package   Market
  * @author    fzerorubigd <fzerorubigd@gmail.com>
@@ -27,50 +27,46 @@
  */
 class Comments_SaveAction extends MarketCommentsBaseAction
 {
-    
+
     /**
      * @var Form_Form coment form
      */
     private $_form;
 
-	/**
-	 * Handles the Write request method.
-	 *
-	 * @param AgaviRequestDataHolder $rd the request data
-	 *
-	 * @return     mixed <ul>
-	 *                     <li>A string containing the view name associated
-	 *                     with this action; or</li>
-	 *                     <li>An array with two indices: the parent module
-	 *                     of the view to be executed and the view to be
-	 *                     executed.</li>
-	 *                   </ul>^
-	 */
-	public function executeWrite(AgaviRequestDataHolder $rd)
-	{
+    /**
+     * Handles the Write request method.
+     *
+     * @param AgaviRequestDataHolder $rd the request data
+     *
+     * @return     mixed <ul>
+     *                     <li>A string containing the view name associated
+     *                     with this action; or</li>
+     *                     <li>An array with two indices: the parent module
+     *                     of the view to be executed and the view to be
+     *                     executed.</li>
+     *                   </ul>^
+     */
+    public function executeWrite(AgaviRequestDataHolder $rd)
+    {
         $model = $this->getContext()->getModel('Main', 'Comments');
         $tm = $this->getContext()->getTranslationManager();
-        $scopeKey = $rd->getParameter('scopekey');
+        $scope = $rd->getParameter('scope');
         $comment  = $rd->getParameter('comment');
         $user = $this->getContext()->getUser();
         $username = $user->getAttribute('username');
-        
-        //Now get the data for scopeKey
-        $data = $model->getScopeData($scopeKey);
-        if (!$data) {
-            //Wrong key. 
+
+        if (!$model->isValidScope($scope)) {
+            //Wrong key.
             $this->setAttribute('class', 'error');
             $this->setAttribute('message', $tm->_('Invalid comment'));
         } else {
-            $model->addComment($scopeKey, $username, $comment);
-            $this->setAttribute('route', $data['route']);
-            $this->setAttribute('parameters', $data['parameters']);
+            $model->addComment($scope, $username, $comment);
             $this->setAttribute('class', 'success');
             $this->setAttribute('message', $tm->_('Your comment is saved'));
         }
 
-		return 'Success';
-	}
+        return 'Success';
+    }
 
     /**
      * Returns the default view if the action does not serve the request
@@ -91,20 +87,20 @@ class Comments_SaveAction extends MarketCommentsBaseAction
 
     /**
      * Handle error
-     * 
+     *
      * This action always serve success
      *
-     * @param AgaviRequestDataHolder $rd Request data 
+     * @param AgaviRequestDataHolder $rd Request data
      *
      * @return string view name to serve
      */
-    public function handleError(AgaviRequestDataHolder $rd) 
+    public function handleError(AgaviRequestDataHolder $rd)
     {
         //This action is an exception. always server the success view
         parent::handleError($rd);
         $model = $this->getContext()->getModel('Main', 'Comments');
-        $scopeKey = $rd->getParameter('scopekey');
-        $data = $model->getScopeData($scopeKey);
+        $scope = $rd->getParameter('scope');
+        $data = $model->getScopeData($scope);
         if (!$data) {
             $data = [
                 'route' => 'index',
@@ -131,15 +127,15 @@ class Comments_SaveAction extends MarketCommentsBaseAction
 
     /**
      * Register validator for current form
-     * 
-     * @return void  
+     *
+     * @return void
      * @access public
      */
-	public function registerWriteValidators()
+    public function registerWriteValidators()
     {
         $rd = $this->getContext()->getRequest()->getRequestData();
         Form_Validator::registerValidators(
-            $this->_getForm($rd->getParameter('key')),
+            $this->_getForm($rd->getParameter('key'), $rd->getParameter('redirect')),
             $this->getContainer()->getValidationManager(),
             array() //?
         );
@@ -147,14 +143,14 @@ class Comments_SaveAction extends MarketCommentsBaseAction
 
     /**
      * Get comment form
-     * 
-     * @param string $key scope hash 
+     *
+     * @param string $key      scope hash
+     * @param string $redirect the url that we should redirect user back to
      *
      * @return Form_Form
      */
-    private function _getForm($key) 
+    private function _getForm($key, $redirect)
     {
-        //
         if (!$this->_form) {
             $model = $this->getContext()->getModel('Main', 'Comments');
             $tm = $this->getContext()->getTranslationManager();
@@ -174,20 +170,20 @@ class Comments_SaveAction extends MarketCommentsBaseAction
                     'title' => $tm->_('Your comment'),
                     'required' => true,
                     'id' => $id++
-                    ), 
+                    ),
                 $this->_form
             );
             $this->_form->addChild($comment);
-            $scopeKey = new Form_Elements_HiddenField(
+            $scope = new Form_Elements_HiddenField(
                 array(
-                    'name' => 'scopekey',
+                    'name' => 'scope',
                     'required' => true,
                     'id' => $id++,
                     'value' => $key
-                    ), 
+                    ),
                 $this->_form
             );
-            $this->_form->addChild($scopeKey);
+            $this->_form->addChild($scope);
         }
         return $this->_form;
     }
