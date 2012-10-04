@@ -46,6 +46,10 @@
 			  </route>
 			  <route name=".profile" pattern="^/profile$" action="Profile" />
 			</route>
+
+			<route name="comments" pattern="^/comments" module="Comments">
+			  <route name=".save" pattern="^/save$" action="Save" />
+			</route>
 			
 		</routes>
 	</ae:configuration>

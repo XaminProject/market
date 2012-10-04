@@ -68,5 +68,7 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
                 'read' // request method to use
             )
         );
+
+        $this->registerCommentSlot('TestScope', 'index', array());
     }
 }

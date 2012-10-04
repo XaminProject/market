@@ -47,9 +47,8 @@ class Users_ProfileAction extends MarketUsersBaseAction
         $user = $this->getContext()->getUser();
         $model = $this->getContext()->getModel('Appliance', 'Appliance');
         
-        $username = $user->getAttribute('username');
         $jid = $user->getAttribute('jid');
-        $this->setAttribute('appliances', $model->getUserAppliances($username, $jid));
+        $this->setAttribute('appliances', $model->getUserAppliances($jid));
 		return 'Success';
 	}
 
