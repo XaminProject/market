@@ -43,6 +43,7 @@ class Appliance_InfoSuccessView extends MarketApplianceBaseView
     public function executeHtml(AgaviRequestDataHolder $rd)
     {
         $this->setupHtml($rd);
+        $this->registerCommentSlot($rd->getParameter('name'));
     }
 }
 
