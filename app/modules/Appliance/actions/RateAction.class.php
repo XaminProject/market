@@ -56,7 +56,6 @@ class Appliance_RateAction extends MarketApplianceBaseAction
         $difference = pow($rate, 2) - pow($current, 2);
         $applianceModel->increaseRatingBy($name, $difference);
         $applianceModel->setUserRateOfAppliance($name, $rate);
-        exit;
         return 'Success';
     }
 
