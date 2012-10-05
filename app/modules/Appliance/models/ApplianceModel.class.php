@@ -182,8 +182,9 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
             )
         );
         $appliance['isInstalled'] = false;
+        $appliance['rate'] = $this->getUserRateOfAppliance($appliance['name']);
         $user = $this->getContext()->getUser();
-        if ($user->isAuthenticated() or true) {
+        if ($user->isAuthenticated()) {
             $jid = $user->getAttribute('jid');
             $key = self::INSTALLER_TO_APPLIANCES_PREFIX . $jid;
             if (!isset(self::$_cache[$key])) {
@@ -267,5 +268,63 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
                     )
             )
         );
+    }
+
+    /**
+     * increases rating of an appliance by given number
+     *
+     * @param string $name the name of appliance
+     * @param int    $by   the number that rating should be increased by
+     *
+     * @return int the new rate value
+     */
+    public function increaseRatingBy($name, $by)
+    {
+        // increase the rating of appliance
+        $rate = $this->getRedis()->zIncrBy("ratings", $by, $name);
+        // we sort appliances of a tag by rating, so update 'em too
+        $appliance = $this->getAppliance($name);
+        foreach ($appliance['tags'] as $tag) {
+            $this->getRedis()->zIncrBy("tag:{$tag}", $by, $name);
+        }
+        return $rate;
+    }
+
+    /**
+     * returns current rating that a user has given to an appliance
+     *
+     * @param string $name the name of appliance
+     *
+     * @return int 0 will be returned if user has not rated the appliance yet, otherwise
+     * the rate will be returned
+     */
+    public function getUserRateOfAppliance($name)
+    {
+        $us = $this->getContext()->getUser();
+        if ($us->isAuthenticated()) {
+            $ratings = $us->getAttribute('ratings', null, []);
+            if (isset($ratings[$name])) {
+                return $ratings[$name];
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * sets rate that user has given to an appliance
+     *
+     * @param string $name the name of appliance
+     * @param int    $rate the rate that user wants to give to appliance
+     *
+     * @return void
+     */
+    public function setUserRateOfAppliance($name, $rate)
+    {
+        $us = $this->getContext()->getUser();
+        if ($us->isAuthenticated()) {
+            $ratings = $us->getAttribute('ratings', null, []);
+            $ratings[$name] = $rate;
+            $us->setAttribute('ratings', $ratings);
+        }
     }
 }

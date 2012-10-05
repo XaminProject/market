@@ -35,6 +35,7 @@
                 <route name=".info" pattern="^/info/({name:[^/]+})(/)?({version:[0-9]+\.[0-9]+\.[0-9]+})?(/)?$" action="Info" />
                 <route name=".install" pattern="^/install/({name:[^/]+})(/)?({version:[0-9]+\.[0-9]+\.[0-9]+})?(/)?$" action="Install" />
                 <route name=".remove" pattern="^/remove/({name:[^/]+})(/)?({version:[0-9]+\.[0-9]+\.[0-9]+})?(/)?$" action="Remove" />
+                <route name=".rate" pattern="^/rate/({name:[^/]+})/({rate:[1-5]})(/)?$" action="Rate" />
             </route>
 
 			<route name="users" pattern="^/users" module="Users">
