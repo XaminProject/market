@@ -21,7 +21,8 @@
         "agavi/agavi" : "1.1.*",
         "zend/acl" : "dev-master",
         "xamin/form": "dev-master",
-        "swiftmailer/swiftmailer" : "4.2.*"
+        "swiftmailer/swiftmailer" : "4.2.*",
+        "xamin/ejabberd-external-auth" : "dev-master"
     },
     "config": {
         "bin-dir": "bin",

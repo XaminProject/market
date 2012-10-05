@@ -104,6 +104,10 @@ class UsersModel extends MarketBaseModel
         if (!isset($dataArray['attributes'])) {
             $dataArray['attributes'] = [];
         }
+        //In XMPP registration email is not set, and no role. so make sure to set them to defaults
+        if (!isset($dataArray['acl_role'])) {
+            $dataArray['acl_role'] = false; 
+        }
         $dataArray['attributes']['jid'] = $user.'@'.AgaviConfig::get('xmpp.host').'/'.AgaviConfig::get('xmpp.resource', 'archipel');
         return $dataArray;
     }
