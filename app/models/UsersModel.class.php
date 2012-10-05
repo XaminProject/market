@@ -337,4 +337,35 @@ class UsersModel extends MarketBaseModel
         $user = json_decode($user, true);
         return $user['email'];        
     }
+    /**
+     * Store all attributes back into redis
+     *
+     * @param string $attr attribute name to check and save if nececery
+     *
+     * @return void
+     */
+    public function storeAttribute($attr)
+    {
+        $user = $this->getContext()->getUser();
+        $username = $user->isAuthenticated() ? $user->getAttribute('username', null) : null;
+        if ($username == null) {
+            return ;
+        }
+        $key = self::PREFIX . strtolower($username);
+        
+        $data = $this->getRedis()->get($key);
+        if (!$data) {
+            return null;
+        }
+        $data = json_decode($data, true);
+        $attrData = $user->getAttribute($attr);
+        //TODO : save if not changed
+        if (!isset($data['attributes']) || !as_array($data['attributes'])) {
+            $data['attributes'] = array();
+        }
+        
+        $data['attributes'][$attr] = $attrData;
+        $dataString = json_encode($data);
+        return $this->getRedis()->set($key, $dataString);
+    }
 }
