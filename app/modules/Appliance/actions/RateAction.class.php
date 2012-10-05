@@ -66,6 +66,6 @@ class Appliance_RateAction extends MarketApplianceBaseAction
      */
     public function isSecure()
     {
-        return false;
+        return true;
     }
 }
