@@ -49,7 +49,7 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
      */
     public function tags($offset=0, $limit=10)
     {
-        $tmp = $this->getRedis()->zRevRangeByScore("tags", "+inf", "-inf", array($offset, $limit));
+        $tmp = $this->getRedis()->zRevRangeByScore("tags", "+inf", "1", ['limit' => [$offset, $limit], 'withscores' => true]);
         $ro = $this->getContext()->getRouting();
         $tags = [];
         foreach ($tmp as $name => $count) {
