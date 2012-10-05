@@ -182,7 +182,8 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
             )
         );
         $appliance['isInstalled'] = false;
-        $appliance['rate'] = $this->getUserRateOfAppliance($appliance['name']);
+        $appliance['rate'] = $this->getRatingDetails($appliance['name']);
+        $appliance['rate']['user'] = $this->getUserRateOfAppliance($appliance['name']);
         $user = $this->getContext()->getUser();
         if ($user->isAuthenticated()) {
             $jid = $user->getAttribute('jid');
@@ -323,8 +324,57 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
         $us = $this->getContext()->getUser();
         if ($us->isAuthenticated()) {
             $ratings = $us->getAttribute('ratings', null, []);
+            $difference = $rate;
+            if (isset($ratings[$name])) {
+                // user has already voted
+                $difference -= $ratings[$name];
+                $voters = (int) $this->getRedis()->hmGet("ratings:{$name}", "voters");
+            } else {
+                $voters = $this->getRedis()->hIncrBy("ratings:{$name}", "voters", 1);
+            }
+            $total = $this->getRedis()->hIncrBy("ratings:{$name}", "total", $difference);
+            $this->getRedis()->hmSet(
+                "ratings:{$name}",
+                "average",
+                $this->round($total / $voters)
+            );
             $ratings[$name] = $rate;
             $us->setAttribute('ratings', $ratings);
         }
+    }
+
+    /**
+     * rounds number to X.5 or X.0
+     *
+     * @param int $number the number that should be rounded
+     *
+     * @return float
+     */
+    protected function rount($number)
+    {
+        $increments = 1 / 0.5;
+        return (floor($number * $increments) / $increments);
+    }
+
+    /**
+     * returns details of rating of an appliance
+     *
+     * @param string $name the name of appliance
+     *
+     * @return array an assocc array with average / total / voters keys
+     */
+    protected function getRatingDetails($name)
+    {
+        $key = "ratings:{$name}";
+        if (!$this->getRedis()->exists($key)) {
+            $details = [
+                "average" => 0,
+                "total" => 0,
+                "voters" => 0
+            ];
+        } else {
+            $details = $this->getRedis()->hmGet($key, array('average', 'total', 'voters'));
+        }
+        return $details;
     }
 }
