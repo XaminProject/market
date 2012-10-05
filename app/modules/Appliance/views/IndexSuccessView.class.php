@@ -45,8 +45,8 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
     public function executeHtml(AgaviRequestDataHolder $rd)
     {
         $this->setupHtml($rd);
-
         $this->setAttribute('_title', 'Index');
+
         $this->getLayer('content')->setSlot(
             'tags',
             $this->createSlotContainer(
@@ -57,7 +57,6 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
                 'read' // request method to use
             )
         );
-        $this->setAttribute('_title', 'Index');
         $this->getLayer('content')->setSlot(
             'search',
             $this->createSlotContainer(
@@ -68,7 +67,5 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
                 'read' // request method to use
             )
         );
-
-        $this->registerCommentSlot('TestScope', $this->getContext()->getRouting()->gen('index', array()));
     }
 }
