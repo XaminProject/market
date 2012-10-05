@@ -1,39 +1,42 @@
 <?php
-// +---------------------------------------------------------------------------+
-// | This file is part of the Agavi package.								   |
-// | Copyright (c) 2012 Parspooyesh co.								           |
-// |																		   |
-// | For the full copyright and license information, please view the LICENSE   |
-// | file that was distributed with this source code. You can also view the	   |
-// | LICENSE file online at http://www.agavi.org/LICENSE.txt				   |
-// |   vi: set noexpandtab:													   |
-// |   Local Variables:														   |
-// |   indent-tabs-mode: t													   |
-// |   End:																	   |
-// +---------------------------------------------------------------------------+
 
 /**
- * Provides Redis connectivity through phpredis extension
- *
- * @package	agavi
- * @subpackage Acl
- *
- * @author	  fzerorubigd
- * @copyright Authors
- * @copyright The Agavi Project
- *
- * @since	  1.0.8
- *
- * @version	$Id$
+ * User object for market project
+ * 
+ * PHP version 5.3
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
+ * @see       References to other sections (if any)...
  */
-class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
+
+/**
+ * User object class
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
+ * @see       References to other sections (if any)...
+ */
+class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser
+{
 
 	/**
 	 * Initialize object.
 	 *
-	 * @param	  AgaviContext The current application context.
-	 * @param	  array		An associative array of initialization parameters.
+	 * @param AgaviContext $context    The current application context.
+	 * @param array		   $parameters An associative array of initialization parameters.
 	 *
+     * @return void
 	 * @author	  fzerorubigd <fzerorubigd@gmail.com>
 	 * @since	  1.0.8
 	 */    
@@ -42,32 +45,50 @@ class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
         parent::initialize($context, $parameters);
         $model = $this->getContext()->getModel('Acl');
         
-        $this->initResources($model->getResources());
-        $this->initRoles($model->getRoles());
+        $this->_initResources($model->getResources());
+        $this->_initRoles($model->getRoles());
     }
 
-    private function initResources($resources, $parent = null) 
+    /**
+     * Initialize resources
+     * 
+     * @param array  $resources Resource array to initialize
+     * @param string $parent    Parrent for resource array
+     *
+     * @return void   
+     * @access private
+     */
+    private function _initResources($resources, $parent = null) 
     {
         $acl = $this->getZendAcl();
         
-        while($res = array_pop($resources)) {
+        while ($res = array_pop($resources)) {
             $acl->addResource($res['name'], $parent);
-            $this->initResources($res['childs'], $res['name']);
+            $this->_initResources($res['childs'], $res['name']);
         }
     }
     
-    private function initRoles($roles, $parent = null) 
+    /**
+     * initialize roles
+     * 
+     * @param array  $roles  Roles array to add
+     * @param string $parent Parent role
+     *
+     * @return void   
+     * @access private
+     */
+    private function _initRoles($roles, $parent = null) 
     {
         $acl = $this->getZendAcl();
         
-        while($role = array_pop($roles)) {
+        while ($role = array_pop($roles)) {
             if (strtolower($role['name']) != 'null') {
                 $acl->addRole($role['name'], $parent);  
             } else {
                 $role['name'] = null;
             }
             if (isset($role['perms'])) {
-                foreach($role['perms'] as $perm) {
+                foreach ($role['perms'] as $perm) {
                     list($res, $type, $assert, $privs) = $perm;
                     if ($assert !== null) {
                         if (class_exists($assert)) {
@@ -87,10 +108,19 @@ class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
                     }
                 }
             }
-            $this->initRoles($role['childs'], $role['name']);
+            $this->_initRoles($role['childs'], $role['name']);
         }
     }
 
+    /**
+     * Is allowed for current user to access to this resource
+     * 
+     * @param string $resource  Resource name or object (But always string in our case)
+     * @param string $operation Operation, read write or any other action operation
+     *
+     * @return boolean
+     * @access public 
+     */
 	public function isAllowed($resource, $operation = null)
 	{
         //Prevent call parent isAllowed
@@ -98,6 +128,17 @@ class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
 		return $this->getZendAcl()->isAllowed($aclRole, $resource, $operation);
 	}
 
+    /**
+     *‌ Login user 
+     * 
+     * @param string  $user     username
+     * @param string  $password password
+     * @param boolean $hashed   is hashed?
+     *
+     * @return void                  
+     * @access public                
+     * @throws AgaviSecurityException if invalid login
+     */
     public function login($user, $password, $hashed = false) 
     {
         $users = $this->getContext()->getModel('Users');
@@ -110,20 +151,49 @@ class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
         $this->setAuthenticated(true);
         $this->clearCredentials();
 
-        foreach( $userArray['attributes'] as $attr => $value) {
-            $this->setAttribute($attr, $value);
+        foreach ($userArray['attributes'] as $attr => $value) {
+            parent::setAttribute($attr, $value);
         }
 
         //This two attribute is important
-        $this->setAttribute('username', $userArray['username']);
+        parent::setAttribute('username', $userArray['username']);
         
         if ($this->getZendAcl()->hasRole($userArray['acl_role'])) {
-            $this->setAttribute('acl_role', $userArray['acl_role']);
+            parent::setAttribute('acl_role', $userArray['acl_role']);
         } else {
-            $this->setAttribute('acl_role', AgaviConfig::get('authz.default_group', 'guest'));
+            parent::setAttribute('acl_role', AgaviConfig::get('authz.default_group', 'guest'));
         }
     }
 
+    /**
+     * Set attribute, and set it into redis
+	 *
+	 * If an attribute with the name already exists the value will be
+	 * overridden.
+	 *
+	 * @param string $name  An attribute name.
+	 * @param mixed  $value An attribute value.
+	 * @param string $ns    An attribute namespace.     
+     *
+     * @return void
+     */
+    public function setAttribute($name, $value, $ns = null)
+    {
+        parent::setAttribute($name, $value, $ns);
+        $users = $this->getContext()->getModel('Users');
+        if ($ns == null) {
+            //save this into redis.
+            $users->storeAttribute($name);
+        }
+    }
+
+
+    /**
+     * Logout user
+     * 
+     * @return void  
+     * @access public
+     */
 	public function logout()
 	{
 		$this->clearCredentials();
@@ -132,6 +202,12 @@ class MarketZendAclSecurityUser extends AgaviZendaclSecurityUser {
 	}
 
 
+    /**
+     * startup user system
+     * 
+     * @return void  
+     * @access public
+     */
 	public function startup()
 	{
 		parent::startup();
