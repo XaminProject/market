@@ -40,38 +40,63 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
     /**
      * returns all tags
      *
+     * @param int $offset the start offset
+     * @param int $limit  the limit of items
+     *
      * @author Behrooz Shabani <everplays@gmail.com>
      * @copyright 2012 (c) ParsPooyesh co
      * @return array tags
      */
-    public function tags()
+    public function tags($offset=0, $limit=10)
     {
-        return $this->getRedis()->sMembers("tags");
+        $tmp = $this->getRedis()->zRevRangeByScore("tags", "+inf", "-inf", array($offset, $limit));
+        $ro = $this->getContext()->getRouting();
+        $tags = [];
+        foreach ($tmp as $name => $count) {
+            $tags[] = [
+                'count' => $count,
+                'name' => $name,
+                'url' => $ro->gen('tags.tag', ['name' => $name])
+            ];
+        }
+        return $tags;
+    }
+
+    /**
+     * counts all tags
+     *
+     * @return int
+     */
+    public function countTags()
+    {
+        return (int) $this->getRedis()->zCard('tags');
     }
 
     /**
      * get appliances by tag
      *
-     * @param string $tag the tag
+     * @param string $tag    the tag
+     * @param int    $offset the start offset
+     * @param int    $limit  the number of items to fetch
      *
      * @return array
      * @author Behrooz Shabani <everplays@gmail.com>
      * @copyright 2012 (c) ParsPooyesh co
      */
-    public function appliancesByTag($tag)
+    public function appliancesByTag($tag, $offset=0, $limit=10)
     {
-        $tmp = [];
+        $tmp = $this->getRedis()->zRevRangeByScore(
+            "tag:{$tag}",
+            "+inf",
+            "-inf",
+            [ 'limit' => [$offset, $limit] ]
+        );
         // we gonna put appliances in this array
-        $result = ['total' => 0, 'result' => []];
+        $result = ['result' => []];
+        $result['total'] = $this->getRedis()->zCard("tag:{$tag}");
         // get all appliances that has this tag
-        foreach ($this->getRedis()->sMembers("tag:{$tag}") as $id) {
-            // the id is like: "name:version"
-            list($name, $version) = explode(':', $id, 2);
-            if (!isset($tmp[$name])) {
-                $tmp[$name] = true;
-                $result['total']++;
-                $result['result'][] = $this->getAppliance($name);
-            }
+        foreach ($tmp as $name) {
+            $result['result'][] = $this->getAppliance($name);
         }
         return $result;
     }
