@@ -70,5 +70,7 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
         );
 
         $this->registerCommentSlot('TestScope', $this->getContext()->getRouting()->gen('index', array()));
+
+        $this->registerPaginatorSlot('paginator', 150, 1, 'index', 'page', array('other' => 'value'), 30, 'paginator');
     }
 }

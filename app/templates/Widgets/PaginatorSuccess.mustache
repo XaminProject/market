@@ -1,0 +1,10 @@
+<div class="{{t.class}}">
+  <ul>
+    {{#t.pager}}
+      <li{{#cls}} class="{{cls}}"{{/cls}}>
+        <a href="{{{link}}}">{{{idx}}}</a>
+      </li>
+    {{/t.pager}}
+  </ul>
+</div>
+{{!TODO : All # links must have onclick="return false;"}}
