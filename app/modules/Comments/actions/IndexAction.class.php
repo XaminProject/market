@@ -64,8 +64,13 @@ class Comments_IndexAction extends MarketCommentsBaseAction
         //TODO : {fzerorubigd} Add pager support
         $scope = $this->getContainer()->getArguments()->getParameter('scope');
         $redirect = $this->getContainer()->getArguments()->getParameter('redirect');
+        $pageNumber = $this->getContainer()->getArguments()->getParameter('page', 1);
+
         $model = $this->getContext()->getModel('Main', 'Comments');
-        $this->setAttribute('comments', $model->getComments($scope));
+        $this->setAttribute('comments', $model->getComments($scope, $pageNumber));
+        $this->setAttribute('count', $model->getCommentsCount($scope));
+        $this->setAttribute('current', $pageNumber); //Need this for pager
+        $this->setAttribute('redirect', $redirect); //Need this for pager
         $form = '';
         if ($user->isAuthenticated()) {
             $form = $this->_getForm($scope, $redirect);

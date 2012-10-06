@@ -196,7 +196,7 @@ class Widgets_PaginatorAction extends MarketWidgetsBaseAction
             'link' => ($c == 'disabled') ? '#' : $this->_gen($route, $param, $cp + 1),
             );
         
-        if (count($result) == 3 ) {
+        if (count($result) <= 3 ) {
             //No pagination needed on "prev current next"
             $result = array();
         }

@@ -149,7 +149,7 @@ class UsersModel extends MarketBaseModel
         $dataString = json_encode($data);
         
         $done = $this->getRedis()->multi()
-            ->set($emailKey, $username)
+            ->set($emailKey, $user)
             ->set($key, $dataString)
             ->exec();
         return $done[0] && $done[1];

@@ -46,6 +46,13 @@ class Comments_IndexSuccessView extends MarketCommentsBaseView
         $this->setupHtml($rd);
 
         $this->setAttribute('_title', 'Index');
+        $this->registerPaginatorSlot(
+            'pager', //Designer can customize this in mustache template for paginator
+            $this->getAttribute('count'),
+            $this->getAttribute('current'),
+            'p', //TODO : {fzerorubigd} Change this to comment parameter is good idea
+            $this->getAttribute('redirect')
+        );
     }
 }
 

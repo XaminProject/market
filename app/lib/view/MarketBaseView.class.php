@@ -87,10 +87,11 @@ class MarketBaseView extends AgaviView
      *
      * @param string $scope    comment scope, action name is best option
      * @param string $redirect url that we should redirect user to, after saving comment
+     * @param int    $page     page number 
      *
      * @return void
      */
-    public function registerCommentSlot($scope, $redirect=null)
+    public function registerCommentSlot($scope, $redirect=null, $page = 1)
     {
         $this->getLayer('content')->setSlot(
             'comments',
@@ -99,7 +100,8 @@ class MarketBaseView extends AgaviView
                 'Index',
                 array(
                     'scope' => $scope,
-                    'redirect' => is_null($redirect)?$this->getContext()->getRouting()->gen(null):$redirect
+                    'redirect' => is_null($redirect)?$this->getContext()->getRouting()->gen(null):$redirect,
+                    'page' => $page
                 ),
                 'html',
                 'read'
@@ -112,7 +114,7 @@ class MarketBaseView extends AgaviView
      *
      * @param string $class   Paginator class
      * @param int    $total   total items count
-     * @param int    $current page
+     * @param int    $current current page number
      * @param string $param   Parameter name for generate route
      * @param string $route   Agavi route name
      * @param int    $perpage Item per page 0 for config value

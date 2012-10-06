@@ -42,8 +42,11 @@ class Comments_MainModel extends MarketCommentsBaseModel
      *
      * @return array comments array
      */
-    public function getComments($scope, $page = 0, $count = 10)
+    public function getComments($scope, $page = 1, $count = 0)
     {
+        //Pager pages are from 1 so 
+        $page--;
+        $count = $count ? $count : AgaviConfig::get('xamin.per_page', 10);
         $key = self::PREFIX . $scope;
         if (!$this->getRedis()->sismember('Comments', $scope)) {
             // make it an empty list, it will be needed for writing comment
@@ -56,6 +59,22 @@ class Comments_MainModel extends MarketCommentsBaseModel
         return $data;
     }
 
+    /**
+     * Get comments count for a scope
+     * 
+     * @param string $scope scope name
+     *
+     * @return int
+     */
+    public function getCommentsCount($scope)
+    {
+        $key = self::PREFIX . $scope;
+        if (!$this->getRedis()->sismember('Comments', $scope)) {
+            // make it an empty list, it will be needed for writing comment
+            $this->getRedis()->sadd('Comments', $scope);
+        }
+        return $this->getRedis()->llen($key);
+    }
     /**
      * Add new comment
      *

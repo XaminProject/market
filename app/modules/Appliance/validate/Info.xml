@@ -15,6 +15,9 @@
             <validator name="name" class="string">
                 <argument>name</argument>
             </validator>
+			<validator name="page" class="number" required="false" severity="silent">
+			  <argument>p</argument>
+			</validator>
         </validators>
     </ae:configuration>
     
