@@ -54,17 +54,11 @@ class Widgets_PaginatorAction extends MarketWidgetsBaseAction
      */
     public function getDefaultViewName()
     {
-		$validParams = array('perpage', 'total', 'current', 'route', 'base', 'param','class');
-		foreach ($validParams as $param) {
-            $$param = $this->getContainer()->getArguments()->getParameter($param);
+		$validParams = array('perpage', 'total', 'current', 'route', 'param','class');
+		foreach ($validParams as $pVar) {
+            $$pVar = $this->getContainer()->getArguments()->getParameter($pVar);
         }
-        if (!is_array($base)) {
-            $base = json_decode($base);
-            if (!is_array($base)) {
-                $base = array();
-            }
-        }
-        $pager = $this->_buildPaginatorArray($perpage, $total, $current, $route, $param, $base, $class);
+        $pager = $this->_buildPaginatorArray($perpage, $total, $current, $route, $param);
         $this->setAttribute('nopager', $pager == array());
         $this->setAttribute('pager', $pager);
         $this->setAttribute('class', $class);
@@ -82,22 +76,61 @@ class Widgets_PaginatorAction extends MarketWidgetsBaseAction
     }
 
     /**
+     * Generate link
+     * 
+     * @param string $link   target link or null for current page
+     * @param string $param  page parameter to search
+     * @param int    $number page number
+     *
+     * @return string
+     */
+    private function _gen($link, $param, $number)
+    {
+        $ro = $this->getContext()->getRouting();
+        if ($link == null) {
+            $link = $ro->gen(null);
+        }
+        //Search for ? at the end. 
+        if (preg_match("/.*\?$/", $link)) {
+            //Its ok
+            $useAmp = false;
+        } elseif (preg_match("/.*\?/", $link)) {
+            //Again, its ok
+            $useAmp = true;
+        } else {
+            $link .= '?';
+            $useAmp = false;
+        }
+        
+        if (preg_match("/.*($param=\d*).*/", $link)) {
+            //Param is already there
+            $link = preg_replace("/$param=\d*/", "$param=" . $number, $link);
+        } else {
+            //Ok lets add it
+            if ($useAmp) {
+                $link .= '&amp;';
+            }
+            $link .= $param . '=' . $number;
+        }
+        return $link;
+    }
+
+    /**
      * Where the magic happen
      *
      * Very bad code and poor choice of variable name. but I write this years ago and 
      * don't want to mess with that again.
      *
-     * @param int    $perpage   item per page
-     * @param int    $total     total items count
-     * @param int    $current   current page
-     * @param string $route     Route name to generate links
-     * @param string $param     Request parameter to use as page number
-     * @param array  $baseParam base parameter to generate current route
+     * @param int    $perpage item per page
+     * @param int    $total   total items count
+     * @param int    $current current page
+     * @param string $route   Route name to generate links
+     * @param string $param   Request parameter to use as page number
      * 
      * @return void
      * @author fzerorubigd <fzerorubigd@gmail.com>
      */
-    private function _buildPaginatorArray($perpage, $total, $current, $route, $param, array $baseParam = array())
+    private function _buildPaginatorArray($perpage, $total, $current, $route, $param)
     {
         $tm = $this->getContext()->getTranslationManager();
         $ro = $this->getContext()->getRouting();
@@ -114,13 +147,12 @@ class Widgets_PaginatorAction extends MarketWidgetsBaseAction
         if ($cp == 1 || $nb <= 1) {
             $c = 'disabled';
         }
-        $baseParam[$param] = $cp - 1;
         $result[] = array(
             'idx' => $tm->_("Previus &larr;"),
             'start' => ($cp - 1) * $perpage,
             'limit' => $perpage,
             'cls' => $c,
-            'link' => ($c == 'disabled') ? '#' : $ro->gen($route, $baseParam),
+            'link' => ($c == 'disabled') ? '#' : $this->_gen($route, $param, $cp - 1),
             );
         for ($i = 0; $i < $nb; $i++) {
             $cls = false;
@@ -140,13 +172,12 @@ class Widgets_PaginatorAction extends MarketWidgetsBaseAction
                         );
                 }
                 $sep = false;
-                $baseParam[$param] = $i + 1;
                 $result[] = array(
                     'idx' => $i + 1,
                     'start' => $i * $perpage,
                     'limit' => $perpage,
                     'cls' => $cls,
-                    'link' => ($cls == 'disabled') ? '#' : $ro->gen($route, $baseParam),
+                    'link' => ($cls == 'disabled' || $cls == 'active') ? '#' : $this->_gen($route, $param, $i + 1),
                     );
             } else {
                 $sep = true;
@@ -157,16 +188,16 @@ class Widgets_PaginatorAction extends MarketWidgetsBaseAction
         if ($cp == $nb || $nb <= 1) {
             $c = 'disabled';
         }
-        $baseParam[$param] = $cp + 1;
         $result[] = array(
             'idx' => $tm->_("&rarr; Next"),
             'start' => ($cp + 1) * $perpage,
             'limit' => $perpage,
             'cls' => $c,
-            'link' => ($c == 'disabled') ? '#' : $ro->gen($route, $baseParam),
+            'link' => ($c == 'disabled') ? '#' : $this->_gen($route, $param, $cp + 1),
             );
         
         if (count($result) == 3 ) {
+            //No pagination needed on "prev current next"
             $result = array();
         }
         return $result;

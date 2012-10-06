@@ -113,25 +113,24 @@ class MarketBaseView extends AgaviView
      * @param string $class   Paginator class
      * @param int    $total   total items count
      * @param int    $current page
-     * @param string $route   Agavi route name
      * @param string $param   Parameter name for generate route
-     * @param array  $base    Base parameter to use for routing
+     * @param string $route   Agavi route name
      * @param int    $perpage Item per page 0 for config value
      * @param string $slot    Slot name
      * 
      * @return void
      */
-    public function registerPaginatorSlot($class, $total, $current, $route, $param, array $base = array(), $perpage = 0, $slot = 'paginator')
+    public function registerPaginatorSlot($class, $total, $current, $param, $route = null, $perpage = 0, $slot = 'paginator')
     {
         $parameters = array(
-            'perpage' => $perpage ? $perpage : AgaviConfig::get('cybits.per_page'), 
+            'perpage' => $perpage ? $perpage : AgaviConfig::get('xamin.per_page', 10), 
             'total' => $total, 
             'current' => $current, 
             'route' => $route, 
-            'base' => $base, //Can not pass array as parameter
             'param' => $param,
             'class' => $class
             );
+
 		$this->getLayer('content')->setSlot($slot, $this->createSlotContainer('Widgets', 'Paginator', $parameters));
     }
 
