@@ -3,34 +3,41 @@
 /**
  * Search action
  *
- * php 5.2
+ * PHP version 5.2
  *
- * @category    Xamin
- * @package     Market
- * @author      Behrooz Shabani <everplays@gmail.com>
- * @copyright   2012 (c) ParsPooyesh co
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh co
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
  */
 
 /**
  * Search action
  *
- * @category    Xamin
- * @package     Market
- * @author      Behrooz Shabani <everplays@gmail.com>
- * @copyright   2012 (c) ParsPooyesh co
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh co
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
  */
 class Appliance_SearchAction extends MarketApplianceBaseAction
 {
     /**
      * @var Form_Form form instance
      */
-    private $form = null;
+    protected $form = null;
 
 	/**
 	 * Returns the default view if the action does not serve the request
 	 * method used.
 	 *
      * @param AgaviRequestDataHolder $rd request data
+     *
 	 * @return     mixed <ul>
 	 *                     <li>A string containing the view name associated
 	 *                     with this action; or</li>
@@ -44,8 +51,9 @@ class Appliance_SearchAction extends MarketApplianceBaseAction
         $query = $rd->getParameter('query');
         $start = $rd->getParameter('start', '0');
         $this->setAttribute('form', $this->getForm());
-        if(is_null($query))
+        if (is_null($query)) {
             return 'Input';
+        }
         $appliance = $this->getContext()->getModel('Appliance', 'Appliance');
         $response = $appliance->query('*'.$query.'*', $start);
         $this->setAttribute('appliances', $response);
@@ -67,39 +75,44 @@ class Appliance_SearchAction extends MarketApplianceBaseAction
      *
      * @return Form_Form form instance
      */
-    private function getForm()
+    protected function getForm()
     {
-        if (!is_null($this->form))
-        {
+        if (!is_null($this->form)) {
             return $this->form;
         }
-        $this->form = new Form_Form(array(
-            'method' => 'get',
-            'id' => 0,
-            'renderer' => $this->getContainer()->getOutputType()->getRenderer(),
-            'submit' => 'Search',
-            'action' => $this->getContext()->getRouting()->gen('search')
-        ));
-        $query = new Form_Elements_TextField(array(
-            'name' => 'query',
-            'title' => '',
-            'required' => false,
-            'id' => 1
-        ), $this->form);
+        $this->form = new Form_Form(
+            array(
+                'method' => 'get',
+                'id' => 0,
+                'renderer' => $this->getContainer()->getOutputType()->getRenderer(),
+                'submit' => 'Search',
+                'action' => $this->getContext()->getRouting()->gen('search')
+                )
+        );
+        $query = new Form_Elements_TextField(
+            array(
+                'name' => 'query',
+                'title' => '',
+                'required' => false,
+                'id' => 1
+                ), 
+            $this->form
+        );
         $this->form->addChild($query);
         return $this->form;
     }
-
+    
     /**
      * registers validator
+     *
+     * @return void
      */
 	public function registerValidators()
     {
         Form_Validator::registerValidators(
             $this->getForm(),
             $this->getContainer()->getValidationManager(),
-            array());
+            array()
+        );
     }
 }
-
-?>

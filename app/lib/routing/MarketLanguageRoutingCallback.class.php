@@ -1,9 +1,49 @@
 <?php
+/**
+ * Language routing class for agavi
+ * 
+ * PHP version 5.3
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
+ */
 
+
+/**
+ * Callback class
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
+ */
 class MarketLanguageRoutingCallback extends AgaviRoutingCallback
 {
+
+    /**
+     * list of available locale
+     * @var array    
+     * @access protected
+     */
 	protected $availableLocales = array();
 	
+    /**
+     * Initialize class
+     * 
+     * @param AgaviContext $context Agavi context
+     * @param array        &$route  Agavi Route array
+     *
+     * @return void   
+     * @access public 
+     */
 	public function initialize(AgaviContext $context, array &$route)
 	{
 		parent::initialize($context, $route);
@@ -16,6 +56,15 @@ class MarketLanguageRoutingCallback extends AgaviRoutingCallback
 		
 	}
 	
+    /**
+     * On matched event
+     * 
+     * @param array                   &$parameters Parameters
+     * @param AgaviExecutionContainer $container   Execution container
+     *
+     * @return boolean 
+     * @access public 
+     */
 	public function onMatched(array &$parameters, AgaviExecutionContainer $container)
 	{
 		// let's check if the locale is allowed
@@ -32,6 +81,14 @@ class MarketLanguageRoutingCallback extends AgaviRoutingCallback
 		}
 	}
 
+    /**
+     * On not matched event
+     * 
+     * @param AgaviExecutionContainer $container Execution container
+     *
+     * @return void
+     * @access public 
+     */
 	public function onNotMatched(AgaviExecutionContainer $container)
 	{
 		// the pattern didn't match, or onMatched() returned false.
@@ -39,7 +96,7 @@ class MarketLanguageRoutingCallback extends AgaviRoutingCallback
 		$rd = $this->context->getRequest()->getRequestData();
 		
 		$cookie = $rd->getCookie('locale');
-		if($cookie !== null) {
+		if ($cookie !== null) {
 			try {
 				$this->translationManager->setLocale($cookie);
 				return;
@@ -50,13 +107,13 @@ class MarketLanguageRoutingCallback extends AgaviRoutingCallback
 		}
 		
 		
-		if($rd->hasHeader('Accept-Language')) {
+		if ($rd->hasHeader('Accept-Language')) {
 			$hasIntl = function_exists('locale_accept_from_http');
 			// try to find the best match for the locale
 			$locales = self::parseAcceptLanguage($rd->getHeader('Accept-Language'));
-			foreach($locales as $locale) {
+			foreach ($locales as $locale) {
 				try {
-					if($hasIntl) {
+					if ($hasIntl) {
 						// we don't use this directly on Accept-Language because we might not have the preferred locale, but another one
 						// in any case, it might help clean up the value a bit further
 						$locale = locale_accept_from_http($locale);
@@ -69,9 +126,19 @@ class MarketLanguageRoutingCallback extends AgaviRoutingCallback
 		}
 	}
 
+    /**
+     * On generate route event
+     * 
+     * @param array $defaultParameters Defaults
+     * @param array &$userParameters   User parameters
+     * @param arary &$options          Options
+     *
+     * @return boolean 
+     * @access public 
+     */
 	public function onGenerate(array $defaultParameters, array &$userParameters, array &$options)
 	{
-		if(isset($userParameters['locale'])) {
+		if (isset($userParameters['locale'])) {
 			$userParameters['locale'] = $this->getShortestLocaleIdentifier($userParameters['locale']);
 		} else {
 			$userParameters['locale'] = $this->getShortestLocaleIdentifier($this->translationManager->getCurrentLocaleIdentifier());
@@ -79,31 +146,48 @@ class MarketLanguageRoutingCallback extends AgaviRoutingCallback
 		return true;
 	}
 	
+    /**
+     * get shortest local id
+     * 
+     * @param string $localeIdentifier locall id
+     *
+     * @return string 
+     * @access public 
+     */
 	public function getShortestLocaleIdentifier($localeIdentifier)
 	{
 		static $localeMap = null;
-		if($localeMap === null) {
-			foreach($this->availableLocales as $locale) {
+		if ($localeMap === null) {
+			foreach ($this->availableLocales as $locale) {
 				$localeMap[$locale['identifierData']['language']][] = $locale['identifierData']['territory'];
 			}
 		}
-		if(count($localeMap[$short = substr($localeIdentifier, 0, 2)]) > 1) {
+		if (count($localeMap[$short = substr($localeIdentifier, 0, 2)]) > 1) {
 			return $localeIdentifier;
 		} else {
 			return $short;
 		}
 	}
 	
+    /**
+     * parse accept language
+     * 
+     * @param string $acceptLanguage language code
+     *
+     * @return array 
+     * @access protected
+     * @static
+     */
 	protected static function parseAcceptLanguage($acceptLanguage)
 	{
 		$locales = array();
 		
-		if(preg_match_all('/(^|\s*,\s*)([a-zA-Z]{1,8}(-[a-zA-Z]{1,8})*)\s*(;\s*q\s*=\s*(1(\.0{,3})?|0(\.[0-9]{,3})))?/i', $acceptLanguage, $matches)) {
-			foreach($matches[2] as &$language) {
+		if (preg_match_all('/(^|\s*,\s*)([a-zA-Z]{1,8}(-[a-zA-Z]{1,8})*)\s*(;\s*q\s*=\s*(1(\.0{,3})?|0(\.[0-9]{,3})))?/i', $acceptLanguage, $matches)) {
+			foreach ($matches[2] as &$language) {
 				$language = str_replace('-', '_', $language);
 			}
-			foreach($matches[5] as &$quality) {
-				if($quality === '') {
+			foreach ($matches[5] as &$quality) {
+				if ($quality === '') {
 					$quality = '1';
 				}
 			}
@@ -114,5 +198,3 @@ class MarketLanguageRoutingCallback extends AgaviRoutingCallback
 		return array_keys($locales);
 	}
 }
-
-?>

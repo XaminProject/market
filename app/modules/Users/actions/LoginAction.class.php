@@ -1,13 +1,46 @@
 <?php
 
+/**
+ * Login action
+ * 
+ * PHP version 5.3
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
+ */
+
+
+/**
+ * Action class
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
+ * @see       References to other sections (if any)...
+ */
 class Users_LoginAction extends MarketUsersBaseAction
 {
 	
-	private $form;
+    /**
+     * Description for private
+     * @var object 
+     * @access private
+     */
+	private $_form;
+    
 	/**
 	 * Handles the Read request method.
 	 *
-	 * @parameter  AgaviRequestDataHolder the (validated) request data
+	 * @param AgaviRequestDataHolder $rd the (validated) request data
 	 *
 	 * @return     mixed <ul>
 	 *                     <li>A string containing the view name associated
@@ -19,14 +52,14 @@ class Users_LoginAction extends MarketUsersBaseAction
 	 */
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-        $this->setAttribute('form', $this->createForm());
+        $this->setAttribute('form', $this->_createForm());
 		return 'Input';
 	}
 
 	/**
 	 * Handles the Write request method.
 	 *
-	 * @parameter  AgaviRequestDataHolder the (validated) request data
+	 * @param AgaviRequestDataHolder $rd the (validated) request data
 	 *
 	 * @return     mixed <ul>
 	 *                     <li>A string containing the view name associated
@@ -45,21 +78,26 @@ class Users_LoginAction extends MarketUsersBaseAction
 		try {
 			$user->login($username, $password, false);
 		} catch (AgaviSecurityException $e) {
-			$this->setAttribute('form', $this->createForm());
+			$this->setAttribute('form', $this->_createForm());
 			$this->setAttribute('error', array($e->getMessage()));
 			return 'Error';
 		}
 		return 'Success';
 	}
 
+    /**
+     * Register validator for this action
+     * 
+     * @return void  
+     * @access public
+     */
 	public function registerWriteValidators()
     {
-	    xdebug_break();
         Form_Validator::registerValidators(
-            $this->createForm(),
+            $this->_createForm(),
             $this->getContainer()->getValidationManager(),
             array() //?
-            );
+        );
     }
 	
 	/**
@@ -79,31 +117,51 @@ class Users_LoginAction extends MarketUsersBaseAction
 		return 'Input';
 	}
 
+    /**
+     * Handle error for this action
+     * 
+     * @param AgaviRequestDataHolder $rd Request data
+     *
+     * @return string 
+     * @access public 
+     */
 	public function handleError(AgaviRequestDataHolder $rd)
     {
         $this->executeRead($rd);
         return parent::handleError($rd);
     }
 
+    /**
+     * Is this a secure action?
+     * 
+     * @return boolean 
+     * @access public 
+     */
     public function isSecure()
     {
         return false;
     }
 
-    private function createForm() 
+    /**
+     * Create new form
+     * 
+     * @return Form_Form created form 
+     * @access private
+     */
+    private function _createForm() 
     {
-        if ($this->form) {
-            return $this->form;
+        if ($this->_form) {
+            return $this->_form;
         }
         $tm = $this->getContext()->getTranslationManager();
-        $this->form = new Form_Form(
+        $this->_form = new Form_Form(
             array (
 	            'method' => 'post',
                 'submit' => $tm->_('Login'),
                 'id' => 0,
                 'renderer' => $this->getContainer()->getOutputType()->getRenderer()
                 )
-            );
+        );
         $username = new Form_Elements_TextField(
             array(
                 'name' => 'username',
@@ -111,9 +169,9 @@ class Users_LoginAction extends MarketUsersBaseAction
                 'required' => true,
                 'id' => 1
                 ), 
-            $this->form
-            );
-        $this->form->addChild($username);
+            $this->_form
+        );
+        $this->_form->addChild($username);
         $password = new Form_Elements_PasswordField(
             array(
                 'name' => 'password',
@@ -121,11 +179,9 @@ class Users_LoginAction extends MarketUsersBaseAction
                 'required' => true,
                 'id' => 2
                 ), 
-            $this->form
-            );
-        $this->form->addChild($password);
-        return $this->form;
+            $this->_form
+        );
+        $this->_form->addChild($password);
+        return $this->_form;
     }
 }
-
-?>

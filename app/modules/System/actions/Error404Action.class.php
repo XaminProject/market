@@ -1,5 +1,33 @@
 <?php
 
+/**
+ * Error 404 action
+ * 
+ * PHP version 5.3
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
+ * @see       References to other sections (if any)...
+ */
+
+
+/**
+ * Action class
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
+ * @see       References to other sections (if any)...
+ */
 class System_Error404Action extends MarketSystemBaseAction
 {
 	
@@ -21,10 +49,14 @@ class System_Error404Action extends MarketSystemBaseAction
 		return 'Success';
 	}
 
+    /**
+     * Secure action or not
+     * 
+     * @return boolean 
+     * @access public 
+     */
     public function isSecure() 
     {
         return false;
     }
 }
-
-?>

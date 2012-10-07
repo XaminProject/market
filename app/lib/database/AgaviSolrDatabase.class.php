@@ -1,38 +1,38 @@
 <?php
 
-// +---------------------------------------------------------------------------+
-// | This file is part of the Agavi package.								   |
-// | Copyright (c) 2012 Parspooyesh co.								|
-// |																		   |
-// | For the full copyright and license information, please view the LICENSE   |
-// | file that was distributed with this source code. You can also view the	|
-// | LICENSE file online at http://www.agavi.org/LICENSE.txt				   |
-// |   vi: set noexpandtab:													|
-// |   Local Variables:														|
-// |   indent-tabs-mode: t													 |
-// |   End:																	|
-// +---------------------------------------------------------------------------+
-
 /**
  * Provides Solr connectivity through solr extension
- *
- * @package	agavi
- * @subpackage database
- *
- * @author	 Behrooz Shabani
- * @copyright  Authors
- * @copyright  ParsPooyesh co
- * @copyright  The Agavi Project
- *
- * @since	  1.0.8
- *
- * @version	$Id$
+ * 
+ * PHP version 5.3
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   GIT: $Id$
+ * @link      http://xamin.ir
+ */
+
+
+/**
+ * Database class
+ * 
+ * @category  Xamin
+ * @package   Market
+ * @author    Behrooz Shabani <everplays@gmail.com>
+ * @copyright 2012 (c) ParsPooyesh Co
+ * @license   Custom <http://xamin.ir>
+ * @version   Release: @package_version@
+ * @link      http://xamin.ir
+ * @see       References to other sections (if any)...
  */
 class AgaviSolrDatabase extends AgaviDatabase
 {
 	/**
 	 * Connect to the database.
 	 *
+     * @return void
 	 * @throws	 <b>AgaviDatabaseException</b> If a connection could not be 
 	 *										   created.
 	 *
@@ -52,6 +52,7 @@ class AgaviSolrDatabase extends AgaviDatabase
 	/**
 	 * Execute the shutdown procedure.
 	 *
+     * @return void
 	 * @throws	 <b>AgaviDatabaseException</b> If an error occurs while shutting
 	 *										   down this database.
 	 *
@@ -63,5 +64,3 @@ class AgaviSolrDatabase extends AgaviDatabase
         $this->connection = $this->resource = null;
 	}
 }
-
-?>
