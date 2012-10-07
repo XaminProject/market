@@ -4,6 +4,7 @@
 
 	<ae:configuration>
 		<resources>
+		  <resource name="users:logout" />
 		  <resource name="users:profile" />
 		  <resource name="comments:save" />
 		</resources>
@@ -14,6 +15,7 @@
 		  </role>
 		  <role name="guest">
 			<perms>
+			  <perm type="allow" privileges="read">users:logout</perm>
 			  <perm type="allow" privileges="read">users:profile</perm>
 			  <perm type="allow" privileges="write">comments:save</perm>
 			</perms>
