@@ -8,8 +8,12 @@
 
 # Set this to the path to the Agavi installation's source directory. This is
 # the directory that contains the `agavi.php' file.
-
-BIN_DIR=`pwd`/`dirname $0`
+case $0 in
+     /*) BIN_DIR=`dirname $0` ;;
+     *) BIN_DIR=`pwd`/`dirname $0` ;;
+esac
+cd $BIN_DIR
+BIN_DIR=`php -r "echo __DIR__;"`
 
 AGAVI_SOURCE_DIRECTORY="$BIN_DIR/../libs/agavi/agavi"
 PHING_SOURCE_DIRECTORY="$BIN_DIR/../libs/phing/phing/classes"
