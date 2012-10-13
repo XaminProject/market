@@ -5,10 +5,12 @@
 # must be readable by ejabberd user. 
 # do not create log file, let program create that with proper permision.
 
-
 # Absolute path to this script, e.g. /home/user/bin/foo.sh
-SCRIPT=`readlink -f $0`
+## Mac readlink is old. so we can not use readlink
+pushd "$(dirname "$0")" > /dev/null
 # Absolute path this script is in, thus /home/user/bin
-SCRIPTPATH=`dirname $SCRIPT`
+## Find the real path using PHP (a little cheat :) ) 
+SCRIPTPATH=`php -r "echo __DIR__;"`
 
 php "$SCRIPTPATH/../app/ejabberd/Run.php"
+popd > /dev/null

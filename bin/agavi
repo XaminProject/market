@@ -8,11 +8,9 @@
 
 # Set this to the path to the Agavi installation's source directory. This is
 # the directory that contains the `agavi.php' file.
-case $0 in
-     /*) BIN_DIR=`dirname $0` ;;
-     *) BIN_DIR=`pwd`/`dirname $0` ;;
-esac
-cd $BIN_DIR
+## Mac readlink is old. so we can not use readlink
+pushd "$(dirname "$0")" > /dev/null
+## Find the real path using PHP (a little cheat :) ) 
 BIN_DIR=`php -r "echo __DIR__;"`
 
 AGAVI_SOURCE_DIRECTORY="$BIN_DIR/../libs/agavi/agavi"
@@ -113,3 +111,4 @@ done
 # Call build script.
 `which rlwrap` ${PHP_EXECUTABLE} -d memory_limit=4294967295 -d include_path=${INCLUDE_PATH} -f "${AGAVI_SOURCE_DIRECTORY}/build/agavi/script/agavi.php" -- --agavi-source-directory "${AGAVI_SOURCE_DIRECTORY}" "$@"
 
+popd > /dev/null
