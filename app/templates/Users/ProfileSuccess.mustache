@@ -1,5 +1,8 @@
-<ul>
 {{#t.appliances}}
-<li><a href="{{link}}">{{name}} - {{version}}</a></li>
-{{/t.appliances}}
+<h3>{{resource}}</h3>
+<ul>
+  {{#data}}
+      <li><a href="{{link}}">{{name}} - {{version}}</a></li>
+  {{/data}}
 </ul>
+{{/t.appliances}}

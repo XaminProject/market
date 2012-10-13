@@ -38,6 +38,10 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
     const INSTALLER_TO_APPLIANCES_PREFIX = 'installer_to_appliances:';
 
     /**
+     * Online resource prefix
+     */
+    const ONLINE_RESOURCE_PREFIX = 'OnlineResources:';
+    /**
      * returns all tags
      *
      * @param int $offset the start offset
@@ -201,20 +205,31 @@ class Appliance_ApplianceModel extends MarketApplianceBaseModel
     /**
      * Get appliance for a user
      *
-     * @param string $jid the jid that we gonna check its appliances
+     * @param string $user user name 
      *
      * @return array list of appliance 
      */
-    public function getUserAppliances($jid)
+    public function getUserAppliances($user)
     {
-        $key = self::INSTALLER_TO_APPLIANCES_PREFIX . $jid;
-        if (!isset(self::$_cache[$key])) {
-            self::$_cache[$key] = $this->getRedis()->sMembers($key);
+	    $set = self::ONLINE_RESOURCE_PREFIX . strtolower($user);
+        if (!isset(self::$_cache[$set])) {
+            self::$_cache[$set] = $this->getRedis()->sMembers($set);
         }
-        foreach (self::$_cache[$key] as &$item) {
-            list($name, $version) = explode(':', $item);
-            $item = $this->getAppliance($name, $version);
-        }
+        $appliances = array();
+        foreach (self::$_cache[$set] as $res) {
+	        $key = self::INSTALLER_TO_APPLIANCES_PREFIX . strtolower($user) . '@' . AgaviConfig::get('xmpp.host') . '/' .  $res;
+	    
+	        if (!isset(self::$_cache[$key])) {
+		        self::$_cache[$key] = $this->getRedis()->sMembers($key);
+	        }
+
+	        $data = self::$_cache[$key];
+	        foreach ($data as &$item) {
+		        list($name, $version) = explode(':', $item);
+		        $item = $this->getAppliance($name, $version);
+	        }
+	        $appliances[] = array ('resource' => $res, 'data' => $data);
+        }	        
         return $appliances;
     }
 

@@ -108,7 +108,7 @@ class UsersModel extends MarketBaseModel
         if (!isset($dataArray['acl_role'])) {
             $dataArray['acl_role'] = false; 
         }
-        $dataArray['attributes']['jid'] = $user.'@'.AgaviConfig::get('xmpp.host').'/'.AgaviConfig::get('xmpp.resource', 'archipel');
+        //$dataArray['attributes']['jid'] = $user.'@'.AgaviConfig::get('xmpp.host').'/'.AgaviConfig::get('xmpp.resource', 'archipel');
         return $dataArray;
     }
 
