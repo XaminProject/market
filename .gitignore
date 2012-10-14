@@ -13,3 +13,4 @@ app/data/i18n/*.mo
 /app/log/*
 \#*\#
 /bin/composer.phar
+app/templates/Form

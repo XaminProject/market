@@ -30,6 +30,8 @@ if [ ! -d "$BIN_DIR/../pub" ]; then
 	popd > /dev/null
 fi
 
+ln -s "$BIN_DIR/../libs/xamin/form/src/Templates/" "$BIN_DIR/../app/templates/Form"
+
 echo "Add this aliases to use with this project : "
 echo "xagavi='sh $BIN_DIR/agavi'"
 echo "xcomposer='php $BIN_DIR/composer.phar'"
