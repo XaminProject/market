@@ -18,6 +18,9 @@
 				</ignores>
 			</route>
 
+			<route name="ajax_output_type_by_request" pattern="XMLHttpRequest" source="_SERVER[HTTP_X_REQUESTED_WITH]" output_type="json" stop="false"/>
+			<route name="ajax_output_type_by_uri" pattern=".json$" cut="true" stop="false" output_type="json"/>
+
 			<!-- default action for "/" -->
 			<route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
 			

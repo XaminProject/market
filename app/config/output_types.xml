@@ -80,6 +80,34 @@
 				</ae:parameter>
 				
 			</output_type>
+
+			<!-- There is no need to involve mustache in this type -->
+			<output_type name="json" exception_template="%core.template_dir%/exceptions/web-json.php">
+				<renderers default="php">
+					<renderer name="php" class="AgaviMustacheRenderer">
+						<ae:parameter name="assigns">
+							<ae:parameter name="routing">ro</ae:parameter>
+							<ae:parameter name="request">rq</ae:parameter>
+							<ae:parameter name="controller">ct</ae:parameter>
+							<ae:parameter name="user">us</ae:parameter>
+							<ae:parameter name="translation_manager">tm</ae:parameter>
+							<ae:parameter name="request_data">rd</ae:parameter>
+						</ae:parameter>
+						<ae:parameter name="default_extension">.json.php</ae:parameter>
+						<!-- this changes the name of the variable with all template attributes from the default $template to $t -->
+						<ae:parameter name="var_name">t</ae:parameter>
+					</renderer>
+				</renderers>
+				<ae:parameter name="http_headers">
+					<ae:parameter name="Content-Type">application/json; charset=UTF-8</ae:parameter>
+				</ae:parameter>
+				<layouts default="simple">
+					<!-- a simple layout with just one content layer and no decorator -->
+					<layout name="simple">
+						<layer name="content" />
+					</layout>
+				</layouts>
+			</output_type>
 			
 		</output_types>
 		

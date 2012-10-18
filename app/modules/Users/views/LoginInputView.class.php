@@ -55,7 +55,6 @@ class Users_LoginInputView extends MarketUsersBaseView
 			// but only if request method is "read", i.e. if the login form is served via GET!
 			$user->removeAttribute('redirect', self::LASTPAGE_NAMESPACE);
 		}		$this->setupHtml($rd);
-
 		$this->setAttribute('_title', 'Login');
 	}
 

@@ -170,4 +170,25 @@ class MarketBaseView extends AgaviView
         }
         return $result;
     }
+
+    /**
+     * Default execute json method
+     *
+     * @param AgaviRequestDataHolder $rd Request data
+     *
+     * @return string
+     */
+    public function executeJson(AgaviRequestDataHolder $rd)
+    {
+        //In this case we need to serve the attributes in json
+        $attributes = $this->getAttributes();
+        foreach ($attributes as $key => &$value ) {
+            if (is_object($value)) {
+                if (is_callable(array($value, '__toString'))) {
+                    $value = $value->__toString();
+                }                    
+            }
+        }
+        return json_encode($attributes);
+    }
 }
