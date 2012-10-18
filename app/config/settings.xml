@@ -5,7 +5,7 @@
 		
 		<system_actions>
 			<system_action name="default">
-				<module>Appliance</module>
+				<module>UI</module>
 				<action>Index</action>
 			</system_action>
 			
@@ -52,6 +52,17 @@
             <setting name="host">market.xamin.ir</setting>
             <setting name="resource">archipel</setting>
         </settings>
+
+		<settings prefix="cdn.">
+		  <!-- 
+			   CDN host, full address with no trailing slash 
+		  -->
+		  <setting name="host">http://cdn.xamin.ir</setting>
+		  <!-- 
+			   Path to cdn folder in case of upload things to CDN
+		  -->
+		  <setting name="path">/path/to/cdn</setting>
+		</settings>
 
 		<settings prefix="authz.">
 			<!-- 
@@ -116,6 +127,15 @@
             <setting name="resource">archipel</setting>
         </settings>
     </ae:configuration>
+
+
+    <ae:configuration environment="development.fzerorubigd">
+		<settings prefix="cdn.">
+		  <setting name="host">http://cdn.xamin.dev</setting>
+		  <setting name="path">%core.app_dir%/cdn</setting>
+		</settings>
+    </ae:configuration>
+
 
 	<ae:configuration environment="production.*">
 		<exception_templates>

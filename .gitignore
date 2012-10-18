@@ -1,7 +1,7 @@
 app/cache/*
 *.swp
 *.swo
-libs
+/libs
 composer.lock
 /pub/index.php
 /pub/.htaccess
@@ -14,3 +14,4 @@ app/data/i18n/*.mo
 \#*\#
 /bin/composer.phar
 app/templates/Form
+/cdn

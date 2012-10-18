@@ -65,9 +65,6 @@ AgaviConfig::set('core.app_dir', __DIR__);
 // |  - core.template_dir (defaults to "<core.app_dir>/templates")             |
 // +---------------------------------------------------------------------------+
 
-AgaviConfig::set('xamin.cdn_path', __DIR__ . '/pub/cdn'); //For now we are inside pub
-AgaviConfig::set('xamin.cdn_host', 'http://xamin.dev/cdn'); //Its better to check env, so we can use per developer address
-
 define('DS', DIRECTORY_SEPARATOR);
 
 //Composer autoload
