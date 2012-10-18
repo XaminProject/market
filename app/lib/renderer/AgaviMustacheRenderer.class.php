@@ -145,6 +145,22 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
                     return AgaviConfig::get($config);
                 }
             );
+
+            $template_dir = $this->getParameter('template_dir', AgaviConfig::get('core.template_dir'));
+
+            // set loader
+            $loader = $this->getParameter('loader', 'Mustache_Loader_FilesystemLoader');
+            if (class_exists($loader)) {
+                $loader = new $loader($template_dir);
+            }
+            $this->mustache->setLoader($loader);
+
+            // set partial loader
+            $partialsLoader = $this->getParameter('partials_loader', 'Mustache_Loader_FilesystemLoader');
+            if (class_exists($partialsLoader)) {
+                $partialsLoader = new $partialsLoader($template_dir);
+            }
+            $this->mustache->setPartialsLoader($partialsLoader);
 		}
 
 		return $this->mustache;
@@ -167,19 +183,7 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
 	{
 		$mustache = $this->getEngine();
 
-		$template_dir = $this->getParameter('template_dir', AgaviConfig::get('core.template_dir'));
-
-		$loader = $this->getParameter('loader', 'Mustache_Loader_FilesystemLoader');
-		if (class_exists($loader)) {
-			$loader = new $loader($template_dir);
-        }
-		$mustache->setLoader($loader);
-
-		$partialsLoader = $this->getParameter('partials_loader', 'Mustache_Loader_FilesystemLoader');
-		if (class_exists($partialsLoader)) {
-			$partialsLoader = new $partialsLoader($template_dir);
-        }
-		$mustache->setPartialsLoader($partialsLoader);
+        $template_dir = $this->getParameter('template_dir', AgaviConfig::get('core.template_dir'));
 
 		// get realpath of file to avoid . and ..
 		$path = realpath($layer->getResourceStreamIdentifier());
