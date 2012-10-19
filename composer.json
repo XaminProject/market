@@ -23,7 +23,6 @@
         "xamin/form": "dev-master",
         "swiftmailer/swiftmailer" : "4.2.*",
         "xamin/ejabberd-external-auth" : "dev-master",
-		"raveren/kint" : "dev-master"
     },
     "config": {
         "bin-dir": "bin",

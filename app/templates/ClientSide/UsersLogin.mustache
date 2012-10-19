@@ -1,0 +1,12 @@
+{{#t}}
+  <div id="message"> {{!Place holder for message, leave it be in any case}}
+  {{#error}}
+    <ul>
+      {{#errors}}
+        <li>{{.}}</li>
+      {{/errors}}
+    </ul>
+  {{/error}}
+  </div>   
+{{{form}}}
+{{/t}}

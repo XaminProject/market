@@ -92,7 +92,7 @@ class MarketBaseAction extends AgaviAction
         foreach ($report as $rep) {
             $errors[] = $rep['message'];
         }
-        $this->setAttribute('error', $errors);
+        $this->setAttribute('error', array ('errors' => $errors));
         return parent::handleError($rd);        
     }
 

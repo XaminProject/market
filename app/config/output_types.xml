@@ -43,6 +43,9 @@
 						<layer name="decorator">
 							<ae:parameter name="directory">%core.template_dir%</ae:parameter>
 							<ae:parameter name="template">MasterJS</ae:parameter>
+							<slots>
+							    <slot name="templates" module="Widgets" action="Templates" />
+							</slots>
 						</layer>
 					</layout>
 					
