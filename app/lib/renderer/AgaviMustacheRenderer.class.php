@@ -73,8 +73,8 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
             'options', 
             array_merge(
                 array(
-                    'loader' => 'Mustache_Loader_FilesystemLoader',
-                    'partials_loader' => 'Mustache_Loader_FilesystemLoader',
+                    'loader' => 'Mustache_Loader_HandlebarsLoader',
+                    'partials_loader' => 'Mustache_Loader_HandlebarsLoader',
                     'cache' => AgaviConfig::get('core.debug') ? false : AgaviConfig::get('core.cache_dir') . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'mustache',
                     ),
                 (array)$this->getParameter('options', array())
@@ -149,14 +149,14 @@ class AgaviMustacheRenderer extends AgaviRenderer implements AgaviIReusableRende
             $template_dir = $this->getParameter('template_dir', AgaviConfig::get('core.template_dir'));
 
             // set loader
-            $loader = $this->getParameter('loader', 'Mustache_Loader_FilesystemLoader');
+            $loader = $this->getParameter('loader', 'Mustache_Loader_HandlebarsLoader');
             if (class_exists($loader)) {
                 $loader = new $loader($template_dir);
             }
             $this->mustache->setLoader($loader);
 
             // set partial loader
-            $partialsLoader = $this->getParameter('partials_loader', 'Mustache_Loader_FilesystemLoader');
+            $partialsLoader = $this->getParameter('partials_loader', 'Mustache_Loader_HandlebarsLoader');
             if (class_exists($partialsLoader)) {
                 $partialsLoader = new $partialsLoader($template_dir);
             }
