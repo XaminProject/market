@@ -126,6 +126,10 @@
             <setting name="host">market.xamin.ir</setting>
             <setting name="resource">archipel</setting>
         </settings>
+        <settings prefix="cdn.">
+            <setting name="host">http://cdn.xamin</setting>
+            <setting name="path">%core.app_dir%/cdn</setting>
+        </settings>
     </ae:configuration>
 
 
