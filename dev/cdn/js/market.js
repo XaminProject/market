@@ -1,5 +1,7 @@
 var Market = window.Utils;
 
+Market.rootElement = '#market';
+
 /* Application{Controller,View} is required in ember. 
 they are our original template with slot to embed other pages */
 Market.ApplicationController = Ember.Controller.extend(
@@ -15,6 +17,7 @@ Market.ApplicationView = Ember.View.extend(
 
 Market.PageController = Ember.Controller.extend(
 	{
+		t : null,
 		mypageRoute: null,
 		pageName: null,
 		pageRoute: function(key, value) {
@@ -28,18 +31,37 @@ Market.PageController = Ember.Controller.extend(
 			}
 		},
 		rebuildTemplate: function() {
-			alert('');
+			//First all forms must be disabled. 
+			Ember.run.sync();
+
+			var x = Ember.$('#market form');
+				x.submit(
+				function()
+				{
+					alert('');
+					Market.postForm(
+						Em.$(this), 
+						function(data) 
+						{
+							alert('');
+						}
+					);
+					return false;
+				}
+			);
 		}
 	}
 );
 
 Market.PageView = Ember.View.extend(
 	{
-		//Should get this from server side
-		template: Ember.Handlebars.compile('this is test template in {{pageRoute}}')
+		templateName: 'UsersLogin',
+		didInsertElement: function()
+		{
+//			this.get('controller').rebuildTemplate();
+		}
 	}
 );
-
 
 Market.Router = Ember.Router.extend(
 	{
@@ -66,8 +88,18 @@ Market.Router = Ember.Router.extend(
 								connectOutlets: function(router, event) {
 									router.get('pageController').set('pageRoute', '/users/login');
 									router.get('pageController').set('pageName', 'Login page');
-									router.get('pageController').rebuildTemplate();
 									router.get('applicationController').connectOutlet('page');
+									//After connecting to outlet inside application, setup events.
+									Em.$.get(
+										'/users/login.json',
+										{},
+										function(data) {
+											router.get('pageController').set('t', data);
+											Ember.run.later(router.get('pageController').rebuildTemplate, 100);
+										},
+										'json'
+									);
+
 								}
 							}
 						)

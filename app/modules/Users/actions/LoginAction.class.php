@@ -157,6 +157,7 @@ class Users_LoginAction extends MarketUsersBaseAction
         $this->_form = new Form_Form(
             array (
 	            'method' => 'post',
+                'action' => $this->getContext()->getRouting()->gen('users.login'), //We should add action for ajax calls
                 'submit' => $tm->_('Login'),
                 'id' => 0,
                 'renderer' => $this->getContainer()->getOutputType()->getRenderer()
