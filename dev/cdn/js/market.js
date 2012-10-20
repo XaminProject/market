@@ -58,7 +58,7 @@ Market.PageView = Ember.View.extend(
 		templateName: 'UsersLogin',
 		didInsertElement: function()
 		{
-//			this.get('controller').rebuildTemplate();
+			this.get('controller').rebuildTemplate();
 		}
 	}
 );
@@ -88,14 +88,13 @@ Market.Router = Ember.Router.extend(
 								connectOutlets: function(router, event) {
 									router.get('pageController').set('pageRoute', '/users/login');
 									router.get('pageController').set('pageName', 'Login page');
-									router.get('applicationController').connectOutlet('page');
 									//After connecting to outlet inside application, setup events.
 									Em.$.get(
 										'/users/login.json',
 										{},
 										function(data) {
 											router.get('pageController').set('t', data);
-											Ember.run.later(router.get('pageController').rebuildTemplate, 100);
+											router.get('applicationController').connectOutlet('page');
 										},
 										'json'
 									);
