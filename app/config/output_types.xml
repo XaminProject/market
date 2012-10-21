@@ -102,7 +102,7 @@
 					</renderer>
 				</renderers>
 				<ae:parameter name="http_headers">
-					<ae:parameter name="Content-Type">application/json; charset=UTF-8</ae:parameter>
+					<ae:parameter name="Content-Type">text/plain; charset=UTF-8</ae:parameter>
 				</ae:parameter>
 				<layouts default="simple">
 					<!-- a simple layout with just one content layer and no decorator -->

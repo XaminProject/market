@@ -180,6 +180,8 @@ class MarketBaseView extends AgaviView
      */
     public function executeJson(AgaviRequestDataHolder $rd)
     {
+        //XXXX: can not loadlayout here! then child classes can not call this *after* their slots registration
+        //$this->loadLayout();
         //In this case we need to serve the attributes in json
         $attributes = $this->getAttributes();
         foreach ($attributes as $key => &$value ) {
@@ -189,6 +191,23 @@ class MarketBaseView extends AgaviView
                 }                    
             }
         }
-        return json_encode($attributes);
+
+        $output = array();
+        if ($this->getLayer('content')) {
+            foreach ($this->getLayer('content')->getSlots() as $slotName => $slotContainer) {
+                $slotResponse = $slotContainer->execute();
+                $output[$slotName] = $slotResponse->getContent();
+            }
+        }
+        $attributes['slots'] = $output;
+        $data = json_encode($attributes);
+        $routes = $this->getContext()->getRouting()->getAffectedRoutes(null);
+        if (in_array('html_json_output_type_by_uri', $routes)) {
+            $this->getResponse()->setHttpHeader('Content-type', 'text/html; charset=UTF-8'); 
+            $data = htmlentities($data);
+        } else {
+            $this->getResponse()->setHttpHeader('Content-type', 'application/json; charset=UTF-8'); 
+        }       
+        die($data);
     }
 }

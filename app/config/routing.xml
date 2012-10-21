@@ -18,8 +18,10 @@
 				</ignores>
 			</route>
 
-			<route name="ajax_output_type_by_request" pattern="XMLHttpRequest" source="_SERVER[HTTP_X_REQUESTED_WITH]" output_type="json" stop="false"/>
-			<route name="ajax_output_type_by_uri" pattern=".json$" cut="true" stop="false" output_type="json"/>
+			<route name="json_output_type_by_request" pattern="XMLHttpRequest" source="_SERVER[HTTP_X_REQUESTED_WITH]" output_type="json" stop="false"/>
+			<route name="json_output_type_by_uri" pattern=".json$" cut="true" stop="false" output_type="json"/>
+			<!-- Do not change this route : -->
+			<route name="html_json_output_type_by_uri" pattern=".json.html$" cut="true" stop="false" output_type="json"/>
 
 			<!-- default action for "/" -->
 			<route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
@@ -35,6 +37,7 @@
 
             <!-- routing for /appliances -->
             <route name="appliance" pattern="^/appliance" module="Appliance">
+			    <route name=".index" pattern="^$" action="Index" />
                 <route name=".info" pattern="^/info/({name:[^/]+})(/)?({version:[0-9]+\.[0-9]+\.[0-9]+})?(/)?$" action="Info" />
                 <route name=".install" pattern="^/install/({name:[^/]+})(/)?({version:[0-9]+\.[0-9]+\.[0-9]+})?(/)?$" action="Install" />
                 <route name=".remove" pattern="^/remove/({name:[^/]+})(/)?({version:[0-9]+\.[0-9]+\.[0-9]+})?(/)?$" action="Remove" />

@@ -79,9 +79,11 @@ class Users_LoginAction extends MarketUsersBaseAction
 			$user->login($username, $password, false);
 		} catch (AgaviSecurityException $e) {
 			$this->setAttribute('form', $this->_createForm());
-			$this->setAttribute('error', array($e->getMessage()));
+            $this->setAttribute('error', true); 
+			$this->setAttribute('errors', array($e->getMessage()));
 			return 'Error';
 		}
+        $this->setAttribute('redirectTo', 'appliance.index');
 		return 'Success';
 	}
 
