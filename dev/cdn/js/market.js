@@ -35,9 +35,20 @@ Market.PageController = Ember.Controller.extend(
 		rebuildTemplate: function(controller) {
 			//First all forms must be disabled. 
 			Ember.run.sync();
-			//TODO : fix all links route (a's href)
-			var x = Ember.$('#market form');
-				x.submit(
+			// Fix href for all a
+			Ember.$('#market a').each(
+				function(index, element) 
+				{
+					var href = Ember.$(this).attr('href');
+					if (!/^#.*/.test(href) && /^\/.*/.test(href)) {
+						//Ember routers are like our routers in agavi
+						href = '#' + href;
+						Ember.$(this).attr('href', href);
+					}
+				}
+			);
+			//Fix forms action
+			Ember.$('#market form').submit(
 				function()
 				{
 					Market.postForm(
@@ -148,6 +159,41 @@ Market.Router = Ember.Router.extend(
 										'json'
 									);
 									
+								}
+							}
+						)
+					}
+				),
+				tags: Ember.Route.extend(
+					{
+						route: '/tags',
+						index: Ember.Route.extend(
+							{
+								route: '/',
+								connectOutlets: function(router, event) {
+									var c = Em.$.proxy(router.callback, router, 'ApplianceTags');
+									Em.$.get(
+										'/tags.json',
+										{},
+										c,
+										'json'
+									);
+									
+								}								
+							}
+						),
+						tag: Ember.Route.extend(
+							{
+								route: '/:name',
+								connectOutlets: function(router, event) 
+								{
+									var c = Em.$.proxy(router.callback, router, 'ApplianceTag');
+									Em.$.get(
+										'/tags/' + event.name + '.json',
+										{},
+										c,
+										'json'
+									);
 								}
 							}
 						)

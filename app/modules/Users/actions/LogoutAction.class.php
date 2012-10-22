@@ -45,6 +45,7 @@ class Users_LogoutAction extends MarketUsersBaseAction
     {
         $user = $this->getContext()->getUser();
         $user->logout();
+        $this->setAttribute('redirectTo', 'index');
         return 'Success';
     }
 
