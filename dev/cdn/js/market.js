@@ -1,13 +1,21 @@
 var Market = window.Utils;
 
+/**
+ * Root element for all application. 
+ */
 Market.rootElement = '#market';
 
-/* Application{Controller,View} is required in ember. 
-they are our original template with slot to embed other pages */
+/**
+ * Application{Controller,View} is required in ember. 
+ * they are our original template with slot to embed other pages 
+ */
 Market.ApplicationController = Ember.Controller.extend(
 
 );
 
+/**
+ * Application view 
+ */
 Market.ApplicationView = Ember.View.extend(
 	{
 		//
@@ -15,28 +23,32 @@ Market.ApplicationView = Ember.View.extend(
 	}
 );
 
+/**
+ * General page controller, used for all routes
+ */
 Market.PageController = Ember.Controller.extend(
 	{
+		/**
+         * Agavi attributes
+         */
 		t : null,
+		/**
+         * Agavi slots in this page
+         */
 		slots: null,
+		/**
+         * Template name for current page
+         */
 		templateName: null,
-		mypageRoute: null,
-		pageName: null,
-		pageRoute: function(key, value) {
-			// getter
-			if (arguments.length === 1) {
-				return this.get('mypageRoute');
-				// setter
-			} else {
-				this.set('mypageRoute', value);
-				return value;
-			}
-		},
+		/**
+         * Rebuild template called when data recived from agavi
+         * Disable forms *inside* root element
+         */
 		rebuildTemplate: function(controller) {
-			//First all forms must be disabled. 
 			Ember.run.sync();
 			// Fix href for all a
-			Ember.$('#market a').each(
+			var r = Market.get('rootElement');
+			Ember.$(r + ' a').each(
 				function(index, element) 
 				{
 					var href = Ember.$(this).attr('href');
@@ -48,7 +60,7 @@ Market.PageController = Ember.Controller.extend(
 				}
 			);
 			//Fix forms action
-			Ember.$('#market form').submit(
+			Ember.$(r + ' form').submit(
 				function()
 				{
 					Market.postForm(
@@ -65,7 +77,6 @@ Market.PageController = Ember.Controller.extend(
 								data.form = t.form;
 								controller.set('slots', data.slots);
 								controller.set('t', data);
-								
 							}
 						}
 					);
@@ -77,6 +88,9 @@ Market.PageController = Ember.Controller.extend(
 	}
 );
 
+/**
+ * Page view used for all pages in application
+ */
 Market.PageView = Ember.View.extend(
 	{
 		didInsertElement: function()
@@ -89,15 +103,63 @@ Market.PageView = Ember.View.extend(
 				this.rerender();
 				return;
 			}
-
+			//Call rebuild template to bind late variable to template
 			this.get('controller').rebuildTemplate(this.get('controller'));
 		}
 	}
 );
+/**
+ * A simple subclass to simplify the code
+ */
+Market.Route = Ember.Route.extend(
+	{
+		/**
+         * Template from server side to use with this route
+         */
+		routeTemplate: 'Dummy',
+		/**
+         * Path to send request and get data for this route
+         */
+		routePath: '/',
+		/**
+         * Some Route need initialize base on event arguments. 
+         */
+		initilaizeEvent: function(sender,event) {
+		//Dummy in this case	
+		},
+		/**
+         * Send request and then call callback to Connect outlet
+         */
+		connectOutlets: function(router, event) {
+			var func = this.get('initializeEvent');
+			if (Ember.$.isFunction(func)) {
+				func(this,event);
+			}
+			//this.initializeEvent(event);
+			//After connecting to outlet inside application, setup events.
+			var c = Em.$.proxy(router.get('callback'), router, this.get('routeTemplate'));
+			Em.$.get(
+				this.get('routePath') + '.json',
+				{},
+				c,
+				'json'
+			);
+		}
+	}
+);
 
-
+/**
+ * Router, this must be sync with routing.xml in agavi
+ */
 Market.Router = Ember.Router.extend(
 	{
+		/**
+         * A simple call back to called when new data is available
+         * Reserved variables are : 
+         * redirectTo : for redirect to another route
+         * slots : for Agavi slots inside this page
+         * message: for message inside this scope (map to one-shot) 
+         */
 		callback: function(templateName, data) {
 			if (data.redirectTo) {
 				this.transitionTo(data.redirectTo);
@@ -109,14 +171,23 @@ Market.Router = Ember.Router.extend(
 				this.get('applicationController').connectOutlet('page');
 			}
 		},
+		/**
+         * Root router
+         */
 		root: Ember.Route.extend(
 			{
+				/**
+                 * Index router
+                 */
 				home: Ember.Route.extend(
 					{
 						route: '/',
 						redirectsTo : 'appliance.index'
 					}
 				),
+				/**
+                 * Users
+                 */
 				users: Ember.Route.extend(
 					{
 						route: '/users',
@@ -126,20 +197,24 @@ Market.Router = Ember.Router.extend(
 								redirectsTo: 'users.login'
 							}
 						),
-						login: Ember.Route.extend(
+						login: Market.Route.extend(
 							{
 								route: '/login',
-								connectOutlets: function(router, event) {
-									//After connecting to outlet inside application, setup events.
-									var c = Em.$.proxy(router.get('callback'), router, 'UsersLogin');
-									Em.$.get(
-										'/users/login.json',
-										{},
-										c,
-										'json'
-									);
-
-								}
+								routeTemplate: 'UsersLogin',
+								routePath: '/users/login' 
+							}
+						),
+						logout: Market.Route.extend(
+							{
+								route: '/logout',
+								routePath: '/users/logout'
+							}
+						),
+						register: Market.Route.extend(
+							{
+								route: '/register',
+								routePath: '/users/register',
+								routeTemplate: 'UsersRegister'
 							}
 						)
 					}
@@ -147,19 +222,11 @@ Market.Router = Ember.Router.extend(
 				appliance: Ember.Route.extend(
 					{
 						route: '/appliance',
-						index: Ember.Route.extend(
+						index: Market.Route.extend(
 							{
 								route:'/',
-								connectOutlets: function(router, event) {
-									var c = Em.$.proxy(router.callback, router, 'ApplianceIndex');
-									Em.$.get(
-										'/appliance.json',
-										{},
-										c,
-										'json'
-									);
-									
-								}
+								routeTemplate: 'ApplianceIndex',
+								routePath: '/appliance'
 							}
 						)
 					}
@@ -167,33 +234,19 @@ Market.Router = Ember.Router.extend(
 				tags: Ember.Route.extend(
 					{
 						route: '/tags',
-						index: Ember.Route.extend(
+						index: Market.Route.extend(
 							{
 								route: '/',
-								connectOutlets: function(router, event) {
-									var c = Em.$.proxy(router.callback, router, 'ApplianceTags');
-									Em.$.get(
-										'/tags.json',
-										{},
-										c,
-										'json'
-									);
-									
-								}								
+								routeTemplate: 'ApplianceTags',
+								routePath: '/tags'			
 							}
 						),
-						tag: Ember.Route.extend(
+						tag: Market.Route.extend(
 							{
 								route: '/:name',
-								connectOutlets: function(router, event) 
-								{
-									var c = Em.$.proxy(router.callback, router, 'ApplianceTag');
-									Em.$.get(
-										'/tags/' + event.name + '.json',
-										{},
-										c,
-										'json'
-									);
+								routeTemplate: 'ApplianceTag',
+								initializeEvent: function(sender, event) {
+									sender.set('routePath', '/tags/' + event.name);
 								}
 							}
 						)

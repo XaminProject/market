@@ -160,6 +160,7 @@ class Users_RegisterAction extends MarketUsersBaseAction
         $this->form = new Form_Form(
             array (
                 'method' => 'post',
+                'action' => $this->getContext()->getRouting()->gen('users.register'), //We should add action for ajax calls
                 'submit' => $tm->_('Register'),
                 'id' => $id++,
                 'renderer' => $this->getContainer()->getOutputType()->getRenderer()

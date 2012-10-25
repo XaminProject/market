@@ -52,6 +52,10 @@ class Users_LoginAction extends MarketUsersBaseAction
 	 */
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
+        if ($this->getContext()->getUser()->isAuthenticated()) {
+            $this->setAttribute('redirectTo', 'appliance.index');
+            return "Success";
+        }            
         $this->setAttribute('form', $this->_createForm());
 		return 'Input';
 	}
