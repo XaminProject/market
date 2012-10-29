@@ -1,0 +1,14 @@
+{
+  "name": "XaminCDN",
+  "version": "1.0.0",
+  "main": [
+  	"./favicon.ico",
+	"./js/utils.js",
+	"./js/market.js"
+  ],
+  "dependencies": {
+    "jquery": "~1.7.2",
+	"handlebars": "1.*",
+    "ember": "1.*"
+  }
+}

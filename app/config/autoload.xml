@@ -4,6 +4,8 @@
 	<ae:configuration>
 		<!-- Redis and mustache -->
 		<autoload class="AgaviMustacheRenderer">%core.lib_dir%/renderer/AgaviMustacheRenderer.class.php</autoload>
+		<autoload class="AgaviHandlebarsRenderer">%core.lib_dir%/renderer/AgaviHandlebarsRenderer.class.php</autoload>
+
 		<autoload class="Mustache_Loader_HandlebarsLoader">%core.lib_dir%/renderer/loader/Mustache_Handlebars_loader.php</autoload>
 
 		<autoload class="AgaviRedisDatabase">%core.lib_dir%/database/AgaviRedisDatabase.class.php</autoload>
