@@ -29,16 +29,16 @@ class Widgets_TemplatesAction extends MarketWidgetsBaseAction
 {
     
 
-	/**
-	 * Whether or not this action is "simple", i.e. doesn't use validation etc.
-	 *
-	 * @return     bool true, if this action should act in simple mode, or false.
-	 *
-	 */
-	public function isSimple()
-	{
-		return true;
-	}
+    /**
+     * Whether or not this action is "simple", i.e. doesn't use validation etc.
+     *
+     * @return     bool true, if this action should act in simple mode, or false.
+     *
+     */
+    public function isSimple()
+    {
+        return true;
+    }
 
     /**
      * Returns the default view if the action does not serve the request
@@ -56,10 +56,10 @@ class Widgets_TemplatesAction extends MarketWidgetsBaseAction
     {
         //For now, just serve all mustache files in %core.app_dir%/templates/ClientSide
         //XXXX : Need' to add cache support!
-        $files = glob(AgaviConfig::get('core.app_dir') . '/templates/ClientSide/*.mustache');
+        $files = glob(AgaviConfig::get('core.app_dir') . '/templates/ClientSide/*.handlebars');
         $data = array();
         foreach ($files as $file) {
-            $t = str_replace(".mustache", "", basename($file));
+            $t = str_replace(".handlebars", "", basename($file));
             $data[] = array ('name' => $t, 'content' => file_get_contents($file));
         }
         $this->setAttribute('data', $data);
