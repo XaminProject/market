@@ -111,11 +111,18 @@
 					</layout>
 				</layouts>
 			</output_type>
+
 			
 		</output_types>
 		
 	</ae:configuration>
-	
+
+	<ae:configuration context="console">
+		<output_types default="text">
+			<output_type name="text" />
+		</output_types>
+	</ae:configuration>	
+
 	<ae:configuration environment="production.*">
 		
 		<output_types default="html">

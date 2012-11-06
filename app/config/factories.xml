@@ -41,6 +41,21 @@
 		
 	</ae:configuration>
 	
+
+	<ae:configuration context="console">
+
+		<request class="AgaviConsoleRequest" />
+
+		<response class="AgaviConsoleResponse" />
+
+		<routing class="AgaviConsoleRouting" />
+
+		<controller class="AgaviController">
+			<ae:parameter name="max_executions">-1</ae:parameter>
+		</controller>
+
+	</ae:configuration>
+
 	<ae:configuration environment="development.*">
 		
 		<response class="AgaviWebResponse">

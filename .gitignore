@@ -6,8 +6,9 @@ composer.lock
 /pub/index.php
 /pub/.htaccess
 /bin/composer-php
-bin/composer-php.bat
-bin/phing
+/bin/composer-php.bat
+/bin/phing
+/bin/cli.php
 composer.phar
 app/data/i18n/*.mo
 /app/log/*

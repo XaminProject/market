@@ -4,5 +4,25 @@
 	<!--
 		Define project-specific or custom build targets.
 	-->
+
+	<target name="cli-create" depends="project-locate" description="creates a php file that can be used to run agavi in cli context" >
+		<agavi.input property="public.environment" message="Name of the environment to bootstrap in dispatcher scripts" default="development" promptCharacter=":" failIfEmpty="true" ignoreIfSet="true" />
+		<copy todir="${project.directory}/bin">
+			<fileset dir="${project.directory}/${project.directory.dev}/bin">
+				<include name="**/*" />
+			</fileset>
+			<filterchain>
+				<replacetokens begintoken="%%" endtoken="%%">
+					<token key="AGAVI_SOURCE_LOCATION" value="${agavi.directory.src}" />
+					<token key="PROJECT_LOCATION" value="${project.directory}" />
+					<token key="PROJECT_PREFIX" value="${project.prefix}" />
+					<token key="PUBLIC_BASE" value="${public.base}" />
+					<token key="PUBLIC_ENVIRONMENT" value="${public.environment}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+		<chmod file="${project.directory}/bin/cli.php" mode="744" />
+	</target>
+
 	
 </project>
