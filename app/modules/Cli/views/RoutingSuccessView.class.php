@@ -40,7 +40,7 @@ class Cli_RoutingSuccessView extends MarketCliBaseView
      */
     public function executeText(AgaviRequestDataHolder $rd)
     {
-        echo "Done";
+        $this->loadLayout('standard');
     }
 }
 

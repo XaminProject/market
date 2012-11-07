@@ -44,6 +44,13 @@ class Cli_RoutingAction extends MarketCliBaseAction
      */
     public function executeRead(AgaviRequestDataHolder $rd)
     {
+        $emberCode = $this->getContext()->getModel('EmberCode', 'Cli');
+        try {
+            $routes = $emberCode->genRoutes('web');
+            $this->setAttribute('routes', $routes);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
         return 'Success';
     }
 

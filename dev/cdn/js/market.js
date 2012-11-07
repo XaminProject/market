@@ -150,7 +150,7 @@ Market.Route = Ember.Route.extend(
 
 /**
  * Router, this must be sync with routing.xml in agavi
- */
+ *
 Market.Router = Ember.Router.extend(
 	{
 		/**
@@ -159,7 +159,7 @@ Market.Router = Ember.Router.extend(
          * redirectTo : for redirect to another route
          * slots : for Agavi slots inside this page
          * message: for message inside this scope (map to one-shot) 
-         */
+         *
 		callback: function(templateName, data) {
 			if (data.redirectTo) {
 				this.transitionTo(data.redirectTo);
@@ -173,12 +173,12 @@ Market.Router = Ember.Router.extend(
 		},
 		/**
          * Root router
-         */
+         *
 		root: Ember.Route.extend(
 			{
 				/**
                  * Index router
-                 */
+                 *
 				home: Ember.Route.extend(
 					{
 						route: '/',
@@ -187,7 +187,7 @@ Market.Router = Ember.Router.extend(
 				),
 				/**
                  * Users
-                 */
+                 *
 				users: Ember.Route.extend(
 					{
 						route: '/users',
@@ -256,9 +256,5 @@ Market.Router = Ember.Router.extend(
 		)
 	}
 );
+*/
 
-
-$(function()
-{
-	Market.initialize();
-});

@@ -1,0 +1,24 @@
+    /**AUTO GENERATED CODE! DO NOT EDIT!!**/
+Market.Router = Ember.Router.extend({
+	/**
+	 * A simple call back to called when new data is available
+	 * Reserved variables are : 
+	 * redirectTo : for redirect to another route
+	 * slots : for Agavi slots inside this page
+	 * message: for message inside this scope (map to one-shot) 
+	 */
+	callback: function(templateName, data) {
+		if (data.redirectTo) {
+			this.transitionTo(data.redirectTo);
+		} else {
+			this.get('pageController').set('slots', data.slots);
+			this.get('pageController').set('t', data);
+			this.get('pageController').set('templateName', templateName);
+			Ember.run.sync();
+			this.get('applicationController').connectOutlet('page');
+		}
+	},
+
+{{t.routes}}
+
+});

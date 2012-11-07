@@ -24,5 +24,8 @@
 		<chmod file="${project.directory}/bin/cli.php" mode="744" />
 	</target>
 
+	<target name="ember-routes" depends="project-locate" description="create ember routing file base on web context routing in agavi">
+		<exec command="php ./bin/cli.php routing > ${project.directory}/${project.directory.dev}/cdn/js/routing.js" dir="${project.directory}" escape="false" />
+	</target>
 	
 </project>

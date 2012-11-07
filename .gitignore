@@ -16,3 +16,4 @@ app/data/i18n/*.mo
 /bin/composer.phar
 app/templates/Form
 /cdn
+/dev/cdn/js/routing.js

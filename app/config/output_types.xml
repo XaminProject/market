@@ -119,7 +119,29 @@
 
 	<ae:configuration context="console">
 		<output_types default="text">
-			<output_type name="text" />
+			<output_type name="text" >
+				<renderers default="php">
+					<renderer name="php" class="AgaviHandlebarsRenderer">
+						<ae:parameter name="assigns">
+							<ae:parameter name="routing">ro</ae:parameter>
+							<ae:parameter name="request">rq</ae:parameter>
+							<ae:parameter name="controller">ct</ae:parameter>
+							<ae:parameter name="user">us</ae:parameter>
+							<ae:parameter name="translation_manager">tm</ae:parameter>
+							<ae:parameter name="request_data">rd</ae:parameter>
+						</ae:parameter>
+						<ae:parameter name="default_extension">.handlebars</ae:parameter>
+						<!-- this changes the name of the variable with all template attributes from the default $template to $t -->
+						<ae:parameter name="var_name">t</ae:parameter>
+					</renderer>
+				</renderers>
+
+			  	<layouts default="standard">
+				  <layout name="standard">
+					<layer name="content" />
+				  </layout>
+				</layouts>
+			</output_type>
 		</output_types>
 	</ae:configuration>	
 
