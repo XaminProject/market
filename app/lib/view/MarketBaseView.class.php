@@ -132,8 +132,7 @@ class MarketBaseView extends AgaviView
             'param' => $param,
             'class' => $class
             );
-
-		$this->getLayer('content')->setSlot($slot, $this->createSlotContainer('Widgets', 'Paginator', $parameters));
+        $this->getLayer('content')->setSlot($slot, $this->createSlotContainer('Widgets', 'Paginator', $parameters));
     }
 
     /**
@@ -201,13 +200,19 @@ class MarketBaseView extends AgaviView
         }
         $attributes['slots'] = $output;
         $data = json_encode($attributes);
+        while (ob_get_clean() !== false) {
+            
+        }
+
         $routes = $this->getContext()->getRouting()->getAffectedRoutes(null);
-        if (in_array('html_json_output_type_by_uri', $routes)) {
-            $this->getResponse()->setHttpHeader('Content-type', 'text/html; charset=UTF-8'); 
+        if (in_array('_html_json_output_type_by_uri', $routes)) {
+            $this->getResponse()->setHttpHeader('Content-type', 'text/plain; charset=UTF-8'); 
             $data = htmlentities($data);
         } else {
             $this->getResponse()->setHttpHeader('Content-type', 'application/json; charset=UTF-8'); 
         }       
+        //XXXX: :( Its not good
+        
         die($data);
     }
 }

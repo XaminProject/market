@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xamin Market\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-28 01:37+0330\n"
+"POT-Creation-Date: 2012-11-07 18:34+0330\n"
 "PO-Revision-Date: 2012-09-28 01:37+0330\n"
 "Last-Translator: F0ruD <fzerorubigd@gmail.com>\n"
 "Language-Team: \n"
@@ -44,5 +44,826 @@ msgstr "تست"
 
 #: ../../../app/models/UsersModel.class.php:20
 #: ../../../app/models/UsersModel.class.php:30
+#: ../../../app/data/messages.php:360 ../../../app/data/messages.php:368
+#: ../../../app/data/messages.php:376 ../../../app/data/messages.php:387
+#: ../../../app/data/messages.php:398 ../../../app/data/messages.php:406
+#: ../../../app/data/messages.php:417 ../../../app/data/messages.php:425
+#: ../../../app/data/messages.php:430 ../../../app/data/messages.php:626
+#: ../../../app/data/messages.php:630 ../../../app/data/messages.php:634
+#: ../../../app/data/messages.php:638 ../../../app/data/messages.php:642
+#: ../../../app/data/messages.php:657 ../../../app/data/messages.php:661
+#: ../../../app/data/messages.php:665 ../../../app/data/messages.php:687
+#: ../../../app/data/messages.php:694 ../../../app/data/messages.php:698
+#: ../../../app/data/messages.php:705 ../../../app/data/messages.php:712
+#: ../../../app/data/messages.php:719 ../../../app/data/messages.php:723
+#: ../../../app/data/messages.php:730 ../../../app/data/messages.php:737
+#: ../../../app/data/messages.php:744 ../../../app/data/messages.php:751
+#: ../../../app/data/messages.php:758 ../../../app/data/messages.php:763
+#: ../../../app/data/messages.php:771 ../../../app/data/messages.php:785
+#: ../../../app/data/messages.php:789 ../../../app/data/messages.php:793
+#: ../../../app/data/messages.php:813 ../../../app/data/messages.php:934
+#: ../../../app/data/messages.php:955 ../../../app/data/messages.php:959
+#: ../../../app/data/messages.php:997 ../../../app/data/messages.php:1124
+#: ../../../app/data/messages.php:1128 ../../../app/data/messages.php:1132
+#: ../../../app/data/messages.php:1280
+#: ../../../app/models/UsersModel.class.php:88
+#: ../../../app/models/UsersModel.class.php:96
 msgid "User name and/or password is wrong."
+msgstr ""
+
+#: ../../../app/data/messages.php:21 ../../../app/data/messages.php:26
+#: ../../../app/data/messages.php:29 ../../../app/data/messages.php:34
+#: ../../../app/data/messages.php:37
+#: ../../../app/modules/Comments/actions/SaveAction.class.php:161
+#: ../../../app/modules/Comments/actions/IndexAction.class.php:109
+msgid "Post comment"
+msgstr ""
+
+#: ../../../app/data/messages.php:22 ../../../app/data/messages.php:27
+#: ../../../app/data/messages.php:30 ../../../app/data/messages.php:35
+#: ../../../app/data/messages.php:38
+#: ../../../app/modules/Comments/actions/SaveAction.class.php:170
+#: ../../../app/modules/Comments/actions/IndexAction.class.php:123
+msgid "Your comment"
+msgstr ""
+
+#: ../../../app/data/messages.php:23 ../../../app/data/messages.php:31
+#: ../../../app/data/messages.php:39 ../../../app/data/messages.php:43
+#: ../../../app/modules/Widgets/actions/PaginatorAction.class.php:151
+msgid "Previus &larr;"
+msgstr ""
+
+#: ../../../app/data/messages.php:24 ../../../app/data/messages.php:32
+#: ../../../app/data/messages.php:40 ../../../app/data/messages.php:44
+#: ../../../app/modules/Widgets/actions/PaginatorAction.class.php:192
+msgid "&rarr; Next"
+msgstr ""
+
+#: ../../../app/data/messages.php:25 ../../../app/data/messages.php:33
+#: ../../../app/data/messages.php:41
+msgid "Install"
+msgstr ""
+
+#: ../../../app/data/messages.php:28 ../../../app/data/messages.php:36
+#: ../../../app/modules/Comments/actions/SaveAction.class.php:65
+msgid "Your comment is saved"
+msgstr ""
+
+#: ../../../app/data/messages.php:42
+#: ../../../app/modules/System/views/SecureSuccessView.class.php:43
+msgid "Access Denied"
+msgstr ""
+
+#: ../../../app/data/messages.php:45 ../../../app/data/messages.php:48
+#: ../../../app/data/messages.php:51 ../../../app/data/messages.php:54
+#: ../../../app/data/messages.php:57 ../../../app/data/messages.php:60
+#: ../../../app/data/messages.php:63 ../../../app/data/messages.php:66
+#: ../../../app/data/messages.php:69 ../../../app/data/messages.php:72
+#: ../../../app/data/messages.php:75 ../../../app/data/messages.php:78
+#: ../../../app/data/messages.php:81 ../../../app/data/messages.php:84
+#: ../../../app/data/messages.php:87 ../../../app/data/messages.php:90
+#: ../../../app/data/messages.php:93 ../../../app/data/messages.php:96
+#: ../../../app/data/messages.php:99 ../../../app/data/messages.php:102
+#: ../../../app/data/messages.php:105 ../../../app/data/messages.php:108
+#: ../../../app/data/messages.php:111 ../../../app/data/messages.php:114
+#: ../../../app/data/messages.php:117 ../../../app/data/messages.php:120
+#: ../../../app/data/messages.php:123 ../../../app/data/messages.php:126
+#: ../../../app/data/messages.php:129 ../../../app/data/messages.php:132
+#: ../../../app/data/messages.php:135 ../../../app/data/messages.php:138
+#: ../../../app/data/messages.php:141 ../../../app/data/messages.php:144
+#: ../../../app/data/messages.php:147 ../../../app/data/messages.php:150
+#: ../../../app/data/messages.php:153 ../../../app/data/messages.php:156
+#: ../../../app/data/messages.php:159 ../../../app/data/messages.php:162
+#: ../../../app/data/messages.php:167 ../../../app/data/messages.php:168
+#: ../../../app/data/messages.php:173 ../../../app/data/messages.php:174
+#: ../../../app/data/messages.php:179 ../../../app/data/messages.php:180
+#: ../../../app/data/messages.php:185 ../../../app/data/messages.php:186
+#: ../../../app/data/messages.php:191 ../../../app/data/messages.php:192
+#: ../../../app/data/messages.php:195 ../../../app/data/messages.php:198
+#: ../../../app/data/messages.php:203 ../../../app/data/messages.php:204
+#: ../../../app/data/messages.php:209 ../../../app/data/messages.php:210
+#: ../../../app/data/messages.php:215 ../../../app/data/messages.php:216
+#: ../../../app/data/messages.php:221 ../../../app/data/messages.php:222
+#: ../../../app/data/messages.php:225 ../../../app/data/messages.php:228
+#: ../../../app/data/messages.php:233 ../../../app/data/messages.php:238
+#: ../../../app/data/messages.php:241 ../../../app/data/messages.php:246
+#: ../../../app/data/messages.php:247 ../../../app/data/messages.php:252
+#: ../../../app/data/messages.php:253 ../../../app/data/messages.php:256
+#: ../../../app/data/messages.php:259 ../../../app/data/messages.php:262
+#: ../../../app/data/messages.php:265 ../../../app/data/messages.php:268
+#: ../../../app/data/messages.php:271 ../../../app/data/messages.php:274
+#: ../../../app/data/messages.php:277 ../../../app/data/messages.php:280
+#: ../../../app/data/messages.php:283 ../../../app/data/messages.php:286
+#: ../../../app/data/messages.php:289 ../../../app/data/messages.php:292
+#: ../../../app/data/messages.php:295 ../../../app/data/messages.php:298
+#: ../../../app/data/messages.php:301 ../../../app/data/messages.php:304
+#: ../../../app/data/messages.php:307 ../../../app/data/messages.php:310
+#: ../../../app/data/messages.php:313 ../../../app/data/messages.php:316
+#: ../../../app/data/messages.php:319 ../../../app/data/messages.php:322
+#: ../../../app/data/messages.php:325 ../../../app/data/messages.php:328
+#: ../../../app/data/messages.php:331 ../../../app/data/messages.php:334
+#: ../../../app/data/messages.php:337 ../../../app/data/messages.php:345
+#: ../../../app/data/messages.php:348 ../../../app/data/messages.php:351
+#: ../../../app/data/messages.php:354 ../../../app/data/messages.php:357
+#: ../../../app/data/messages.php:361 ../../../app/data/messages.php:362
+#: ../../../app/data/messages.php:365 ../../../app/data/messages.php:369
+#: ../../../app/data/messages.php:370 ../../../app/data/messages.php:373
+#: ../../../app/data/messages.php:377 ../../../app/data/messages.php:378
+#: ../../../app/data/messages.php:381 ../../../app/data/messages.php:384
+#: ../../../app/data/messages.php:388 ../../../app/data/messages.php:389
+#: ../../../app/data/messages.php:392 ../../../app/data/messages.php:395
+#: ../../../app/data/messages.php:399 ../../../app/data/messages.php:400
+#: ../../../app/data/messages.php:403 ../../../app/data/messages.php:407
+#: ../../../app/data/messages.php:408 ../../../app/data/messages.php:411
+#: ../../../app/data/messages.php:414 ../../../app/data/messages.php:418
+#: ../../../app/data/messages.php:419 ../../../app/data/messages.php:422
+#: ../../../app/data/messages.php:426 ../../../app/data/messages.php:427
+#: ../../../app/data/messages.php:431 ../../../app/data/messages.php:432
+#: ../../../app/data/messages.php:435 ../../../app/data/messages.php:439
+#: ../../../app/data/messages.php:440 ../../../app/data/messages.php:443
+#: ../../../app/data/messages.php:446 ../../../app/data/messages.php:449
+#: ../../../app/data/messages.php:452 ../../../app/data/messages.php:455
+#: ../../../app/data/messages.php:458 ../../../app/data/messages.php:461
+#: ../../../app/data/messages.php:466 ../../../app/data/messages.php:467
+#: ../../../app/data/messages.php:470 ../../../app/data/messages.php:473
+#: ../../../app/data/messages.php:476 ../../../app/data/messages.php:479
+#: ../../../app/data/messages.php:482 ../../../app/data/messages.php:485
+#: ../../../app/data/messages.php:488 ../../../app/data/messages.php:491
+#: ../../../app/data/messages.php:496 ../../../app/data/messages.php:497
+#: ../../../app/data/messages.php:500 ../../../app/data/messages.php:503
+#: ../../../app/data/messages.php:506 ../../../app/data/messages.php:509
+#: ../../../app/data/messages.php:512 ../../../app/data/messages.php:515
+#: ../../../app/data/messages.php:518 ../../../app/data/messages.php:521
+#: ../../../app/data/messages.php:524 ../../../app/data/messages.php:529
+#: ../../../app/data/messages.php:530 ../../../app/data/messages.php:533
+#: ../../../app/data/messages.php:536 ../../../app/data/messages.php:539
+#: ../../../app/data/messages.php:542 ../../../app/data/messages.php:545
+#: ../../../app/data/messages.php:550 ../../../app/data/messages.php:551
+#: ../../../app/data/messages.php:554 ../../../app/data/messages.php:557
+#: ../../../app/data/messages.php:560 ../../../app/data/messages.php:565
+#: ../../../app/data/messages.php:566 ../../../app/data/messages.php:569
+#: ../../../app/data/messages.php:574 ../../../app/data/messages.php:575
+#: ../../../app/data/messages.php:578 ../../../app/data/messages.php:583
+#: ../../../app/data/messages.php:584 ../../../app/data/messages.php:587
+#: ../../../app/data/messages.php:592 ../../../app/data/messages.php:593
+#: ../../../app/data/messages.php:596 ../../../app/data/messages.php:601
+#: ../../../app/data/messages.php:602 ../../../app/data/messages.php:605
+#: ../../../app/data/messages.php:608 ../../../app/data/messages.php:611
+#: ../../../app/data/messages.php:614 ../../../app/data/messages.php:617
+#: ../../../app/data/messages.php:620 ../../../app/data/messages.php:623
+#: ../../../app/data/messages.php:627 ../../../app/data/messages.php:631
+#: ../../../app/data/messages.php:635 ../../../app/data/messages.php:639
+#: ../../../app/data/messages.php:643 ../../../app/data/messages.php:646
+#: ../../../app/data/messages.php:649 ../../../app/data/messages.php:654
+#: ../../../app/data/messages.php:658 ../../../app/data/messages.php:662
+#: ../../../app/data/messages.php:666 ../../../app/data/messages.php:669
+#: ../../../app/data/messages.php:672 ../../../app/data/messages.php:675
+#: ../../../app/data/messages.php:678 ../../../app/data/messages.php:681
+#: ../../../app/data/messages.php:684 ../../../app/data/messages.php:688
+#: ../../../app/data/messages.php:691 ../../../app/data/messages.php:695
+#: ../../../app/data/messages.php:699 ../../../app/data/messages.php:702
+#: ../../../app/data/messages.php:706 ../../../app/data/messages.php:709
+#: ../../../app/data/messages.php:713 ../../../app/data/messages.php:716
+#: ../../../app/data/messages.php:720 ../../../app/data/messages.php:724
+#: ../../../app/data/messages.php:727 ../../../app/data/messages.php:731
+#: ../../../app/data/messages.php:734 ../../../app/data/messages.php:738
+#: ../../../app/data/messages.php:741 ../../../app/data/messages.php:745
+#: ../../../app/data/messages.php:748 ../../../app/data/messages.php:752
+#: ../../../app/data/messages.php:755 ../../../app/data/messages.php:759
+#: ../../../app/data/messages.php:760 ../../../app/data/messages.php:764
+#: ../../../app/data/messages.php:765 ../../../app/data/messages.php:768
+#: ../../../app/data/messages.php:772 ../../../app/data/messages.php:777
+#: ../../../app/data/messages.php:782 ../../../app/data/messages.php:786
+#: ../../../app/data/messages.php:790 ../../../app/data/messages.php:794
+#: ../../../app/data/messages.php:797 ../../../app/data/messages.php:802
+#: ../../../app/data/messages.php:807 ../../../app/data/messages.php:810
+#: ../../../app/data/messages.php:814 ../../../app/data/messages.php:817
+#: ../../../app/data/messages.php:822 ../../../app/data/messages.php:827
+#: ../../../app/data/messages.php:830 ../../../app/data/messages.php:835
+#: ../../../app/data/messages.php:836 ../../../app/data/messages.php:839
+#: ../../../app/data/messages.php:844 ../../../app/data/messages.php:848
+#: ../../../app/data/messages.php:851 ../../../app/data/messages.php:856
+#: ../../../app/data/messages.php:861 ../../../app/data/messages.php:864
+#: ../../../app/data/messages.php:869 ../../../app/data/messages.php:874
+#: ../../../app/data/messages.php:877 ../../../app/data/messages.php:882
+#: ../../../app/data/messages.php:887 ../../../app/data/messages.php:890
+#: ../../../app/data/messages.php:895 ../../../app/data/messages.php:900
+#: ../../../app/data/messages.php:903 ../../../app/data/messages.php:907
+#: ../../../app/data/messages.php:911 ../../../app/data/messages.php:915
+#: ../../../app/data/messages.php:919 ../../../app/data/messages.php:922
+#: ../../../app/data/messages.php:927 ../../../app/data/messages.php:931
+#: ../../../app/data/messages.php:935 ../../../app/data/messages.php:938
+#: ../../../app/data/messages.php:943 ../../../app/data/messages.php:948
+#: ../../../app/data/messages.php:952 ../../../app/data/messages.php:956
+#: ../../../app/data/messages.php:960 ../../../app/data/messages.php:963
+#: ../../../app/data/messages.php:968 ../../../app/data/messages.php:973
+#: ../../../app/data/messages.php:978 ../../../app/data/messages.php:983
+#: ../../../app/data/messages.php:988 ../../../app/data/messages.php:991
+#: ../../../app/data/messages.php:994 ../../../app/data/messages.php:998
+#: ../../../app/data/messages.php:1001 ../../../app/data/messages.php:1004
+#: ../../../app/data/messages.php:1007 ../../../app/data/messages.php:1010
+#: ../../../app/data/messages.php:1013 ../../../app/data/messages.php:1016
+#: ../../../app/data/messages.php:1019 ../../../app/data/messages.php:1022
+#: ../../../app/data/messages.php:1025 ../../../app/data/messages.php:1028
+#: ../../../app/data/messages.php:1031 ../../../app/data/messages.php:1034
+#: ../../../app/data/messages.php:1037 ../../../app/data/messages.php:1040
+#: ../../../app/data/messages.php:1043 ../../../app/data/messages.php:1046
+#: ../../../app/data/messages.php:1049 ../../../app/data/messages.php:1052
+#: ../../../app/data/messages.php:1055 ../../../app/data/messages.php:1058
+#: ../../../app/data/messages.php:1061 ../../../app/data/messages.php:1064
+#: ../../../app/data/messages.php:1067 ../../../app/data/messages.php:1070
+#: ../../../app/data/messages.php:1073 ../../../app/data/messages.php:1076
+#: ../../../app/data/messages.php:1079 ../../../app/data/messages.php:1082
+#: ../../../app/data/messages.php:1085 ../../../app/data/messages.php:1088
+#: ../../../app/data/messages.php:1091 ../../../app/data/messages.php:1094
+#: ../../../app/data/messages.php:1097 ../../../app/data/messages.php:1100
+#: ../../../app/data/messages.php:1103 ../../../app/data/messages.php:1106
+#: ../../../app/data/messages.php:1109 ../../../app/data/messages.php:1112
+#: ../../../app/data/messages.php:1115 ../../../app/data/messages.php:1118
+#: ../../../app/data/messages.php:1121 ../../../app/data/messages.php:1125
+#: ../../../app/data/messages.php:1129 ../../../app/data/messages.php:1133
+#: ../../../app/data/messages.php:1136 ../../../app/data/messages.php:1139
+#: ../../../app/data/messages.php:1142 ../../../app/data/messages.php:1145
+#: ../../../app/data/messages.php:1148 ../../../app/data/messages.php:1151
+#: ../../../app/data/messages.php:1154 ../../../app/data/messages.php:1157
+#: ../../../app/data/messages.php:1160 ../../../app/data/messages.php:1163
+#: ../../../app/data/messages.php:1166 ../../../app/data/messages.php:1169
+#: ../../../app/data/messages.php:1172 ../../../app/data/messages.php:1175
+#: ../../../app/data/messages.php:1178 ../../../app/data/messages.php:1181
+#: ../../../app/data/messages.php:1184 ../../../app/data/messages.php:1187
+#: ../../../app/data/messages.php:1190 ../../../app/data/messages.php:1193
+#: ../../../app/data/messages.php:1196 ../../../app/data/messages.php:1199
+#: ../../../app/data/messages.php:1202 ../../../app/data/messages.php:1205
+#: ../../../app/data/messages.php:1208 ../../../app/data/messages.php:1211
+#: ../../../app/data/messages.php:1214 ../../../app/data/messages.php:1217
+#: ../../../app/data/messages.php:1220 ../../../app/data/messages.php:1223
+#: ../../../app/data/messages.php:1226 ../../../app/data/messages.php:1229
+#: ../../../app/data/messages.php:1232 ../../../app/data/messages.php:1235
+#: ../../../app/data/messages.php:1238 ../../../app/data/messages.php:1241
+#: ../../../app/data/messages.php:1244 ../../../app/data/messages.php:1247
+#: ../../../app/data/messages.php:1250 ../../../app/data/messages.php:1253
+#: ../../../app/data/messages.php:1256 ../../../app/data/messages.php:1259
+#: ../../../app/data/messages.php:1264 ../../../app/data/messages.php:1267
+#: ../../../app/data/messages.php:1272 ../../../app/data/messages.php:1277
+#: ../../../app/data/messages.php:1281 ../../../app/data/messages.php:1284
+#: ../../../app/data/messages.php:1287 ../../../app/data/messages.php:1290
+#: ../../../app/data/messages.php:1293 ../../../app/data/messages.php:1296
+#: ../../../app/data/messages.php:1299 ../../../app/data/messages.php:1302
+#: ../../../app/data/messages.php:1305 ../../../app/data/messages.php:1308
+#: ../../../app/data/messages.php:1311 ../../../app/data/messages.php:1314
+#: ../../../app/data/messages.php:1317 ../../../app/data/messages.php:1320
+#: ../../../app/data/messages.php:1323 ../../../app/data/messages.php:1326
+#: ../../../app/data/messages.php:1329 ../../../app/data/messages.php:1332
+#: ../../../app/data/messages.php:1335 ../../../app/data/messages.php:1338
+#: ../../../app/data/messages.php:1392 ../../../app/data/messages.php:1393
+#: ../../../app/data/messages.php:1396
+#: ../../../app/modules/Users/views/LoginErrorView.class.php:50
+#: ../../../app/modules/Users/actions/LoginAction.class.php:167
+msgid "Login"
+msgstr ""
+
+#: ../../../app/data/messages.php:46 ../../../app/data/messages.php:49
+#: ../../../app/data/messages.php:52 ../../../app/data/messages.php:55
+#: ../../../app/data/messages.php:58 ../../../app/data/messages.php:61
+#: ../../../app/data/messages.php:64 ../../../app/data/messages.php:67
+#: ../../../app/data/messages.php:70 ../../../app/data/messages.php:73
+#: ../../../app/data/messages.php:76 ../../../app/data/messages.php:79
+#: ../../../app/data/messages.php:82 ../../../app/data/messages.php:85
+#: ../../../app/data/messages.php:88 ../../../app/data/messages.php:91
+#: ../../../app/data/messages.php:94 ../../../app/data/messages.php:97
+#: ../../../app/data/messages.php:100 ../../../app/data/messages.php:103
+#: ../../../app/data/messages.php:106 ../../../app/data/messages.php:109
+#: ../../../app/data/messages.php:112 ../../../app/data/messages.php:115
+#: ../../../app/data/messages.php:118 ../../../app/data/messages.php:121
+#: ../../../app/data/messages.php:124 ../../../app/data/messages.php:127
+#: ../../../app/data/messages.php:130 ../../../app/data/messages.php:133
+#: ../../../app/data/messages.php:136 ../../../app/data/messages.php:139
+#: ../../../app/data/messages.php:142 ../../../app/data/messages.php:145
+#: ../../../app/data/messages.php:148 ../../../app/data/messages.php:151
+#: ../../../app/data/messages.php:154 ../../../app/data/messages.php:157
+#: ../../../app/data/messages.php:160 ../../../app/data/messages.php:163
+#: ../../../app/data/messages.php:169 ../../../app/data/messages.php:175
+#: ../../../app/data/messages.php:181 ../../../app/data/messages.php:187
+#: ../../../app/data/messages.php:193 ../../../app/data/messages.php:196
+#: ../../../app/data/messages.php:199 ../../../app/data/messages.php:205
+#: ../../../app/data/messages.php:211 ../../../app/data/messages.php:217
+#: ../../../app/data/messages.php:223 ../../../app/data/messages.php:226
+#: ../../../app/data/messages.php:229 ../../../app/data/messages.php:234
+#: ../../../app/data/messages.php:239 ../../../app/data/messages.php:242
+#: ../../../app/data/messages.php:248 ../../../app/data/messages.php:254
+#: ../../../app/data/messages.php:257 ../../../app/data/messages.php:260
+#: ../../../app/data/messages.php:263 ../../../app/data/messages.php:266
+#: ../../../app/data/messages.php:269 ../../../app/data/messages.php:272
+#: ../../../app/data/messages.php:275 ../../../app/data/messages.php:278
+#: ../../../app/data/messages.php:281 ../../../app/data/messages.php:284
+#: ../../../app/data/messages.php:287 ../../../app/data/messages.php:290
+#: ../../../app/data/messages.php:293 ../../../app/data/messages.php:296
+#: ../../../app/data/messages.php:299 ../../../app/data/messages.php:302
+#: ../../../app/data/messages.php:305 ../../../app/data/messages.php:308
+#: ../../../app/data/messages.php:311 ../../../app/data/messages.php:314
+#: ../../../app/data/messages.php:317 ../../../app/data/messages.php:320
+#: ../../../app/data/messages.php:323 ../../../app/data/messages.php:326
+#: ../../../app/data/messages.php:329 ../../../app/data/messages.php:332
+#: ../../../app/data/messages.php:335 ../../../app/data/messages.php:338
+#: ../../../app/data/messages.php:341 ../../../app/data/messages.php:346
+#: ../../../app/data/messages.php:349 ../../../app/data/messages.php:352
+#: ../../../app/data/messages.php:355 ../../../app/data/messages.php:358
+#: ../../../app/data/messages.php:363 ../../../app/data/messages.php:366
+#: ../../../app/data/messages.php:371 ../../../app/data/messages.php:374
+#: ../../../app/data/messages.php:379 ../../../app/data/messages.php:382
+#: ../../../app/data/messages.php:385 ../../../app/data/messages.php:390
+#: ../../../app/data/messages.php:393 ../../../app/data/messages.php:396
+#: ../../../app/data/messages.php:401 ../../../app/data/messages.php:404
+#: ../../../app/data/messages.php:409 ../../../app/data/messages.php:412
+#: ../../../app/data/messages.php:415 ../../../app/data/messages.php:420
+#: ../../../app/data/messages.php:423 ../../../app/data/messages.php:428
+#: ../../../app/data/messages.php:433 ../../../app/data/messages.php:436
+#: ../../../app/data/messages.php:441 ../../../app/data/messages.php:444
+#: ../../../app/data/messages.php:447 ../../../app/data/messages.php:450
+#: ../../../app/data/messages.php:453 ../../../app/data/messages.php:456
+#: ../../../app/data/messages.php:459 ../../../app/data/messages.php:462
+#: ../../../app/data/messages.php:468 ../../../app/data/messages.php:471
+#: ../../../app/data/messages.php:474 ../../../app/data/messages.php:477
+#: ../../../app/data/messages.php:480 ../../../app/data/messages.php:483
+#: ../../../app/data/messages.php:486 ../../../app/data/messages.php:489
+#: ../../../app/data/messages.php:492 ../../../app/data/messages.php:498
+#: ../../../app/data/messages.php:501 ../../../app/data/messages.php:504
+#: ../../../app/data/messages.php:507 ../../../app/data/messages.php:510
+#: ../../../app/data/messages.php:513 ../../../app/data/messages.php:516
+#: ../../../app/data/messages.php:519 ../../../app/data/messages.php:522
+#: ../../../app/data/messages.php:525 ../../../app/data/messages.php:531
+#: ../../../app/data/messages.php:534 ../../../app/data/messages.php:537
+#: ../../../app/data/messages.php:540 ../../../app/data/messages.php:543
+#: ../../../app/data/messages.php:546 ../../../app/data/messages.php:552
+#: ../../../app/data/messages.php:555 ../../../app/data/messages.php:558
+#: ../../../app/data/messages.php:561 ../../../app/data/messages.php:567
+#: ../../../app/data/messages.php:570 ../../../app/data/messages.php:576
+#: ../../../app/data/messages.php:579 ../../../app/data/messages.php:585
+#: ../../../app/data/messages.php:588 ../../../app/data/messages.php:594
+#: ../../../app/data/messages.php:597 ../../../app/data/messages.php:603
+#: ../../../app/data/messages.php:606 ../../../app/data/messages.php:609
+#: ../../../app/data/messages.php:612 ../../../app/data/messages.php:615
+#: ../../../app/data/messages.php:618 ../../../app/data/messages.php:621
+#: ../../../app/data/messages.php:624 ../../../app/data/messages.php:628
+#: ../../../app/data/messages.php:632 ../../../app/data/messages.php:636
+#: ../../../app/data/messages.php:640 ../../../app/data/messages.php:644
+#: ../../../app/data/messages.php:647 ../../../app/data/messages.php:650
+#: ../../../app/data/messages.php:655 ../../../app/data/messages.php:659
+#: ../../../app/data/messages.php:663 ../../../app/data/messages.php:667
+#: ../../../app/data/messages.php:670 ../../../app/data/messages.php:673
+#: ../../../app/data/messages.php:676 ../../../app/data/messages.php:679
+#: ../../../app/data/messages.php:682 ../../../app/data/messages.php:685
+#: ../../../app/data/messages.php:689 ../../../app/data/messages.php:692
+#: ../../../app/data/messages.php:696 ../../../app/data/messages.php:700
+#: ../../../app/data/messages.php:703 ../../../app/data/messages.php:707
+#: ../../../app/data/messages.php:710 ../../../app/data/messages.php:714
+#: ../../../app/data/messages.php:717 ../../../app/data/messages.php:721
+#: ../../../app/data/messages.php:725 ../../../app/data/messages.php:728
+#: ../../../app/data/messages.php:732 ../../../app/data/messages.php:735
+#: ../../../app/data/messages.php:739 ../../../app/data/messages.php:742
+#: ../../../app/data/messages.php:746 ../../../app/data/messages.php:749
+#: ../../../app/data/messages.php:753 ../../../app/data/messages.php:756
+#: ../../../app/data/messages.php:761 ../../../app/data/messages.php:766
+#: ../../../app/data/messages.php:769 ../../../app/data/messages.php:773
+#: ../../../app/data/messages.php:778 ../../../app/data/messages.php:783
+#: ../../../app/data/messages.php:787 ../../../app/data/messages.php:791
+#: ../../../app/data/messages.php:795 ../../../app/data/messages.php:798
+#: ../../../app/data/messages.php:803 ../../../app/data/messages.php:808
+#: ../../../app/data/messages.php:811 ../../../app/data/messages.php:815
+#: ../../../app/data/messages.php:818 ../../../app/data/messages.php:823
+#: ../../../app/data/messages.php:828 ../../../app/data/messages.php:831
+#: ../../../app/data/messages.php:837 ../../../app/data/messages.php:840
+#: ../../../app/data/messages.php:845 ../../../app/data/messages.php:849
+#: ../../../app/data/messages.php:852 ../../../app/data/messages.php:857
+#: ../../../app/data/messages.php:862 ../../../app/data/messages.php:865
+#: ../../../app/data/messages.php:870 ../../../app/data/messages.php:875
+#: ../../../app/data/messages.php:878 ../../../app/data/messages.php:883
+#: ../../../app/data/messages.php:888 ../../../app/data/messages.php:891
+#: ../../../app/data/messages.php:896 ../../../app/data/messages.php:901
+#: ../../../app/data/messages.php:904 ../../../app/data/messages.php:908
+#: ../../../app/data/messages.php:912 ../../../app/data/messages.php:916
+#: ../../../app/data/messages.php:920 ../../../app/data/messages.php:923
+#: ../../../app/data/messages.php:928 ../../../app/data/messages.php:932
+#: ../../../app/data/messages.php:936 ../../../app/data/messages.php:939
+#: ../../../app/data/messages.php:944 ../../../app/data/messages.php:949
+#: ../../../app/data/messages.php:953 ../../../app/data/messages.php:957
+#: ../../../app/data/messages.php:961 ../../../app/data/messages.php:964
+#: ../../../app/data/messages.php:969 ../../../app/data/messages.php:974
+#: ../../../app/data/messages.php:979 ../../../app/data/messages.php:984
+#: ../../../app/data/messages.php:989 ../../../app/data/messages.php:992
+#: ../../../app/data/messages.php:995 ../../../app/data/messages.php:999
+#: ../../../app/data/messages.php:1002 ../../../app/data/messages.php:1005
+#: ../../../app/data/messages.php:1008 ../../../app/data/messages.php:1011
+#: ../../../app/data/messages.php:1014 ../../../app/data/messages.php:1017
+#: ../../../app/data/messages.php:1020 ../../../app/data/messages.php:1023
+#: ../../../app/data/messages.php:1026 ../../../app/data/messages.php:1029
+#: ../../../app/data/messages.php:1032 ../../../app/data/messages.php:1035
+#: ../../../app/data/messages.php:1038 ../../../app/data/messages.php:1041
+#: ../../../app/data/messages.php:1044 ../../../app/data/messages.php:1047
+#: ../../../app/data/messages.php:1050 ../../../app/data/messages.php:1053
+#: ../../../app/data/messages.php:1056 ../../../app/data/messages.php:1059
+#: ../../../app/data/messages.php:1062 ../../../app/data/messages.php:1065
+#: ../../../app/data/messages.php:1068 ../../../app/data/messages.php:1071
+#: ../../../app/data/messages.php:1074 ../../../app/data/messages.php:1077
+#: ../../../app/data/messages.php:1080 ../../../app/data/messages.php:1083
+#: ../../../app/data/messages.php:1086 ../../../app/data/messages.php:1089
+#: ../../../app/data/messages.php:1092 ../../../app/data/messages.php:1095
+#: ../../../app/data/messages.php:1098 ../../../app/data/messages.php:1101
+#: ../../../app/data/messages.php:1104 ../../../app/data/messages.php:1107
+#: ../../../app/data/messages.php:1110 ../../../app/data/messages.php:1113
+#: ../../../app/data/messages.php:1116 ../../../app/data/messages.php:1119
+#: ../../../app/data/messages.php:1122 ../../../app/data/messages.php:1126
+#: ../../../app/data/messages.php:1130 ../../../app/data/messages.php:1134
+#: ../../../app/data/messages.php:1137 ../../../app/data/messages.php:1140
+#: ../../../app/data/messages.php:1143 ../../../app/data/messages.php:1146
+#: ../../../app/data/messages.php:1149 ../../../app/data/messages.php:1152
+#: ../../../app/data/messages.php:1155 ../../../app/data/messages.php:1158
+#: ../../../app/data/messages.php:1161 ../../../app/data/messages.php:1164
+#: ../../../app/data/messages.php:1167 ../../../app/data/messages.php:1170
+#: ../../../app/data/messages.php:1173 ../../../app/data/messages.php:1176
+#: ../../../app/data/messages.php:1179 ../../../app/data/messages.php:1182
+#: ../../../app/data/messages.php:1185 ../../../app/data/messages.php:1188
+#: ../../../app/data/messages.php:1191 ../../../app/data/messages.php:1194
+#: ../../../app/data/messages.php:1197 ../../../app/data/messages.php:1200
+#: ../../../app/data/messages.php:1203 ../../../app/data/messages.php:1206
+#: ../../../app/data/messages.php:1209 ../../../app/data/messages.php:1212
+#: ../../../app/data/messages.php:1215 ../../../app/data/messages.php:1218
+#: ../../../app/data/messages.php:1221 ../../../app/data/messages.php:1224
+#: ../../../app/data/messages.php:1227 ../../../app/data/messages.php:1230
+#: ../../../app/data/messages.php:1233 ../../../app/data/messages.php:1236
+#: ../../../app/data/messages.php:1239 ../../../app/data/messages.php:1242
+#: ../../../app/data/messages.php:1245 ../../../app/data/messages.php:1248
+#: ../../../app/data/messages.php:1251 ../../../app/data/messages.php:1254
+#: ../../../app/data/messages.php:1257 ../../../app/data/messages.php:1260
+#: ../../../app/data/messages.php:1265 ../../../app/data/messages.php:1268
+#: ../../../app/data/messages.php:1273 ../../../app/data/messages.php:1278
+#: ../../../app/data/messages.php:1282 ../../../app/data/messages.php:1285
+#: ../../../app/data/messages.php:1288 ../../../app/data/messages.php:1291
+#: ../../../app/data/messages.php:1294 ../../../app/data/messages.php:1297
+#: ../../../app/data/messages.php:1300 ../../../app/data/messages.php:1303
+#: ../../../app/data/messages.php:1306 ../../../app/data/messages.php:1309
+#: ../../../app/data/messages.php:1312 ../../../app/data/messages.php:1315
+#: ../../../app/data/messages.php:1318 ../../../app/data/messages.php:1321
+#: ../../../app/data/messages.php:1324 ../../../app/data/messages.php:1327
+#: ../../../app/data/messages.php:1330 ../../../app/data/messages.php:1333
+#: ../../../app/data/messages.php:1336 ../../../app/data/messages.php:1339
+#: ../../../app/data/messages.php:1342 ../../../app/data/messages.php:1347
+#: ../../../app/data/messages.php:1352 ../../../app/data/messages.php:1357
+#: ../../../app/data/messages.php:1362 ../../../app/data/messages.php:1367
+#: ../../../app/data/messages.php:1373 ../../../app/data/messages.php:1378
+#: ../../../app/data/messages.php:1383 ../../../app/data/messages.php:1388
+#: ../../../app/data/messages.php:1394 ../../../app/data/messages.php:1397
+#: ../../../app/data/messages.php:1400 ../../../app/data/messages.php:1405
+#: ../../../app/modules/Users/actions/Recover/PasswordAction.class.php:186
+#: ../../../app/modules/Users/actions/RegisterAction.class.php:172
+#: ../../../app/modules/Users/actions/LoginAction.class.php:175
+msgid "User name"
+msgstr ""
+
+#: ../../../app/data/messages.php:47 ../../../app/data/messages.php:50
+#: ../../../app/data/messages.php:53 ../../../app/data/messages.php:56
+#: ../../../app/data/messages.php:59 ../../../app/data/messages.php:62
+#: ../../../app/data/messages.php:65 ../../../app/data/messages.php:68
+#: ../../../app/data/messages.php:71 ../../../app/data/messages.php:74
+#: ../../../app/data/messages.php:77 ../../../app/data/messages.php:80
+#: ../../../app/data/messages.php:83 ../../../app/data/messages.php:86
+#: ../../../app/data/messages.php:89 ../../../app/data/messages.php:92
+#: ../../../app/data/messages.php:95 ../../../app/data/messages.php:98
+#: ../../../app/data/messages.php:101 ../../../app/data/messages.php:104
+#: ../../../app/data/messages.php:107 ../../../app/data/messages.php:110
+#: ../../../app/data/messages.php:113 ../../../app/data/messages.php:116
+#: ../../../app/data/messages.php:119 ../../../app/data/messages.php:122
+#: ../../../app/data/messages.php:125 ../../../app/data/messages.php:128
+#: ../../../app/data/messages.php:131 ../../../app/data/messages.php:134
+#: ../../../app/data/messages.php:137 ../../../app/data/messages.php:140
+#: ../../../app/data/messages.php:143 ../../../app/data/messages.php:146
+#: ../../../app/data/messages.php:149 ../../../app/data/messages.php:152
+#: ../../../app/data/messages.php:155 ../../../app/data/messages.php:158
+#: ../../../app/data/messages.php:161 ../../../app/data/messages.php:164
+#: ../../../app/data/messages.php:170 ../../../app/data/messages.php:176
+#: ../../../app/data/messages.php:182 ../../../app/data/messages.php:188
+#: ../../../app/data/messages.php:194 ../../../app/data/messages.php:197
+#: ../../../app/data/messages.php:200 ../../../app/data/messages.php:206
+#: ../../../app/data/messages.php:212 ../../../app/data/messages.php:218
+#: ../../../app/data/messages.php:224 ../../../app/data/messages.php:227
+#: ../../../app/data/messages.php:230 ../../../app/data/messages.php:235
+#: ../../../app/data/messages.php:240 ../../../app/data/messages.php:243
+#: ../../../app/data/messages.php:249 ../../../app/data/messages.php:255
+#: ../../../app/data/messages.php:258 ../../../app/data/messages.php:261
+#: ../../../app/data/messages.php:264 ../../../app/data/messages.php:267
+#: ../../../app/data/messages.php:270 ../../../app/data/messages.php:273
+#: ../../../app/data/messages.php:276 ../../../app/data/messages.php:279
+#: ../../../app/data/messages.php:282 ../../../app/data/messages.php:285
+#: ../../../app/data/messages.php:288 ../../../app/data/messages.php:291
+#: ../../../app/data/messages.php:294 ../../../app/data/messages.php:297
+#: ../../../app/data/messages.php:300 ../../../app/data/messages.php:303
+#: ../../../app/data/messages.php:306 ../../../app/data/messages.php:309
+#: ../../../app/data/messages.php:312 ../../../app/data/messages.php:315
+#: ../../../app/data/messages.php:318 ../../../app/data/messages.php:321
+#: ../../../app/data/messages.php:324 ../../../app/data/messages.php:327
+#: ../../../app/data/messages.php:330 ../../../app/data/messages.php:333
+#: ../../../app/data/messages.php:336 ../../../app/data/messages.php:339
+#: ../../../app/data/messages.php:343 ../../../app/data/messages.php:347
+#: ../../../app/data/messages.php:350 ../../../app/data/messages.php:353
+#: ../../../app/data/messages.php:356 ../../../app/data/messages.php:359
+#: ../../../app/data/messages.php:364 ../../../app/data/messages.php:367
+#: ../../../app/data/messages.php:372 ../../../app/data/messages.php:375
+#: ../../../app/data/messages.php:380 ../../../app/data/messages.php:383
+#: ../../../app/data/messages.php:386 ../../../app/data/messages.php:391
+#: ../../../app/data/messages.php:394 ../../../app/data/messages.php:397
+#: ../../../app/data/messages.php:402 ../../../app/data/messages.php:405
+#: ../../../app/data/messages.php:410 ../../../app/data/messages.php:413
+#: ../../../app/data/messages.php:416 ../../../app/data/messages.php:421
+#: ../../../app/data/messages.php:424 ../../../app/data/messages.php:429
+#: ../../../app/data/messages.php:434 ../../../app/data/messages.php:437
+#: ../../../app/data/messages.php:442 ../../../app/data/messages.php:445
+#: ../../../app/data/messages.php:448 ../../../app/data/messages.php:451
+#: ../../../app/data/messages.php:454 ../../../app/data/messages.php:457
+#: ../../../app/data/messages.php:460 ../../../app/data/messages.php:463
+#: ../../../app/data/messages.php:469 ../../../app/data/messages.php:472
+#: ../../../app/data/messages.php:475 ../../../app/data/messages.php:478
+#: ../../../app/data/messages.php:481 ../../../app/data/messages.php:484
+#: ../../../app/data/messages.php:487 ../../../app/data/messages.php:490
+#: ../../../app/data/messages.php:493 ../../../app/data/messages.php:499
+#: ../../../app/data/messages.php:502 ../../../app/data/messages.php:505
+#: ../../../app/data/messages.php:508 ../../../app/data/messages.php:511
+#: ../../../app/data/messages.php:514 ../../../app/data/messages.php:517
+#: ../../../app/data/messages.php:520 ../../../app/data/messages.php:523
+#: ../../../app/data/messages.php:526 ../../../app/data/messages.php:532
+#: ../../../app/data/messages.php:535 ../../../app/data/messages.php:538
+#: ../../../app/data/messages.php:541 ../../../app/data/messages.php:544
+#: ../../../app/data/messages.php:547 ../../../app/data/messages.php:553
+#: ../../../app/data/messages.php:556 ../../../app/data/messages.php:559
+#: ../../../app/data/messages.php:562 ../../../app/data/messages.php:568
+#: ../../../app/data/messages.php:571 ../../../app/data/messages.php:577
+#: ../../../app/data/messages.php:580 ../../../app/data/messages.php:586
+#: ../../../app/data/messages.php:589 ../../../app/data/messages.php:595
+#: ../../../app/data/messages.php:598 ../../../app/data/messages.php:604
+#: ../../../app/data/messages.php:607 ../../../app/data/messages.php:610
+#: ../../../app/data/messages.php:613 ../../../app/data/messages.php:616
+#: ../../../app/data/messages.php:619 ../../../app/data/messages.php:622
+#: ../../../app/data/messages.php:625 ../../../app/data/messages.php:629
+#: ../../../app/data/messages.php:633 ../../../app/data/messages.php:637
+#: ../../../app/data/messages.php:641 ../../../app/data/messages.php:645
+#: ../../../app/data/messages.php:648 ../../../app/data/messages.php:651
+#: ../../../app/data/messages.php:656 ../../../app/data/messages.php:660
+#: ../../../app/data/messages.php:664 ../../../app/data/messages.php:668
+#: ../../../app/data/messages.php:671 ../../../app/data/messages.php:674
+#: ../../../app/data/messages.php:677 ../../../app/data/messages.php:680
+#: ../../../app/data/messages.php:683 ../../../app/data/messages.php:686
+#: ../../../app/data/messages.php:690 ../../../app/data/messages.php:693
+#: ../../../app/data/messages.php:697 ../../../app/data/messages.php:701
+#: ../../../app/data/messages.php:704 ../../../app/data/messages.php:708
+#: ../../../app/data/messages.php:711 ../../../app/data/messages.php:715
+#: ../../../app/data/messages.php:718 ../../../app/data/messages.php:722
+#: ../../../app/data/messages.php:726 ../../../app/data/messages.php:729
+#: ../../../app/data/messages.php:733 ../../../app/data/messages.php:736
+#: ../../../app/data/messages.php:740 ../../../app/data/messages.php:743
+#: ../../../app/data/messages.php:747 ../../../app/data/messages.php:750
+#: ../../../app/data/messages.php:754 ../../../app/data/messages.php:757
+#: ../../../app/data/messages.php:762 ../../../app/data/messages.php:767
+#: ../../../app/data/messages.php:770 ../../../app/data/messages.php:774
+#: ../../../app/data/messages.php:779 ../../../app/data/messages.php:784
+#: ../../../app/data/messages.php:788 ../../../app/data/messages.php:792
+#: ../../../app/data/messages.php:796 ../../../app/data/messages.php:799
+#: ../../../app/data/messages.php:804 ../../../app/data/messages.php:809
+#: ../../../app/data/messages.php:812 ../../../app/data/messages.php:816
+#: ../../../app/data/messages.php:819 ../../../app/data/messages.php:824
+#: ../../../app/data/messages.php:829 ../../../app/data/messages.php:832
+#: ../../../app/data/messages.php:838 ../../../app/data/messages.php:841
+#: ../../../app/data/messages.php:846 ../../../app/data/messages.php:850
+#: ../../../app/data/messages.php:853 ../../../app/data/messages.php:858
+#: ../../../app/data/messages.php:863 ../../../app/data/messages.php:866
+#: ../../../app/data/messages.php:871 ../../../app/data/messages.php:876
+#: ../../../app/data/messages.php:879 ../../../app/data/messages.php:884
+#: ../../../app/data/messages.php:889 ../../../app/data/messages.php:892
+#: ../../../app/data/messages.php:897 ../../../app/data/messages.php:902
+#: ../../../app/data/messages.php:905 ../../../app/data/messages.php:909
+#: ../../../app/data/messages.php:913 ../../../app/data/messages.php:917
+#: ../../../app/data/messages.php:921 ../../../app/data/messages.php:924
+#: ../../../app/data/messages.php:929 ../../../app/data/messages.php:933
+#: ../../../app/data/messages.php:937 ../../../app/data/messages.php:940
+#: ../../../app/data/messages.php:945 ../../../app/data/messages.php:950
+#: ../../../app/data/messages.php:954 ../../../app/data/messages.php:958
+#: ../../../app/data/messages.php:962 ../../../app/data/messages.php:965
+#: ../../../app/data/messages.php:970 ../../../app/data/messages.php:975
+#: ../../../app/data/messages.php:980 ../../../app/data/messages.php:985
+#: ../../../app/data/messages.php:990 ../../../app/data/messages.php:993
+#: ../../../app/data/messages.php:996 ../../../app/data/messages.php:1000
+#: ../../../app/data/messages.php:1003 ../../../app/data/messages.php:1006
+#: ../../../app/data/messages.php:1009 ../../../app/data/messages.php:1012
+#: ../../../app/data/messages.php:1015 ../../../app/data/messages.php:1018
+#: ../../../app/data/messages.php:1021 ../../../app/data/messages.php:1024
+#: ../../../app/data/messages.php:1027 ../../../app/data/messages.php:1030
+#: ../../../app/data/messages.php:1033 ../../../app/data/messages.php:1036
+#: ../../../app/data/messages.php:1039 ../../../app/data/messages.php:1042
+#: ../../../app/data/messages.php:1045 ../../../app/data/messages.php:1048
+#: ../../../app/data/messages.php:1051 ../../../app/data/messages.php:1054
+#: ../../../app/data/messages.php:1057 ../../../app/data/messages.php:1060
+#: ../../../app/data/messages.php:1063 ../../../app/data/messages.php:1066
+#: ../../../app/data/messages.php:1069 ../../../app/data/messages.php:1072
+#: ../../../app/data/messages.php:1075 ../../../app/data/messages.php:1078
+#: ../../../app/data/messages.php:1081 ../../../app/data/messages.php:1084
+#: ../../../app/data/messages.php:1087 ../../../app/data/messages.php:1090
+#: ../../../app/data/messages.php:1093 ../../../app/data/messages.php:1096
+#: ../../../app/data/messages.php:1099 ../../../app/data/messages.php:1102
+#: ../../../app/data/messages.php:1105 ../../../app/data/messages.php:1108
+#: ../../../app/data/messages.php:1111 ../../../app/data/messages.php:1114
+#: ../../../app/data/messages.php:1117 ../../../app/data/messages.php:1120
+#: ../../../app/data/messages.php:1123 ../../../app/data/messages.php:1127
+#: ../../../app/data/messages.php:1131 ../../../app/data/messages.php:1135
+#: ../../../app/data/messages.php:1138 ../../../app/data/messages.php:1141
+#: ../../../app/data/messages.php:1144 ../../../app/data/messages.php:1147
+#: ../../../app/data/messages.php:1150 ../../../app/data/messages.php:1153
+#: ../../../app/data/messages.php:1156 ../../../app/data/messages.php:1159
+#: ../../../app/data/messages.php:1162 ../../../app/data/messages.php:1165
+#: ../../../app/data/messages.php:1168 ../../../app/data/messages.php:1171
+#: ../../../app/data/messages.php:1174 ../../../app/data/messages.php:1177
+#: ../../../app/data/messages.php:1180 ../../../app/data/messages.php:1183
+#: ../../../app/data/messages.php:1186 ../../../app/data/messages.php:1189
+#: ../../../app/data/messages.php:1192 ../../../app/data/messages.php:1195
+#: ../../../app/data/messages.php:1198 ../../../app/data/messages.php:1201
+#: ../../../app/data/messages.php:1204 ../../../app/data/messages.php:1207
+#: ../../../app/data/messages.php:1210 ../../../app/data/messages.php:1213
+#: ../../../app/data/messages.php:1216 ../../../app/data/messages.php:1219
+#: ../../../app/data/messages.php:1222 ../../../app/data/messages.php:1225
+#: ../../../app/data/messages.php:1228 ../../../app/data/messages.php:1231
+#: ../../../app/data/messages.php:1234 ../../../app/data/messages.php:1237
+#: ../../../app/data/messages.php:1240 ../../../app/data/messages.php:1243
+#: ../../../app/data/messages.php:1246 ../../../app/data/messages.php:1249
+#: ../../../app/data/messages.php:1252 ../../../app/data/messages.php:1255
+#: ../../../app/data/messages.php:1258 ../../../app/data/messages.php:1261
+#: ../../../app/data/messages.php:1266 ../../../app/data/messages.php:1269
+#: ../../../app/data/messages.php:1274 ../../../app/data/messages.php:1279
+#: ../../../app/data/messages.php:1283 ../../../app/data/messages.php:1286
+#: ../../../app/data/messages.php:1289 ../../../app/data/messages.php:1292
+#: ../../../app/data/messages.php:1295 ../../../app/data/messages.php:1298
+#: ../../../app/data/messages.php:1301 ../../../app/data/messages.php:1304
+#: ../../../app/data/messages.php:1307 ../../../app/data/messages.php:1310
+#: ../../../app/data/messages.php:1313 ../../../app/data/messages.php:1316
+#: ../../../app/data/messages.php:1319 ../../../app/data/messages.php:1322
+#: ../../../app/data/messages.php:1325 ../../../app/data/messages.php:1328
+#: ../../../app/data/messages.php:1331 ../../../app/data/messages.php:1334
+#: ../../../app/data/messages.php:1337 ../../../app/data/messages.php:1340
+#: ../../../app/data/messages.php:1344 ../../../app/data/messages.php:1349
+#: ../../../app/data/messages.php:1354 ../../../app/data/messages.php:1359
+#: ../../../app/data/messages.php:1364 ../../../app/data/messages.php:1369
+#: ../../../app/data/messages.php:1375 ../../../app/data/messages.php:1380
+#: ../../../app/data/messages.php:1385 ../../../app/data/messages.php:1390
+#: ../../../app/data/messages.php:1395 ../../../app/data/messages.php:1398
+#: ../../../app/data/messages.php:1402 ../../../app/data/messages.php:1407
+#: ../../../app/modules/Users/actions/RegisterAction.class.php:194
+#: ../../../app/modules/Users/actions/LoginAction.class.php:185
+msgid "Password"
+msgstr ""
+
+#: ../../../app/data/messages.php:165 ../../../app/data/messages.php:166
+#: ../../../app/data/messages.php:171 ../../../app/data/messages.php:172
+#: ../../../app/data/messages.php:177 ../../../app/data/messages.php:178
+#: ../../../app/data/messages.php:183 ../../../app/data/messages.php:184
+#: ../../../app/data/messages.php:189 ../../../app/data/messages.php:190
+#: ../../../app/data/messages.php:201 ../../../app/data/messages.php:202
+#: ../../../app/data/messages.php:207 ../../../app/data/messages.php:208
+#: ../../../app/data/messages.php:213 ../../../app/data/messages.php:214
+#: ../../../app/data/messages.php:219 ../../../app/data/messages.php:220
+#: ../../../app/data/messages.php:231 ../../../app/data/messages.php:232
+#: ../../../app/data/messages.php:236 ../../../app/data/messages.php:237
+#: ../../../app/data/messages.php:244 ../../../app/data/messages.php:245
+#: ../../../app/data/messages.php:250 ../../../app/data/messages.php:251
+#: ../../../app/data/messages.php:438 ../../../app/data/messages.php:464
+#: ../../../app/data/messages.php:465 ../../../app/data/messages.php:494
+#: ../../../app/data/messages.php:495 ../../../app/data/messages.php:527
+#: ../../../app/data/messages.php:528 ../../../app/data/messages.php:548
+#: ../../../app/data/messages.php:549 ../../../app/data/messages.php:563
+#: ../../../app/data/messages.php:564 ../../../app/data/messages.php:572
+#: ../../../app/data/messages.php:573 ../../../app/data/messages.php:581
+#: ../../../app/data/messages.php:582 ../../../app/data/messages.php:590
+#: ../../../app/data/messages.php:591 ../../../app/data/messages.php:599
+#: ../../../app/data/messages.php:600 ../../../app/data/messages.php:652
+#: ../../../app/data/messages.php:653 ../../../app/data/messages.php:775
+#: ../../../app/data/messages.php:776 ../../../app/data/messages.php:780
+#: ../../../app/data/messages.php:781 ../../../app/data/messages.php:800
+#: ../../../app/data/messages.php:801 ../../../app/data/messages.php:805
+#: ../../../app/data/messages.php:806 ../../../app/data/messages.php:820
+#: ../../../app/data/messages.php:821 ../../../app/data/messages.php:825
+#: ../../../app/data/messages.php:826 ../../../app/data/messages.php:833
+#: ../../../app/data/messages.php:834 ../../../app/data/messages.php:842
+#: ../../../app/data/messages.php:843 ../../../app/data/messages.php:847
+#: ../../../app/data/messages.php:854 ../../../app/data/messages.php:855
+#: ../../../app/data/messages.php:859 ../../../app/data/messages.php:860
+#: ../../../app/data/messages.php:867 ../../../app/data/messages.php:868
+#: ../../../app/data/messages.php:872 ../../../app/data/messages.php:873
+#: ../../../app/data/messages.php:880 ../../../app/data/messages.php:881
+#: ../../../app/data/messages.php:885 ../../../app/data/messages.php:886
+#: ../../../app/data/messages.php:893 ../../../app/data/messages.php:894
+#: ../../../app/data/messages.php:898 ../../../app/data/messages.php:899
+#: ../../../app/data/messages.php:906 ../../../app/data/messages.php:910
+#: ../../../app/data/messages.php:914 ../../../app/data/messages.php:918
+#: ../../../app/data/messages.php:925 ../../../app/data/messages.php:926
+#: ../../../app/data/messages.php:930 ../../../app/data/messages.php:941
+#: ../../../app/data/messages.php:942 ../../../app/data/messages.php:946
+#: ../../../app/data/messages.php:947 ../../../app/data/messages.php:951
+#: ../../../app/data/messages.php:966 ../../../app/data/messages.php:967
+#: ../../../app/data/messages.php:971 ../../../app/data/messages.php:972
+#: ../../../app/data/messages.php:976 ../../../app/data/messages.php:977
+#: ../../../app/data/messages.php:981 ../../../app/data/messages.php:982
+#: ../../../app/data/messages.php:986 ../../../app/data/messages.php:987
+#: ../../../app/data/messages.php:1262 ../../../app/data/messages.php:1263
+#: ../../../app/data/messages.php:1270 ../../../app/data/messages.php:1271
+#: ../../../app/data/messages.php:1275 ../../../app/data/messages.php:1276
+msgid "field is required"
+msgstr ""
+
+#: ../../../app/data/messages.php:340 ../../../app/data/messages.php:1341
+#: ../../../app/data/messages.php:1346 ../../../app/data/messages.php:1351
+#: ../../../app/data/messages.php:1356 ../../../app/data/messages.php:1361
+#: ../../../app/data/messages.php:1366 ../../../app/data/messages.php:1372
+#: ../../../app/data/messages.php:1377 ../../../app/data/messages.php:1382
+#: ../../../app/data/messages.php:1387 ../../../app/data/messages.php:1399
+#: ../../../app/data/messages.php:1404
+#: ../../../app/modules/Users/actions/RegisterAction.class.php:164
+msgid "Register"
+msgstr ""
+
+#: ../../../app/data/messages.php:342 ../../../app/data/messages.php:1343
+#: ../../../app/data/messages.php:1348 ../../../app/data/messages.php:1353
+#: ../../../app/data/messages.php:1358 ../../../app/data/messages.php:1363
+#: ../../../app/data/messages.php:1368 ../../../app/data/messages.php:1374
+#: ../../../app/data/messages.php:1379 ../../../app/data/messages.php:1384
+#: ../../../app/data/messages.php:1389 ../../../app/data/messages.php:1401
+#: ../../../app/data/messages.php:1406
+#: ../../../app/modules/Users/actions/Recover/PasswordAction.class.php:196
+#: ../../../app/modules/Users/actions/RegisterAction.class.php:182
+msgid "Email address"
+msgstr ""
+
+#: ../../../app/data/messages.php:344 ../../../app/data/messages.php:1345
+#: ../../../app/data/messages.php:1350 ../../../app/data/messages.php:1355
+#: ../../../app/data/messages.php:1360 ../../../app/data/messages.php:1365
+#: ../../../app/data/messages.php:1370 ../../../app/data/messages.php:1376
+#: ../../../app/data/messages.php:1381 ../../../app/data/messages.php:1386
+#: ../../../app/data/messages.php:1391 ../../../app/data/messages.php:1403
+#: ../../../app/data/messages.php:1408
+#: ../../../app/modules/Users/actions/RegisterAction.class.php:205
+msgid "Confirm"
+msgstr ""
+
+#: ../../../app/data/messages.php:1371
+#: ../../../app/models/UsersModel.class.php:140
+msgid "eMail is already in use"
+msgstr ""
+
+#: ../../../app/data/messages.php:1409
+#: ../../../app/modules/Users/actions/RegisterAction.class.php:86
+msgid "Register in Xamin Market"
+msgstr ""
+
+#: ../../../app/models/UsersModel.class.php:135
+msgid "Username already exist"
+msgstr ""
+
+#: ../../../app/models/UsersModel.class.php:178
+msgid "User name is wrong."
+msgstr ""
+
+#: ../../../app/models/UsersModel.class.php:185
+msgid "Old password is wrong."
+msgstr ""
+
+#: ../../../app/models/UsersModel.class.php:217
+msgid "User dose not exist."
+msgstr ""
+
+#: ../../../app/models/UsersModel.class.php:221
+msgid "Email is not match."
+msgstr ""
+
+#: ../../../app/modules/System/views/UnavailableSuccessView.class.php:43
+msgid "Application Unavailable"
+msgstr ""
+
+#: ../../../app/modules/System/views/ModuleDisabledSuccessView.class.php:43
+msgid "Module Disabled"
+msgstr ""
+
+#: ../../../app/modules/Users/views/Recover/PasswordInputView.class.php:46
+#: ../../../app/modules/Users/views/Recover/PasswordSuccessView.class.php:46
+#: ../../../app/modules/Users/views/Recover/PasswordErrorView.class.php:46
+#: ../../../app/modules/Users/actions/Recover/PasswordAction.class.php:87
+msgid "Recover password"
+msgstr ""
+
+#: ../../../app/modules/Users/views/Recover/ConfirmSuccessView.class.php:48
+#: ../../../app/modules/Users/views/Recover/ConfirmErrorView.class.php:48
+#: ../../../app/modules/Users/actions/Recover/ConfirmAction.class.php:60
+#: ../../../app/modules/Mailer/views/ConfirmSuccessView.class.php:48
+msgid "New password"
+msgstr ""
+
+#: ../../../app/modules/Users/actions/Recover/PasswordAction.class.php:178
+msgid "Recover"
+msgstr ""
+
+#: ../../../app/modules/Comments/actions/SaveAction.class.php:61
+msgid "Invalid comment"
 msgstr ""

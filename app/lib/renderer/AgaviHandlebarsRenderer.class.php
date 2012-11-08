@@ -127,6 +127,9 @@ class AgaviHandlebarsRenderer extends AgaviRenderer implements AgaviIReusableRen
             $this->handlebar->addHelper(
                 '_', 
                 function ($template, $context, $domain, $text) use ($tm) {
+                    if (!$domain) {
+                        $domain = null; //Set the default domain
+                    }                        
                     return $tm->_($text, $domain);
                 }
             );
