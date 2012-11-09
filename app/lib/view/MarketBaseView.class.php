@@ -7,6 +7,7 @@
  * @category  Xamin
  * @package   Market
  * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @author    Behrooz Shabani <everplays@gmail.com>
  * @copyright 2012 (c) ParsPooyesh Co
  * @license   Custom <http://xamin.ir>
  * @version   GIT: $Id$
@@ -20,6 +21,7 @@
  * @category  Xamin
  * @package   Market
  * @author    fzerorubigd <fzerorubigd@gmail.com>
+ * @author    Behrooz Shabani <everplays@gmail.com>
  * @copyright 2012 (c) ParsPooyesh Co
  * @license   Custom <http://xamin.ir>
  * @version   Release: @package_version@
@@ -191,18 +193,17 @@ class MarketBaseView extends AgaviView
             }
         }
 
-        $output = array();
-        if ($this->getLayer('content')) {
-            foreach ($this->getLayer('content')->getSlots() as $slotName => $slotContainer) {
+        // render slots
+        if (isset($attributes['slots'])) {
+            foreach ((array)$attributes['slots'] as $slotName => $slotContainerArgs) {
+                $slotContainer = call_user_func_array(array($this, 'createSlotContainer'), $slotContainerArgs);
                 $slotResponse = $slotContainer->execute();
-                $output[$slotName] = $slotResponse->getContent();
+                $attributes['slots'][$slotName] = $slotResponse->getContent();
             }
         }
-        $attributes['slots'] = $output;
+
+        // encode attributes to json
         $data = json_encode($attributes);
-        while (ob_get_clean() !== false) {
-            
-        }
 
         $routes = $this->getContext()->getRouting()->getAffectedRoutes(null);
         if (in_array('_html_json_output_type_by_uri', $routes)) {

@@ -79,30 +79,25 @@ class Appliance_IndexSuccessView extends MarketApplianceBaseView
      *                     <li>Any other type will be set as the response content.</li>
      *                   </ul>
      */
-   
     public function executeJson(AgaviRequestDataHolder $rd)
     {
-        $this->loadLayout();
-        $this->getLayer('content')->setSlot(
-            'tags',
-            $this->createSlotContainer(
+        $slots = [
+            'tags' => array(
                 'Appliance', // name of module to use
                 'Tags', // name of action to execute
                 array(), // parameters to pass to the slot
                 'html', // output type to use
                 'read' // request method to use
-            )
-        );
-        $this->getLayer('content')->setSlot(
-            'search',
-            $this->createSlotContainer(
+            ),
+            'search' => array(
                 'Appliance', // name of module to use
                 'Search', // name of action to execute
                 array(), // parameters to pass to the slot
                 'html', // output type to use
                 'read' // request method to use
             )
-        );
+        ];
+        $this->setAttribute('slots', $slots);
         return parent::executeJson($rd);
     }
 }
