@@ -211,8 +211,7 @@ class MarketBaseView extends AgaviView
         } else {
             $this->getResponse()->setHttpHeader('Content-type', 'application/json; charset=UTF-8'); 
         }       
-        //XXXX: :( Its not good
         
-        die($data);
+        return $data;
     }
 }
