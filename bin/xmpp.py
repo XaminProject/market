@@ -121,12 +121,12 @@ def listenToChanges():
             iq = x.make_iq_set(sub=action, ito=peaceJID)
             iq.send()
         except IqTimeout as e:
-            print "sending xmpp stanza failed, retrying in 10 seconds"
+            print("sending xmpp stanza failed, retrying in 10 seconds")
             r.lpush('peace:daemon', j)
             # sleekxmpp is auto connect, lets wait for it
             sleep(10)
         except Exception as e:
-            print e
+            print(e)
             r.lpush('peace:daemon', j)
 
 
@@ -153,5 +153,5 @@ while True:
         r = connectToRedis()
         listenToChanges()
     except ConnectionError:
-        print "connection to redis dropped, retrying in 10 seconds"
+        print("connection to redis dropped, retrying in 10 seconds")
         sleep(10)
